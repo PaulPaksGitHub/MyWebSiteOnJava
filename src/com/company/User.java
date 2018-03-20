@@ -1,8 +1,8 @@
 package com.company;
 
 public class User {
-    private static String login;
-    private static String pass;
+    public static String login;
+    public static String pass;
     User(String log, String pas){
         login = log;
         pass = pas;

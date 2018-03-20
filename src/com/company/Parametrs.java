@@ -1,8 +1,8 @@
 package com.company;
 
 public class Parametrs {
-    private static String login="";
-    private static String pass="";
+    public static String login="";
+    public static String pass="";
 
     public static boolean is_Empty(){
         if (login=="" && pass=="")

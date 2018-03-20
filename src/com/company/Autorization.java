@@ -1,18 +1,22 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Autorization {
     public static void autorize(Parametrs param) {
-        List<User> list = new ArrayList<User>();
-        list.add(new User("pa", "12"));
-        list.add(new User("ha", "34"));
-        System.out.println("List has created");
 
         if (param.is_Empty()) System.out.println("Is empty");
         else if (param.hasLogin() && param.hasPassword()) {
             System.out.println("Autorization");
+            User gettedUser = UserBase.getUserFromLogin(param.login);
+            System.out.println(gettedUser.login + gettedUser.pass);
+            if (gettedUser.login == param.login && gettedUser.pass==param.pass){
+                System.out.println("Autorized");
+            }
+            else if (gettedUser.login != param.login){
+                System.out.println("Wrong login");
+            }
+            else if (gettedUser.pass != param.pass){
+                System.out.println("Wrong pass");
+            }
         }
         else if (!param.hasLogin()){
             System.out.println("Hasn't login");
