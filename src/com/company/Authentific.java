@@ -10,7 +10,7 @@ public class Authentific {
             if (ResourceParser.authorizeFromAdress(param)){
                 return true;
             } else {
-                System.exit(6);
+                System.exit(4);
                 return false;
             }
         } else {
