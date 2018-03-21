@@ -5,15 +5,22 @@ import java.util.List;
 
 public class ResourceBase {
     public static boolean hasPermission(Parametrs param, String cutAdress){
+        //BASE INIT
         List<Resource> list = new ArrayList<Resource>();
-        list.add(new Resource("B"));
-        list.add(new Resource("A"));
-        list.add(new Resource("A.B"));
+        list.add(new Resource("B", "pa.ha","","pa"));
+        list.add(new Resource("A", "ha","",""));
+        list.add(new Resource("A.B", "pa","",""));
+
         for (Resource i : list){
             //System.out.println(i.adress+cutAdress);
             if (cutAdress.equals(i.adress)){
-                return true;
-
+                if (param.role.equals("READ") && i.READ.contains(param.login)){
+                    return true;
+                } else if (param.role.equals("WRITE") && i.WRITE.contains(param.login)) {
+                    return true;
+                } else if (param.role.equals("EXECUTE") && i.EXECUTE.contains(param.login)) {
+                    return true;
+                }
             }
         }
         return false;

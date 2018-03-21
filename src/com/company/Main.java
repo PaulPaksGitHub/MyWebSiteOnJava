@@ -4,8 +4,8 @@ public class Main {
         Parametrs s = new Parametrs(
                 "pa",
                 "12",
-                "A.B",
-                "READ");
+                "B",
+                "EXECUTE");
         Autorization.autorize(s);
         Authentific.auth(s);
     }
