@@ -1,19 +1,16 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserBase {
-    public static User getUserFromLogin(String curr_login){
-        ArrayList<User> list;
-        list = new ArrayList<User>();
+    public static User getUserFromLogin(Parametrs user){
+        List<User> list = new ArrayList<User>();
         list.add(new User("pa", "12"));
-        System.out.println(list.get(0).login);
         list.add(new User("ha", "34"));
-        System.out.println(list.get(0).login);
-        System.out.println(list.get(1).login);
-        for (int i = 0; i < list.size(); i++){
-            if (curr_login==list.get(i).login){
-                return list.get(i);
+        for (User i : list){
+            if (user.login.equals(i.login)){
+                return i;
             }
         }
         return list.get(0);

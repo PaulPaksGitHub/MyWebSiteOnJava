@@ -10,9 +10,8 @@ public class Autorization {
         }
         else if (param.hasLogin() && param.hasPassword()) {
             System.out.println("Autorization");
-            User gettedUser = UserBase.getUserFromLogin(param.login);
-            System.out.println(gettedUser.login + gettedUser.pass);
-            if (gettedUser.login == param.login && gettedUser.pass==param.pass){
+            User gettedUser = UserBase.getUserFromLogin(param);
+            if (gettedUser.login.equals(param.login) && gettedUser.pass.equals(param.pass)){
                 System.out.println("Autorized");
                 return true;
             }
