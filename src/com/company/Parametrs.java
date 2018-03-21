@@ -6,6 +6,9 @@ public class Parametrs {
     public static String pass="";
     public static String res="";
     public static String role="";
+    public static String ds="";
+    public static String de="";
+    public static String vol="";
 
     //METHODS
     public static boolean is_Empty(){
@@ -21,10 +24,13 @@ public class Parametrs {
         if (pass!="") return true;
         else return false;
     }
-    Parametrs(String log, String pas, String resource, String rol) {
+    Parametrs(String log, String pas, String resource, String rol, String dts, String dte, String vl) {
         login = log;
         pass = pas;
         res = resource;
         role = rol;
+        ds = dts;
+        de = dte;
+        vol = vl;
     }
 }
