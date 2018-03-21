@@ -9,7 +9,7 @@ public class Authentific {
         System.out.println("Auth");
         if (ROLES.contains(param.role)){
             System.out.println("TRUE");//If role in ROLES, start parcing resources
-            ResourceParser.authorizeFromAdress(param.res);
+            ResourceParser.authorizeFromAdress(param);
         } else {
             System.exit(3);
         }
