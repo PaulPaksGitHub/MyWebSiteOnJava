@@ -1,24 +1,21 @@
 package com.company;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class Accounting {
     public static boolean account(Parametrs param){
         String ds = param.ds;
         String de = param.de;
-        String[] subStr;
-        String[] subStr1;
-        String delimeter = "\\-"; // Разделитель
-        subStr = ds.split(delimeter);
-        subStr1 = de.split(delimeter);
-        if (subStr.length == subStr1.length){
-            for(int i = 0; i < subStr.length; i++) {
-                int dsNum = Integer.parseInt(subStr[i]);
-                int deNum = Integer.parseInt(subStr1[i]);
-                if (deNum < dsNum){
-                    System.exit(5);
-                    return false;
-                }
-            }
-        } else {
+
+        SimpleDateFormat dts = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dte = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            dts.setLenient(false);
+            dts.parse(ds);
+            dte.setLenient(false);
+            dte.parse(de);
+        } catch (ParseException e) {
             System.exit(5);
             return false;
         }
