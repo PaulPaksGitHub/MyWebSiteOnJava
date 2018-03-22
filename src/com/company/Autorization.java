@@ -1,5 +1,8 @@
 package com.company;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+
 public class Autorization {
     public static boolean autorize(Parametrs param) {
 
@@ -9,14 +12,24 @@ public class Autorization {
         }
         else if (param.hasLogin() && param.hasPassword()) {
             User gettedUser = UserBase.getUserFromLogin(param);
-            if (gettedUser.login.equals(param.login) && gettedUser.pass.equals(param.pass)){
+            String password = "";
+            try {
+                password = Md5Hash.getHash(Md5Hash.getHash(param.pass)+gettedUser.salt);
+                //System.out.println(password);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+            if (gettedUser.login.equals(param.login) && gettedUser.pass.equals(password)){
                 return true;
             }
             else if (gettedUser.login != param.login){
                 System.exit(1);
                 return false;
             }
-            else if (gettedUser.pass != param.pass){
+            else if (gettedUser.pass != password){
                 System.exit(2);
                 return false;
             }
