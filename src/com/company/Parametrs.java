@@ -20,10 +20,31 @@ public class Parametrs {
         if (login!="") return true;
         else return false;
     }
+    public static boolean hasRes(){
+        if (res!="") return true;
+        else return false;
+    }
+    public static boolean hasRole(){
+        if (role!="") return true;
+        else return false;
+    }
+    public static boolean hasDs(){
+        if (ds!="") return true;
+        else return false;
+    }
+    public static boolean hasDe(){
+        if (de!="") return true;
+        else return false;
+    }
+    public static boolean hasVol(){
+        if (vol!="") return true;
+        else return false;
+    }
     public static boolean hasPassword(){
         if (pass!="") return true;
         else return false;
     }
+    //CREATING
     Parametrs(String log, String pas, String resource, String rol, String dts, String dte, String vl) {
         login = log;
         pass = pas;

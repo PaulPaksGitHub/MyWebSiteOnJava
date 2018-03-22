@@ -6,10 +6,13 @@ public class ResourceParser {
         String[] subStr;
         String delimeter = "\\."; // Разделитель
         subStr = fullAdress.split(delimeter);
+        String newStr="";
         for(int i = 0; i < subStr.length; i++) {
-            if(ResourceBase.hasPermission(param, subStr[i])){
+            newStr += subStr[i];
+            if(ResourceBase.hasPermission(param, newStr)){
                 return true;
             }
+            newStr += ".";
         }
         return false;
     }
