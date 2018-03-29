@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class Accounting {
-    public static boolean account(Parametrs param){
+    public static boolean account(Parametrs param) {
         String ds = param.ds;
         String de = param.de;
 
@@ -20,10 +20,9 @@ public class Accounting {
             return false;
         }
         try {
-            int a=Integer.parseInt(param.vol);
+            int a = Integer.parseInt(param.vol);
             return true;
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             System.exit(5);
             return false;
         }
