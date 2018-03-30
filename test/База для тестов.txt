@@ -1,0 +1,9 @@
+USERS
+login pa, pass 12
+login ha, pass 34
+
+RESOURCES
+adress "B", READ "ha", EXECUTE "pa"
+adress "A", READ "pa.ha"
+adress "A.B", READ "pa"
+adress "C.C.C", READ "pa", WRITE "pa", EXECUTE "pa"
