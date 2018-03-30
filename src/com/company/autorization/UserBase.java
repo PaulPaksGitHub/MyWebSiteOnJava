@@ -13,7 +13,6 @@ public class UserBase {
         List<User> list = new ArrayList<User>();
         try {
             String pass1 = Md5Hash.getHash(Md5Hash.getHash("12") + "f12f");
-            //System.out.println(pass1);
             list.add(new User("pa", pass1, "f12f"));
             String pass2 = Md5Hash.getHash(Md5Hash.getHash("34") + "q11q");
             list.add(new User("ha", pass2, "q11q"));

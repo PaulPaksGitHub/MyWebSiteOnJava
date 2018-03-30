@@ -38,42 +38,44 @@ public class ParseLine {
         Parametrs start = new Parametrs(log, pas, res, rol, dts, dte, vol);
         try {
             CommandLine commandLine = cmdLinePosixParser.parse(posixOptions, args);
+            boolean hasParams = false;
             if (commandLine.hasOption("l")) {
                 String[] arguments = commandLine.getOptionValues("l");
-                System.out.println("We try to Login with: " + arguments[0]);
                 log = arguments[0];
+                hasParams = true;
             }
             if (commandLine.hasOption("p")) {
                 String[] arguments = commandLine.getOptionValues("p");
-                System.out.println("We try to Pass with: " + arguments[0]);
                 pas = arguments[0];
+                hasParams = true;
             }
             if (commandLine.hasOption("r")) {
                 String[] arguments = commandLine.getOptionValues("r");
-                System.out.println("We try to Pass with: " + arguments[0]);
                 res = arguments[0];
+                hasParams = true;
             }
             if (commandLine.hasOption("o")) {
                 String[] arguments = commandLine.getOptionValues("o");
                 System.out.println("We try to Pass with: " + arguments[0]);
                 rol = arguments[0];
+                hasParams = true;
             }
             if (commandLine.hasOption("s")) {
                 String[] arguments = commandLine.getOptionValues("s");
-                System.out.println("We try to Pass with: " + arguments[0]);
                 dts = arguments[0];
+                hasParams = true;
             }
             if (commandLine.hasOption("e")) {
                 String[] arguments = commandLine.getOptionValues("e");
-                System.out.println("We try to Pass with: " + arguments[0]);
                 dte = arguments[0];
+                hasParams = true;
             }
             if (commandLine.hasOption("v")) {
                 String[] arguments = commandLine.getOptionValues("v");
-                System.out.println("We try to Pass with: " + arguments[0]);
                 vol = arguments[0];
+                hasParams = true;
             }
-            if (commandLine.hasOption("h")) {
+            if (commandLine.hasOption("h") || !hasParams) {
                 String[] arguments = commandLine.getOptionValues("h");
                 printHelp(
                         posixOptions, // опции по которым составляем help

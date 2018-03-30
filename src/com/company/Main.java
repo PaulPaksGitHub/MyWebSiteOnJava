@@ -6,7 +6,8 @@ import com.company.autorization.Autorization;
 public class Main {
     public static void main(String[] args) {
         //STRING PARSER
-        String comm = "-l pa -p 12 -r C.C.C -o READ";
+        //String comm = "-l pa -p 12 -r C.C.C -o READ";
+        String comm = args[0];
         String[] line = comm.split("\\ ");
         Parametrs start = ParseLine.parse(line);
         //GENERAL
@@ -19,6 +20,5 @@ public class Main {
                 }
             }
         }
-
     }
 }

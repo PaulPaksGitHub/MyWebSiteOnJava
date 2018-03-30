@@ -25,10 +25,10 @@ public class Autorization {
 
             if (gettedUser.login.equals(param.login) && gettedUser.pass.equals(password)) {
                 return true;
-            } else if (gettedUser.login != param.login) {
+            } else if (!gettedUser.login.equals(param.login)) {
                 System.exit(1);
                 return false;
-            } else if (gettedUser.pass != password) {
+            } else if (!gettedUser.pass.equals(password)) {
                 System.exit(2);
                 return false;
             }
