@@ -56,7 +56,6 @@ public class ParseLine {
             }
             if (commandLine.hasOption("o")) {
                 String[] arguments = commandLine.getOptionValues("o");
-                System.out.println("We try to Pass with: " + arguments[0]);
                 rol = arguments[0];
                 hasParams = true;
             }
