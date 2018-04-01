@@ -8,7 +8,7 @@ import java.util.List;
 public class ResourceBase {
     private enum roles {READ, WRITE, EXECUTE}
 
-    public static boolean hasPermission(Parametrs param, String cutAdress) {
+    public boolean hasPermission(Parametrs param, String cutAdress) {
         //BASE INIT
         List<Resource> list = new ArrayList<Resource>();
         list.add(new Resource("B", "ha", "", "pa"));

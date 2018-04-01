@@ -4,7 +4,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class Accounting {
-    public static boolean account(Parametrs param) {
+    public boolean account(Parametrs param) {
+        return hasTrueData(param) && hasTrueVol(param);
+    }
+    private boolean hasTrueData(Parametrs param){
         String ds = param.ds;
         String de = param.de;
 
@@ -15,10 +18,13 @@ public class Accounting {
             dts.parse(ds);
             dte.setLenient(false);
             dte.parse(de);
+            return true;
         } catch (ParseException e) {
             System.exit(5);
             return false;
         }
+    }
+    private boolean hasTrueVol(Parametrs param){
         try {
             int a = Integer.parseInt(param.vol);
             return true;

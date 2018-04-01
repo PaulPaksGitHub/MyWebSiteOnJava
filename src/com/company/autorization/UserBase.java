@@ -9,12 +9,13 @@ import java.util.List;
 
 public class UserBase {
     //Give user from login
-    public static User getUserFromLogin(Parametrs user) {
+    public User getUserFromLogin(Parametrs user) {
         List<User> list = new ArrayList<User>();
         try {
-            String pass1 = Md5Hash.getHash(Md5Hash.getHash("12") + "f12f");
+            Md5Hash password = new Md5Hash();
+            String pass1 = password.getHash(password.getHash("12") + "f12f");
             list.add(new User("pa", pass1, "f12f"));
-            String pass2 = Md5Hash.getHash(Md5Hash.getHash("34") + "q11q");
+            String pass2 = password.getHash(password.getHash("34") + "q11q");
             list.add(new User("ha", pass2, "q11q"));
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
         }

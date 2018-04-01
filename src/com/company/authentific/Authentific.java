@@ -5,7 +5,7 @@ import com.company.Parametrs;
 public class Authentific {
     private enum roles {READ, WRITE, EXECUTE}
 
-    public static boolean auth(Parametrs param) {
+    public boolean auth(Parametrs param) {
         boolean accept = true;
         try {
             roles.valueOf(param.role);
@@ -14,7 +14,8 @@ public class Authentific {
             accept = false;
         }
         if (accept) {
-            if (ResourceParser.authorizeFromAdress(param)) {
+            ResourceParser user = new ResourceParser();
+            if (user.authorizeFromAdress(param)) {
                 return true;
             } else {
                 System.exit(4);

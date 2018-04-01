@@ -6,7 +6,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class Md5Hash {
-    public static String getHash(String str) throws NoSuchAlgorithmException,
+    public String getHash(String str) throws NoSuchAlgorithmException,
             UnsupportedEncodingException {
         MessageDigest m = MessageDigest.getInstance("MD5");
         m.reset();

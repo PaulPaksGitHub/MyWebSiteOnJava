@@ -13,25 +13,28 @@ public class Main {
         InputStreamReader is = new InputStreamReader(System.in);
         BufferedReader bistream = new BufferedReader(is);
         String comm = null;
+        Parametrs parametrs = null;
         try {
             comm = bistream.readLine();
+            String[] line = comm.split(" ");
+            parametrs = ParseLine.parse(line);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.exit(6);
         }
-        String[] line = comm.split(" ");
-        Parametrs parametrs = ParseLine.parse(line);
+
         //GENERAL
+        Autorization doAutorization = new Autorization();
+        Authentific doAuthentific = new Authentific();
+        Accounting doAccounting = new Accounting();
         if (parametrs.canAutorize() && parametrs.canAuthehtific() && parametrs.canAccaunt()) {
-            Autorization.autorize(parametrs);
-            Authentific.auth(parametrs);
-            Accounting.account(parametrs);
-        }
-        else if (parametrs.canAutorize() && parametrs.canAuthehtific()){
-            Autorization.autorize(parametrs);
-            Authentific.auth(parametrs);
-        }
-        else if (parametrs.canAutorize()){
-            Autorization.autorize(parametrs);
+            doAutorization.autorize(parametrs);
+            doAuthentific.auth(parametrs);
+            doAccounting.account(parametrs);
+        } else if (parametrs.canAutorize() && parametrs.canAuthehtific()) {
+            doAutorization.autorize(parametrs);
+            doAuthentific.auth(parametrs);
+        } else if (parametrs.canAutorize()) {
+            doAutorization.autorize(parametrs);
         }
     }
 }
