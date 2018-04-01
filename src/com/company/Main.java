@@ -8,15 +8,15 @@ public class Main {
         //STRING PARSER
         //String comm = "-l pa -p 12 -r C.C.C -o READ";
         String comm = args[0];
-        String[] line = comm.split("\\ ");
-        Parametrs start = ParseLine.parse(line);
+        String[] line = comm.split(" ");
+        Parametrs parametrs = ParseLine.parse(line);
         //GENERAL
-        if (start.hasLogin() || start.hasPassword()) {
-            Autorization.autorize(start);
-            if (start.hasRes() || start.hasRole()) {
-                Authentific.auth(start);
-                if (start.hasDs() || start.hasDe() || start.hasVol()) {
-                    Accounting.account(start);
+        if (parametrs.canAutorize()) {
+            Autorization.autorize(parametrs);
+            if (parametrs.canAuthehtific()) {
+                Authentific.auth(parametrs);
+                if (parametrs.canAccaunt()) {
+                    Accounting.account(parametrs);
                 }
             }
         }

@@ -2,54 +2,57 @@ package com.company;
 
 public class Parametrs {
     //ARGUMENTS
-    public static String login = "";
-    public static String pass = "";
-    public static String res = "";
-    public static String role = "";
-    public static String ds = "";
-    public static String de = "";
-    public static String vol = "";
+    public String login = "";
+    public String pass = "";
+    public String res = "";
+    public String role = "";
+    public String ds = "";
+    public String de = "";
+    public String vol = "";
 
     //METHODS
-    public static boolean is_Empty() {
-        if (login == "" && pass == "")
-            return true;
-        else return false;
+    public boolean is_Empty() {
+        return login.equals("") && pass.equals("");
     }
 
-    public static boolean hasLogin() {
-        if (login != "") return true;
-        else return false;
+    public boolean hasLogin() {
+        return !login.equals("");
     }
 
-    public static boolean hasRes() {
-        if (res != "") return true;
-        else return false;
+    public boolean hasRes() {
+        return !res.equals("");
     }
 
-    public static boolean hasRole() {
-        if (role != "") return true;
-        else return false;
+    public boolean hasRole() {
+        return !role.equals("");
     }
 
-    public static boolean hasDs() {
-        if (ds != "") return true;
-        else return false;
+    public boolean hasDs() {
+        return !ds.equals("");
     }
 
-    public static boolean hasDe() {
-        if (de != "") return true;
-        else return false;
+    public boolean hasDe() {
+        return !de.equals("");
     }
 
-    public static boolean hasVol() {
-        if (vol != "") return true;
-        else return false;
+    public boolean hasVol() {
+        return !vol.equals("");
     }
 
-    public static boolean hasPassword() {
-        if (pass != "") return true;
-        else return false;
+    public boolean hasPassword() {
+        return !pass.equals("");
+    }
+
+    public boolean canAutorize(){
+        return !login.equals("") || !pass.equals("");
+    }
+
+    public boolean canAuthehtific(){
+        return !role.equals("") || !res.equals("");
+    }
+
+    public boolean canAccaunt(){
+        return !ds.equals("") || !de.equals("") || !vol.equals("");
     }
 
     //CREATING
