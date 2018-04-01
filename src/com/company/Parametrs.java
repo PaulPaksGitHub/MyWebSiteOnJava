@@ -43,15 +43,15 @@ public class Parametrs {
         return !pass.equals("");
     }
 
-    public boolean canAutorize(){
+    public boolean canAutorize() {
         return !login.equals("") || !pass.equals("");
     }
 
-    public boolean canAuthehtific(){
+    public boolean canAuthehtific() {
         return !role.equals("") || !res.equals("");
     }
 
-    public boolean canAccaunt(){
+    public boolean canAccaunt() {
         return !ds.equals("") || !de.equals("") || !vol.equals("");
     }
 

@@ -7,7 +7,8 @@ public class Accounting {
     public boolean account(Parametrs param) {
         return hasTrueData(param) && hasTrueVol(param);
     }
-    private boolean hasTrueData(Parametrs param){
+
+    private boolean hasTrueData(Parametrs param) {
         String ds = param.ds;
         String de = param.de;
 
@@ -24,7 +25,8 @@ public class Accounting {
             return false;
         }
     }
-    private boolean hasTrueVol(Parametrs param){
+
+    private boolean hasTrueVol(Parametrs param) {
         try {
             int a = Integer.parseInt(param.vol);
             return true;
