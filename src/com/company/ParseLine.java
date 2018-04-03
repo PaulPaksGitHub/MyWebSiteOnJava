@@ -6,9 +6,13 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 
 public class ParseLine {
-    public Parametrs parse(String[] args) {
-        Options posixOptions = new Options();
+    private Options posixOptions = new Options();
 
+    public Options getOptions() {
+        return posixOptions;
+    }
+
+    public Parametrs parse(String[] args) {
         Option optLogin = new Option("l", "login", true, "Login");
         posixOptions.addOption(optLogin);
 
@@ -34,86 +38,63 @@ public class ParseLine {
         posixOptions.addOption(optHelp);
 
         CommandLineParser cmdLinePosixParser = new DefaultParser();
-        String log = "", pas = "", res = "", rol = "", dts = "", dte = "", vol = "";
-        Parametrs start = new Parametrs(log, pas, res, rol, dts, dte, vol);
+        String log = "";
+        String pas = "";
+        String res = "";
+        String rol = "";
+        String dts = "";
+        String dte = "";
+        String vol = "";
+        boolean h = false;
         try {
             CommandLine commandLine = cmdLinePosixParser.parse(posixOptions, args);
             boolean hasParams = false;
             if (commandLine.hasOption("l")) {
-                String[] arguments = commandLine.getOptionValues("l");
-                log = arguments[0];
+                log = commandLine.getOptionValues("l")[0];
                 hasParams = true;
             }
             if (commandLine.hasOption("p")) {
-                String[] arguments = commandLine.getOptionValues("p");
-                pas = arguments[0];
+                pas = commandLine.getOptionValues("p")[0];
                 hasParams = true;
             }
             if (commandLine.hasOption("r")) {
-                String[] arguments = commandLine.getOptionValues("r");
-                res = arguments[0];
+                res = commandLine.getOptionValues("r")[0];
                 hasParams = true;
             }
             if (commandLine.hasOption("o")) {
-                String[] arguments = commandLine.getOptionValues("o");
-                rol = arguments[0];
+                rol = commandLine.getOptionValues("o")[0];
                 hasParams = true;
             }
             if (commandLine.hasOption("s")) {
-                String[] arguments = commandLine.getOptionValues("s");
-                dts = arguments[0];
+                dts = commandLine.getOptionValues("s")[0];
                 hasParams = true;
             }
             if (commandLine.hasOption("e")) {
-                String[] arguments = commandLine.getOptionValues("e");
-                dte = arguments[0];
+                dte = commandLine.getOptionValues("e")[0];
                 hasParams = true;
             }
             if (commandLine.hasOption("v")) {
-                String[] arguments = commandLine.getOptionValues("v");
-                vol = arguments[0];
+                vol = commandLine.getOptionValues("v")[0];
                 hasParams = true;
             }
             if (commandLine.hasOption("h") || !hasParams) {
-                String[] arguments = commandLine.getOptionValues("h");
-                printHelp(
-                        posixOptions, // опции по которым составляем help
-                        80, // ширина строки вывода
-                        "Options", // строка предшествующая выводу
-                        "-- HELP --", // строка следующая за выводом
-                        3, // число пробелов перед выводом опции
-                        5, // число пробелов перед выводом опцисания опции
-                        true, // выводить ли в строке usage список команд
-                        System.out // куда производить вывод
-                );
+                h = true;
             }
-            start = new Parametrs(log, pas, res, rol, dts, dte, vol);
-            return start;
+            return new Parametrs(log, pas, res, rol, dts, dte, vol, h);
         } catch (ParseException e) {
-            printHelp(
-                    posixOptions,
-                    80,
-                    "Options",
-                    "-- HELP --",
-                    3,
-                    5,
-                    true,
-                    System.out
-            );
-            System.exit(6);
-            return start;
+            return new Parametrs("", "", "", "", "", "", "", true);
         }
     }
 
     public static void printHelp(
             final Options options,
-            final int printedRowWidth,
-            final String header,
-            final String footer,
-            final int spacesBeforeOption,
-            final int spacesBeforeOptionDescription,
-            final boolean displayUsage,
             final OutputStream out) {
+        final int printedRowWidth = 80;
+        final String header = "Options";
+        final String footer = "-- HELP --";
+        final int spacesBeforeOption = 3;
+        final int spacesBeforeOptionDescription = 5;
+        final boolean displayUsage = true;
         final String commandLineSyntax = "java test.jar";
         final PrintWriter writer = new PrintWriter(out);
         final HelpFormatter helpFormatter = new HelpFormatter();

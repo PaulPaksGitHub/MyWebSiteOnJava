@@ -26,5 +26,8 @@ public class Main {
         } else if (parametrs.canAutorize()) {
             autorization.autorize(parametrs);
         }
+        if (parametrs.isH()){
+            ParseLine.printHelp(defaultParser.getOptions(), System.out);
+        }
     }
 }

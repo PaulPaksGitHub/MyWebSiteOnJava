@@ -8,6 +8,7 @@ public class Parametrs {
     private String ds = "";
     private String de = "";
     private String vol = "";
+    private boolean h = false;
 
     public boolean is_Empty() {
         return login.equals("") && pass.equals("");
@@ -61,7 +62,11 @@ public class Parametrs {
         return vol;
     }
 
-    Parametrs(String login, String pass, String res, String role, String ds, String de, String vol) {
+    public boolean isH() {
+        return h;
+    }
+
+    Parametrs(String login, String pass, String res, String role, String ds, String de, String vol, boolean h) {
         this.login = login;
         this.pass = pass;
         this.res = res;
@@ -69,5 +74,6 @@ public class Parametrs {
         this.ds = ds;
         this.de = de;
         this.vol = vol;
+        this.h = h;
     }
 }
