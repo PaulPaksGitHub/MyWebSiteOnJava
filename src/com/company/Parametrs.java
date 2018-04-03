@@ -61,13 +61,13 @@ public class Parametrs {
         return vol;
     }
 
-    Parametrs(String log, String pas, String resource, String rol, String dts, String dte, String vl) {
-        login = log;
-        pass = pas;
-        res = resource;
-        role = rol;
-        ds = dts;
-        de = dte;
-        vol = vl;
+    Parametrs(String login, String pass, String res, String role, String ds, String de, String vol) {
+        this.login = login;
+        this.pass = pass;
+        this.res = res;
+        this.role = role;
+        this.ds = ds;
+        this.de = de;
+        this.vol = vol;
     }
 }

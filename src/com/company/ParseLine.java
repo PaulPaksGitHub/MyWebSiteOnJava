@@ -88,8 +88,6 @@ public class ParseLine {
                 );
             }
             start = new Parametrs(log, pas, res, rol, dts, dte, vol);
-
-
             return start;
         } catch (ParseException e) {
             printHelp(

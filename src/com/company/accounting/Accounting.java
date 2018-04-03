@@ -1,11 +1,20 @@
-package com.company;
+package com.company.accounting;
+
+import com.company.Parametrs;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Accounting {
     public boolean account(Parametrs param) {
-        return hasTrueData(param) && hasTrueVol(param);
+        List<AccauntedUser> list = new ArrayList<AccauntedUser>();
+        if (hasTrueData(param) && hasTrueVol(param)){
+            list.add(new AccauntedUser(param.getLogin(),param.getDs(),param.getDe(),param.getVol()));
+            return true;
+        }
+        return false;
     }
 
     private boolean hasTrueData(Parametrs param) {

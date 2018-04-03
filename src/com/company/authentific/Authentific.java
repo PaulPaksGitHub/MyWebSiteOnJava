@@ -5,7 +5,7 @@ import com.company.Parametrs;
 public class Authentific {
     private enum roles {READ, WRITE, EXECUTE}
 
-    public boolean auth(Parametrs param) {
+    public boolean authentific(Parametrs param) {
         boolean accept = true;
         try {
             roles.valueOf(param.getRole());
