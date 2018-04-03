@@ -2,16 +2,17 @@ package com.company.accounting;
 
 import com.company.Parametrs;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Accounting {
     public boolean account(Parametrs param) {
         List<AccauntedUser> list = new ArrayList<AccauntedUser>();
-        if (hasTrueData(param) && hasTrueVol(param)){
-            list.add(new AccauntedUser(param.getLogin(),param.getDs(),param.getDe(),param.getVol()));
+        if (hasTrueData(param) && hasTrueVol(param)) {
+            list.add(new AccauntedUser(param.getLogin(), param.getDs(), param.getDe(), param.getVol()));
             return true;
         }
         return false;
@@ -20,16 +21,12 @@ public class Accounting {
     private boolean hasTrueData(Parametrs param) {
         String ds = param.getDs();
         String de = param.getDe();
-
-        SimpleDateFormat dts = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat dte = new SimpleDateFormat("yyyy-MM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
-            dts.setLenient(false);
-            dts.parse(ds);
-            dte.setLenient(false);
-            dte.parse(de);
+            LocalDate.parse(ds, formatter);
+            LocalDate.parse(de, formatter);
             return true;
-        } catch (ParseException e) {
+        } catch (DateTimeParseException e) {
             System.exit(5);
             return false;
         }
