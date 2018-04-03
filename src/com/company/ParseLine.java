@@ -6,7 +6,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 
 public class ParseLine {
-    public static Parametrs parse(String[] args) {
+    public Parametrs parse(String[] args) {
         Options posixOptions = new Options();
 
         Option optLogin = new Option("l", "login", true, "Login");
@@ -93,14 +93,14 @@ public class ParseLine {
             return start;
         } catch (ParseException e) {
             printHelp(
-                    posixOptions, // опции по которым составляем help
-                    80, // ширина строки вывода
-                    "Options", // строка предшествующая выводу
-                    "-- HELP --", // строка следующая за выводом
-                    3, // число пробелов перед выводом опции
-                    5, // число пробелов перед выводом опцисания опции
-                    true, // выводить ли в строке usage список команд
-                    System.out // куда производить вывод
+                    posixOptions,
+                    80,
+                    "Options",
+                    "-- HELP --",
+                    3,
+                    5,
+                    true,
+                    System.out
             );
             System.exit(6);
             return start;
@@ -116,9 +116,9 @@ public class ParseLine {
             final int spacesBeforeOptionDescription,
             final boolean displayUsage,
             final OutputStream out) {
-        final String commandLineSyntax = "java test.jar";//подсказка по запуску самой программы
-        final PrintWriter writer = new PrintWriter(out);// куда печатаем help
-        final HelpFormatter helpFormatter = new HelpFormatter();// создаем объект для вывода help`а
+        final String commandLineSyntax = "java test.jar";
+        final PrintWriter writer = new PrintWriter(out);
+        final HelpFormatter helpFormatter = new HelpFormatter();
         helpFormatter.printHelp(
                 writer,
                 printedRowWidth,
@@ -128,7 +128,7 @@ public class ParseLine {
                 spacesBeforeOption,
                 spacesBeforeOptionDescription,
                 footer,
-                displayUsage);//формирование справки
-        writer.flush(); // вывод
+                displayUsage);
+        writer.flush();
     }
 }

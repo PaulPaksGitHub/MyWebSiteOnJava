@@ -13,8 +13,9 @@ public class Main {
         BufferedReader bistream = new BufferedReader(is);
         Parametrs parametrs = null;
         try {
+            ParseLine defaultParser = new ParseLine();
             String[] line = bistream.readLine().split(" ");
-            parametrs = ParseLine.parse(line);
+            parametrs = defaultParser.parse(line);
         } catch (IOException e) {
             System.exit(6);
         }
