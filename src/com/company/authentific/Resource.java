@@ -5,10 +5,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Resource {
-    public String adress;
-    public List<String> read = new ArrayList<String>();
-    public List<String> write = new ArrayList<String>();
-    public List<String> execute = new ArrayList<String>();
+    private String adress;
+    private List<String> read = new ArrayList<String>();
+    private List<String> write = new ArrayList<String>();
+    private List<String> execute = new ArrayList<String>();
 
     public String getAdress() {
         return adress;
@@ -28,7 +28,6 @@ public class Resource {
 
     Resource(String adress, String ReadLogins, String WriteLogins, String ExeLogins) {
         this.adress = adress;
-
         String delimeter = "\\."; // Разделитель
         read.addAll(Arrays.asList(ReadLogins.split(delimeter)));
         write.addAll(Arrays.asList(WriteLogins.split(delimeter)));
