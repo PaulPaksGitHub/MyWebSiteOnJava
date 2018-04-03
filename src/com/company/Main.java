@@ -9,23 +9,19 @@ import java.io.InputStreamReader;
 
 public class Main {
     public static void main(String[] args) {
-        //STRING PARSER
         InputStreamReader is = new InputStreamReader(System.in);
         BufferedReader bistream = new BufferedReader(is);
-        String comm = null;
         Parametrs parametrs = null;
         try {
-            comm = bistream.readLine();
-            String[] line = comm.split(" ");
+            String[] line = bistream.readLine().split(" ");
             parametrs = ParseLine.parse(line);
         } catch (IOException e) {
             System.exit(6);
         }
-
-        //GENERAL
         Autorization doAutorization = new Autorization();
         Authentific doAuthentific = new Authentific();
         Accounting doAccounting = new Accounting();
+
         if (parametrs.canAutorize() && parametrs.canAuthehtific() && parametrs.canAccaunt()) {
             doAutorization.autorize(parametrs);
             doAuthentific.auth(parametrs);
