@@ -3,17 +3,9 @@ package com.company.authentific;
 import com.company.Parametrs;
 
 public class Authentific {
-    private enum roles {READ, WRITE, EXECUTE}
-
     public boolean authentific(Parametrs param) {
-        boolean accept = true;
         try {
-            roles.valueOf(param.getRole());
-        } catch (IllegalArgumentException e) {
-            System.exit(3);
-            accept = false;
-        }
-        if (accept) {
+            Roles.roles.valueOf(param.getRole());
             ResourceParser user = new ResourceParser();
             if (user.authorizeFromAdress(param)) {
                 return true;
@@ -21,7 +13,7 @@ public class Authentific {
                 System.exit(4);
                 return false;
             }
-        } else {
+        } catch (IllegalArgumentException e) {
             System.exit(3);
             return false;
         }

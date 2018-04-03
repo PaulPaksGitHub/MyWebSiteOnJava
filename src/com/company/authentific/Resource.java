@@ -10,18 +10,28 @@ public class Resource {
     public List<String> write = new ArrayList<String>();
     public List<String> execute = new ArrayList<String>();
 
-    Resource(String adres, String ReadLogins, String WriteLogins, String ExeLogins) {
-        adress = adres;
-        String[] subStr;
+    public String getAdress() {
+        return adress;
+    }
+
+    public List<String> getRead() {
+        return read;
+    }
+
+    public List<String> getWrite() {
+        return write;
+    }
+
+    public List<String> getExecute() {
+        return execute;
+    }
+
+    Resource(String adress, String ReadLogins, String WriteLogins, String ExeLogins) {
+        this.adress = adress;
+
         String delimeter = "\\."; // Разделитель
-
-        subStr = ReadLogins.split(delimeter);
-        read.addAll(Arrays.asList(subStr));
-
-        subStr = WriteLogins.split(delimeter);
-        write.addAll(Arrays.asList(subStr));
-
-        subStr = ExeLogins.split(delimeter);
-        execute.addAll(Arrays.asList(subStr));
+        read.addAll(Arrays.asList(ReadLogins.split(delimeter)));
+        write.addAll(Arrays.asList(WriteLogins.split(delimeter)));
+        execute.addAll(Arrays.asList(ExeLogins.split(delimeter)));
     }
 }
