@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserBase {
-    //Give user from login
     public User getUserFromLogin(Parametrs user) {
         List<User> list = new ArrayList<User>();
         try {
@@ -21,7 +20,7 @@ public class UserBase {
         }
 
         for (User i : list) {
-            if (user.login.equals(i.login)) {
+            if (user.getLogin().equals(i.getLogin())) {
                 return i;
             }
         }

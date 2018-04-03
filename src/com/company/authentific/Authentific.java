@@ -8,7 +8,7 @@ public class Authentific {
     public boolean auth(Parametrs param) {
         boolean accept = true;
         try {
-            roles.valueOf(param.role);
+            roles.valueOf(param.getRole());
         } catch (IllegalArgumentException e) {
             System.exit(3);
             accept = false;

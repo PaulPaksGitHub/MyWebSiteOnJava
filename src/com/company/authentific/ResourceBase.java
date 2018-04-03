@@ -9,7 +9,6 @@ public class ResourceBase {
     private enum roles {READ, WRITE, EXECUTE}
 
     public boolean hasPermission(Parametrs param, String cutAdress) {
-        //BASE INIT
         List<Resource> list = new ArrayList<Resource>();
         list.add(new Resource("B", "ha", "", "pa"));
         list.add(new Resource("A", "pa.ha", "", ""));
@@ -17,13 +16,12 @@ public class ResourceBase {
         list.add(new Resource("C.C.C", "pa", "pa", "pa"));
 
         for (Resource i : list) {
-            //System.out.println(i.adress+" "+cutAdress);
             if (cutAdress.equals(i.adress)) {
-                if (roles.READ == roles.valueOf(param.role) && i.read.contains(param.login)) {
+                if (roles.READ == roles.valueOf(param.getRole()) && i.read.contains(param.getLogin())) {
                     return true;
-                } else if (roles.WRITE == roles.valueOf(param.role) && i.write.contains(param.login)) {
+                } else if (roles.WRITE == roles.valueOf(param.getRole()) && i.write.contains(param.getLogin())) {
                     return true;
-                } else if (roles.EXECUTE == roles.valueOf(param.role) && i.execute.contains(param.login)) {
+                } else if (roles.EXECUTE == roles.valueOf(param.getRole()) && i.execute.contains(param.getLogin())) {
                     return true;
                 }
             }

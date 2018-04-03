@@ -1,6 +1,7 @@
 package com.company.authentific;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Resource {
@@ -15,18 +16,12 @@ public class Resource {
         String delimeter = "\\."; // Разделитель
 
         subStr = ReadLogins.split(delimeter);
-        for (int i = 0; i < subStr.length; i++) {
-            read.add(subStr[i]);
-        }
+        read.addAll(Arrays.asList(subStr));
 
         subStr = WriteLogins.split(delimeter);
-        for (int i = 0; i < subStr.length; i++) {
-            write.add(subStr[i]);
-        }
+        write.addAll(Arrays.asList(subStr));
 
         subStr = ExeLogins.split(delimeter);
-        for (int i = 0; i < subStr.length; i++) {
-            execute.add(subStr[i]);
-        }
+        execute.addAll(Arrays.asList(subStr));
     }
 }

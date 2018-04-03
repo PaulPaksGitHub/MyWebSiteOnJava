@@ -9,8 +9,8 @@ public class Accounting {
     }
 
     private boolean hasTrueData(Parametrs param) {
-        String ds = param.ds;
-        String de = param.de;
+        String ds = param.getDs();
+        String de = param.getDe();
 
         SimpleDateFormat dts = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat dte = new SimpleDateFormat("yyyy-MM-dd");
@@ -28,7 +28,7 @@ public class Accounting {
 
     private boolean hasTrueVol(Parametrs param) {
         try {
-            int a = Integer.parseInt(param.vol);
+            int a = Integer.parseInt(param.getVol());
             return true;
         } catch (NumberFormatException e) {
             System.exit(5);

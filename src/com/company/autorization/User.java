@@ -1,9 +1,21 @@
 package com.company.autorization;
 
 public class User {
-    public String login;
-    public String pass;
-    public String salt;
+    private String login;
+    private String pass;
+    private String salt;
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
 
     User(String log, String pas, String sal) {
         login = log;

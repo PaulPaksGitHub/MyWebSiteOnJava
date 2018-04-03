@@ -4,9 +4,9 @@ import com.company.Parametrs;
 
 public class ResourceParser {
     public boolean authorizeFromAdress(Parametrs param) {
-        String fullAdress = param.res;
+        String fullAdress = param.getRes();
         String[] subStr;
-        String delimeter = "\\."; // Разделитель
+        String delimeter = "\\.";
         subStr = fullAdress.split(delimeter);
         String newStr = "";
         for (String aSubStr : subStr) {

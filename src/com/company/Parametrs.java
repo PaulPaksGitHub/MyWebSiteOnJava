@@ -1,42 +1,20 @@
 package com.company;
 
 public class Parametrs {
-    //ARGUMENTS
-    public String login = "";
-    public String pass = "";
-    public String res = "";
-    public String role = "";
-    public String ds = "";
-    public String de = "";
-    public String vol = "";
+    private String login = "";
+    private String pass = "";
+    private String res = "";
+    private String role = "";
+    private String ds = "";
+    private String de = "";
+    private String vol = "";
 
-    //METHODS
     public boolean is_Empty() {
         return login.equals("") && pass.equals("");
     }
 
     public boolean hasLogin() {
         return !login.equals("");
-    }
-
-    public boolean hasRes() {
-        return !res.equals("");
-    }
-
-    public boolean hasRole() {
-        return !role.equals("");
-    }
-
-    public boolean hasDs() {
-        return !ds.equals("");
-    }
-
-    public boolean hasDe() {
-        return !de.equals("");
-    }
-
-    public boolean hasVol() {
-        return !vol.equals("");
     }
 
     public boolean hasPassword() {
@@ -55,7 +33,34 @@ public class Parametrs {
         return !ds.equals("") || !de.equals("") || !vol.equals("");
     }
 
-    //CREATING
+    public String getLogin() {
+        return login;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public String getRes() {
+        return res;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public String getDs() {
+        return ds;
+    }
+
+    public String getDe() {
+        return de;
+    }
+
+    public String getVol() {
+        return vol;
+    }
+
     Parametrs(String log, String pas, String resource, String rol, String dts, String dte, String vl) {
         login = log;
         pass = pas;

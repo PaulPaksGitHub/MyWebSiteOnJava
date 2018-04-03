@@ -17,19 +17,18 @@ public class Autorization {
             String password = "";
             try {
                 Md5Hash pass = new Md5Hash();
-                password = pass.getHash(pass.getHash(param.pass) + gettedUser.salt);
-                //System.out.println(password);
+                password = pass.getHash(pass.getHash(param.getPass()) + gettedUser.getSalt());
             } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
                 System.exit(2);
                 return false;
             }
 
-            if (gettedUser.login.equals(param.login) && gettedUser.pass.equals(password)) {
+            if (gettedUser.getLogin().equals(param.getLogin()) && gettedUser.getPass().equals(password)) {
                 return true;
-            } else if (!gettedUser.login.equals(param.login)) {
+            } else if (!gettedUser.getLogin().equals(param.getLogin())) {
                 System.exit(1);
                 return false;
-            } else if (!gettedUser.pass.equals(password)) {
+            } else if (!gettedUser.getPass().equals(password)) {
                 System.exit(2);
                 return false;
             }
