@@ -1,6 +1,6 @@
 package com.company.authentific;
 
-import com.company.Parametrs;
+import com.company.parametrs.Parametrs;
 
 import java.util.ArrayList;
 import java.util.List;

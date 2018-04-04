@@ -3,6 +3,8 @@ package com.company;
 import com.company.accounting.Accounting;
 import com.company.authentific.Authentific;
 import com.company.autorization.Autorization;
+import com.company.parametrs.Parametrs;
+import com.company.parametrs.ParseLine;
 
 import java.util.Scanner;
 
@@ -26,7 +28,7 @@ public class Main {
         } else if (user.canAutorize()) {
             autorization.isAutorized(user);
         }
-        if (user.isH()){
+        if (user.isH()) {
             defaultParser.printHelp(defaultParser.getOptions(), System.out);
         }
     }

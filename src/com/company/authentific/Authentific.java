@@ -1,6 +1,6 @@
 package com.company.authentific;
 
-import com.company.Parametrs;
+import com.company.parametrs.Parametrs;
 
 public class Authentific {
     public boolean isAuthentificated(Parametrs param) {

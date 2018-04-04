@@ -1,4 +1,4 @@
-package com.company;
+package com.company.parametrs;
 
 public class Parametrs {
     private String login = "";

@@ -1,6 +1,6 @@
 package com.company.accounting;
 
-import com.company.Parametrs;
+import com.company.parametrs.Parametrs;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

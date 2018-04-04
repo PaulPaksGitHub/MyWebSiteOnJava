@@ -1,4 +1,4 @@
-package com.company;
+package com.company.parametrs;
 
 import org.apache.commons.cli.*;
 

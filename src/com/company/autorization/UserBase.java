@@ -1,6 +1,6 @@
 package com.company.autorization;
 
-import com.company.Parametrs;
+import com.company.parametrs.Parametrs;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
