@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Accounting {
-    public boolean account(Parametrs param) {
+    public boolean isAccaunted(Parametrs param) {
         List<AccauntedUser> list = new ArrayList<AccauntedUser>();
         if (hasTrueData(param) && hasTrueVol(param)) {
             list.add(new AccauntedUser(param.getLogin(), param.getDs(), param.getDe(), param.getVol()));
@@ -19,12 +19,10 @@ public class Accounting {
     }
 
     private boolean hasTrueData(Parametrs param) {
-        String ds = param.getDs();
-        String de = param.getDe();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
-            LocalDate.parse(ds, formatter);
-            LocalDate.parse(de, formatter);
+            LocalDate.parse(param.getDs(), formatter);
+            LocalDate.parse(param.getDe(), formatter);
             return true;
         } catch (DateTimeParseException e) {
             System.exit(5);

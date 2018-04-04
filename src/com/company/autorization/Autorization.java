@@ -6,8 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 public class Autorization {
-    public boolean autorize(Parametrs param) {
-
+    public boolean isAutorized(Parametrs param) {
         if (param.is_Empty()) {
             System.exit(6);
             return false;

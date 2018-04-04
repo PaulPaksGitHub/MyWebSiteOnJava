@@ -3,7 +3,7 @@ package com.company.authentific;
 import com.company.Parametrs;
 
 public class Authentific {
-    public boolean authentific(Parametrs param) {
+    public boolean isAuthentificated(Parametrs param) {
         try {
             Roles.roles.valueOf(param.getRole());
             ResourceParser user = new ResourceParser();

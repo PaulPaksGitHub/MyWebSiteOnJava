@@ -13,28 +13,28 @@ public class ParseLine {
     }
 
     public Parametrs parse(String[] args) {
-        Option optLogin = new Option("l", "login", true, "Login");
+        Option optLogin = new Option("login", true, "Login");
         posixOptions.addOption(optLogin);
 
-        Option optPass = new Option("p", "pass", true, "Password");
+        Option optPass = new Option("pass", true, "Password");
         posixOptions.addOption(optPass);
 
-        Option optRes = new Option("r", "res", true, "Resource");
+        Option optRes = new Option("res", true, "Resource");
         posixOptions.addOption(optRes);
 
-        Option optRole = new Option("o", "role", true, "Role");
+        Option optRole = new Option("role", true, "Role");
         posixOptions.addOption(optRole);
 
-        Option optDs = new Option("s", "ds", true, "Ds");
+        Option optDs = new Option("ds", true, "Ds");
         posixOptions.addOption(optDs);
 
-        Option optDe = new Option("e", "de", true, "De");
+        Option optDe = new Option("de", true, "De");
         posixOptions.addOption(optDe);
 
-        Option optVol = new Option("v", "vol", true, "Volume");
+        Option optVol = new Option("vol", true, "Volume");
         posixOptions.addOption(optVol);
 
-        Option optHelp = new Option("h", "help", false, "Help");
+        Option optHelp = new Option("help", false, "Help");
         posixOptions.addOption(optHelp);
 
         CommandLineParser cmdLinePosixParser = new DefaultParser();
@@ -49,32 +49,32 @@ public class ParseLine {
         try {
             CommandLine commandLine = cmdLinePosixParser.parse(posixOptions, args);
             boolean hasParams = false;
-            if (commandLine.hasOption("l")) {
-                log = commandLine.getOptionValues("l")[0];
+            if (commandLine.hasOption("login")) {
+                log = commandLine.getOptionValues("login")[0];
                 hasParams = true;
             }
-            if (commandLine.hasOption("p")) {
-                pas = commandLine.getOptionValues("p")[0];
+            if (commandLine.hasOption("pass")) {
+                pas = commandLine.getOptionValues("pass")[0];
                 hasParams = true;
             }
-            if (commandLine.hasOption("r")) {
-                res = commandLine.getOptionValues("r")[0];
+            if (commandLine.hasOption("res")) {
+                res = commandLine.getOptionValues("res")[0];
                 hasParams = true;
             }
-            if (commandLine.hasOption("o")) {
-                rol = commandLine.getOptionValues("o")[0];
+            if (commandLine.hasOption("role")) {
+                rol = commandLine.getOptionValues("role")[0];
                 hasParams = true;
             }
-            if (commandLine.hasOption("s")) {
-                dts = commandLine.getOptionValues("s")[0];
+            if (commandLine.hasOption("ds")) {
+                dts = commandLine.getOptionValues("ds")[0];
                 hasParams = true;
             }
-            if (commandLine.hasOption("e")) {
-                dte = commandLine.getOptionValues("e")[0];
+            if (commandLine.hasOption("de")) {
+                dte = commandLine.getOptionValues("de")[0];
                 hasParams = true;
             }
-            if (commandLine.hasOption("v")) {
-                vol = commandLine.getOptionValues("v")[0];
+            if (commandLine.hasOption("vol")) {
+                vol = commandLine.getOptionValues("vol")[0];
                 hasParams = true;
             }
             if (commandLine.hasOption("h") || !hasParams) {
@@ -86,7 +86,7 @@ public class ParseLine {
         }
     }
 
-    public static void printHelp(
+    public void printHelp(
             final Options options,
             final OutputStream out) {
         final int printedRowWidth = 80;
