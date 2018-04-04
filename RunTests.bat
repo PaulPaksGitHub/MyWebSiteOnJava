@@ -13,4 +13,5 @@ call wrongRes.bat
 call wrongRole.bat
 call wrongData.bat
 call wrongVol.bat
+call randomPositionOfParams.bat
 pause
