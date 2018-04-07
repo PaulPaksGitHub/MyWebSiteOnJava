@@ -17,9 +17,9 @@ public class User {
         return salt;
     }
 
-    User(String log, String pas, String sal) {
-        login = log;
-        pass = pas;
-        salt = sal;
+    public User(String login, String pass, String salt) {
+        this.login = login;
+        this.pass = pass;
+        this.salt = salt;
     }
 }

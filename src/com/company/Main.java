@@ -3,16 +3,13 @@ package com.company;
 import com.company.accounting.Accounting;
 import com.company.authentific.Authentific;
 import com.company.autorization.Autorization;
-import com.company.parametrs.Parametrs;
+import com.company.parametrs.Parameters;
 import com.company.parametrs.ParseLine;
-
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
         ParseLine defaultParser = new ParseLine();
-        Parametrs user = defaultParser.parse(in.nextLine().split(" "));
+        Parameters user = defaultParser.parse(args[0].split(" "));
 
         Autorization autorization = new Autorization();
         Authentific authentific = new Authentific();

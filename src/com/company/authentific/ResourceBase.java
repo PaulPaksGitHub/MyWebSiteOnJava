@@ -1,12 +1,12 @@
 package com.company.authentific;
 
-import com.company.parametrs.Parametrs;
+import com.company.parametrs.Parameters;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ResourceBase {
-    public boolean hasPermission(Parametrs param, String cutAdress) {
+    public boolean hasPermission(Parameters param, String cutAdress) {
         List<Resource> list = new ArrayList<Resource>();
         //При инициализации ресурса логины пользователей, имеющих доступ, для каждой роли передаются через точку.
         list.add(new Resource("B", "ha", "", "pa"));

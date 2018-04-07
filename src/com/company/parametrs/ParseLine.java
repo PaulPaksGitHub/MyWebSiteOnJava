@@ -12,7 +12,7 @@ public class ParseLine {
         return posixOptions;
     }
 
-    public Parametrs parse(String[] args) {
+    public Parameters parse(String[] args) {
         Option optLogin = new Option("login", true, "Login");
         posixOptions.addOption(optLogin);
 
@@ -80,9 +80,9 @@ public class ParseLine {
             if (commandLine.hasOption("h") || !hasParams) {
                 h = true;
             }
-            return new Parametrs(log, pas, res, rol, dts, dte, vol, h);
+            return new Parameters(log, pas, res, rol, dts, dte, vol, h);
         } catch (ParseException e) {
-            return new Parametrs("", "", "", "", "", "", "", true);
+            return new Parameters("", "", "", "", "", "", "", true);
         }
     }
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Resource {
     private String adress;
-    private List<String> read = new ArrayList<String>();
+    private List<String> readList = new ArrayList<String>();
     private List<String> write = new ArrayList<String>();
     private List<String> execute = new ArrayList<String>();
 
@@ -15,7 +15,7 @@ public class Resource {
     }
 
     public List<String> getRead() {
-        return read;
+        return readList;
     }
 
     public List<String> getWrite() {
@@ -29,7 +29,7 @@ public class Resource {
     Resource(String adress, String ReadLogins, String WriteLogins, String ExeLogins) {
         this.adress = adress;
         String delimeter = "\\."; // Разделитель
-        read.addAll(Arrays.asList(ReadLogins.split(delimeter)));
+        readList.addAll(Arrays.asList(ReadLogins.split(delimeter)));
         write.addAll(Arrays.asList(WriteLogins.split(delimeter)));
         execute.addAll(Arrays.asList(ExeLogins.split(delimeter)));
     }

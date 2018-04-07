@@ -1,6 +1,6 @@
 package com.company.autorization;
 
-import com.company.parametrs.Parametrs;
+import com.company.parametrs.Parameters;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserBase {
-    public User getUserFromLogin(Parametrs user) {
+    public User getUserFromLogin(Parameters user) {
         List<User> list = new ArrayList<User>();
         try {
             Md5Hash password = new Md5Hash();
@@ -17,6 +17,7 @@ public class UserBase {
             String pass2 = password.getHash(password.getHash("34") + "q11q");
             list.add(new User("ha", pass2, "q11q"));
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+            System.exit(6);
         }
 
         for (User i : list) {

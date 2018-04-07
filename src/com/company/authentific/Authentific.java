@@ -1,9 +1,9 @@
 package com.company.authentific;
 
-import com.company.parametrs.Parametrs;
+import com.company.parametrs.Parameters;
 
 public class Authentific {
-    public boolean isAuthentificated(Parametrs param) {
+    public boolean isAuthentificated(Parameters param) {
         try {
             Roles.roles.valueOf(param.getRole());
             ResourceParser user = new ResourceParser();

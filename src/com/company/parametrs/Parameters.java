@@ -1,6 +1,6 @@
 package com.company.parametrs;
 
-public class Parametrs {
+public class Parameters {
     private String login = "";
     private String pass = "";
     private String res = "";
@@ -10,7 +10,7 @@ public class Parametrs {
     private String vol = "";
     private boolean h = false;
 
-    public boolean is_Empty() {
+    public boolean isEmpty() {
         return login.equals("") && pass.equals("");
     }
 
@@ -66,7 +66,7 @@ public class Parametrs {
         return h;
     }
 
-    Parametrs(String login, String pass, String res, String role, String ds, String de, String vol, boolean h) {
+    Parameters(String login, String pass, String res, String role, String ds, String de, String vol, boolean h) {
         this.login = login;
         this.pass = pass;
         this.res = res;

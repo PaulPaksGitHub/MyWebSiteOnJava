@@ -1,6 +1,6 @@
 package com.company.accounting;
 
-import com.company.parametrs.Parametrs;
+import com.company.parametrs.Parameters;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Accounting {
-    public boolean isAccaunted(Parametrs param) {
+    public boolean isAccaunted(Parameters param) {
         List<AccauntedUser> list = new ArrayList<AccauntedUser>();
         if (hasTrueData(param) && hasTrueVol(param)) {
             list.add(new AccauntedUser(param.getLogin(), param.getDs(), param.getDe(), param.getVol()));
@@ -18,7 +18,7 @@ public class Accounting {
         return false;
     }
 
-    private boolean hasTrueData(Parametrs param) {
+    private boolean hasTrueData(Parameters param) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             LocalDate.parse(param.getDs(), formatter);
@@ -30,7 +30,7 @@ public class Accounting {
         }
     }
 
-    private boolean hasTrueVol(Parametrs param) {
+    private boolean hasTrueVol(Parameters param) {
         try {
             int a = Integer.parseInt(param.getVol());
             return true;

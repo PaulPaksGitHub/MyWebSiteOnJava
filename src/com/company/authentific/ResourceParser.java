@@ -1,9 +1,10 @@
 package com.company.authentific;
 
-import com.company.parametrs.Parametrs;
+import com.company.parametrs.Parameters;
 
 public class ResourceParser {
-    public boolean authorizeFromAdress(Parametrs param) {
+    //
+    public boolean authorizeFromAdress(Parameters param) {
         String fullAdress = param.getRes();
         String[] subStr;
         String delimeter = "\\.";
