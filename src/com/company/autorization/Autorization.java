@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class Autorization {
     public boolean isAutorized(Parameters param) {
-        if (param.isEmpty()) { //если логина и пароля нет нет, то работа программы завершается
+        if (!param.hasLogin() && !param.hasPassword()) { //если логина и пароля нет нет, то работа программы завершается
             System.exit(6);
             return false;
 
