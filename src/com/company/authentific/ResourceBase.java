@@ -3,16 +3,22 @@ package com.company.authentific;
 import com.company.parametrs.Parameters;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ResourceBase {
     public boolean hasPermission(Parameters param, String cutAdress) {
-        List<Resource> list = new ArrayList<Resource>();
-        //При инициализации ресурса логины пользователей, имеющих доступ, для каждой роли передаются через точку.
-        list.add(new Resource("B", "ha", "", "pa"));
-        list.add(new Resource("A", "pa.ha", "", ""));
-        list.add(new Resource("A.B", "pa", "", ""));
-        list.add(new Resource("C.C.C", "pa", "pa", "pa"));
+        List<Resource> list = new ArrayList<>();
+
+        String[] a = { "pa","ha"};
+        List<String> readList = Arrays.asList(a);
+        List<String> writeList = Arrays.asList(a);
+        List<String> executeList = Arrays.asList(a);
+
+        list.add(new Resource("B",readList, writeList, executeList ));
+        list.add(new Resource("A", readList, writeList, executeList ));
+        list.add(new Resource("A.B",readList, writeList, executeList ));
+        list.add(new Resource("C.C.C", readList, writeList, executeList ));
 
         for (Resource i : list) {
             if (cutAdress.equals(i.getAdress())) {
@@ -20,10 +26,10 @@ public class ResourceBase {
                         i.getRead().contains(param.getLogin())) {
                     return true;
                 } else if (Roles.roles.WRITE == Roles.roles.valueOf(param.getRole()) &&
-                        i.getWrite().contains(param.getLogin())) {
+                        i.getWriteList().contains(param.getLogin())) {
                     return true;
                 } else if (Roles.roles.EXECUTE == Roles.roles.valueOf(param.getRole()) &&
-                        i.getExecute().contains(param.getLogin())) {
+                        i.getExecuteList().contains(param.getLogin())) {
                     return true;
                 }
             }

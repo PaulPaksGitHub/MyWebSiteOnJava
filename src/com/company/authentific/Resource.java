@@ -1,14 +1,13 @@
 package com.company.authentific;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Resource {
     private String adress;
     private List<String> readList = new ArrayList<String>();
-    private List<String> write = new ArrayList<String>();
-    private List<String> execute = new ArrayList<String>();
+    private List<String> writeList = new ArrayList<String>();
+    private List<String> executeList = new ArrayList<String>();
 
     public String getAdress() {
         return adress;
@@ -18,19 +17,19 @@ public class Resource {
         return readList;
     }
 
-    public List<String> getWrite() {
-        return write;
+    public List<String> getWriteList() {
+        return writeList;
     }
 
-    public List<String> getExecute() {
-        return execute;
+    public List<String> getExecuteList() {
+        return executeList;
     }
 
-    Resource(String adress, String ReadLogins, String WriteLogins, String ExeLogins) {
+    Resource(String adress, List<String> ReadLogins, List<String> WriteLogins, List<String> ExeLogins) {
         this.adress = adress;
         String delimeter = "\\."; // Разделитель
-        readList.addAll(Arrays.asList(ReadLogins.split(delimeter)));
-        write.addAll(Arrays.asList(WriteLogins.split(delimeter)));
-        execute.addAll(Arrays.asList(ExeLogins.split(delimeter)));
+        readList.addAll(ReadLogins);
+        writeList.addAll(WriteLogins);
+        executeList.addAll(ExeLogins);
     }
 }
