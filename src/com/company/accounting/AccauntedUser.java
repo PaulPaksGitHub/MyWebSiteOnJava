@@ -6,7 +6,7 @@ public class AccauntedUser {
     private String de;
     private String vol;
 
-    public AccauntedUser(String login, String ds, String de, String vol) {
+    AccauntedUser(String login, String ds, String de, String vol) {
         this.login = login;
         this.ds = ds;
         this.de = de;

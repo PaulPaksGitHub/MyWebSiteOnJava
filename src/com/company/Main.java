@@ -18,7 +18,7 @@ public class Main {
         if (user.canAutorize() && user.canAuthehtific() && user.canAccaunt()) {
             autorization.isAutorized(user);
             authentific.isAuthentificated(user);
-            accounting.isAccaunted(user);
+            accounting.isAccounted(user);
         } else if (user.canAutorize() && user.canAuthehtific()) {
             autorization.isAutorized(user);
             authentific.isAuthentificated(user);

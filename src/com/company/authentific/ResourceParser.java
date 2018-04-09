@@ -13,9 +13,9 @@ public class ResourceParser {
         String delimeter = "\\.";
         subStr = fullAdress.split(delimeter);
         String newStr = "";
+        ResourceBase user = new ResourceBase();
         for (String aSubStr : subStr) {
             newStr += aSubStr;
-            ResourceBase user = new ResourceBase();
             if (user.hasPermission(param, newStr)) {
                 return true;
             }

@@ -7,20 +7,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ResourceBase {
+    private List<Resource> resourceList = new ArrayList<>();
+
     public boolean hasPermission(Parameters param, String cutAdress) {
-        List<Resource> list = new ArrayList<>();
 
-        String[] a = { "pa","ha"};
-        List<String> readList = Arrays.asList(a);
-        List<String> writeList = Arrays.asList(a);
-        List<String> executeList = Arrays.asList(a);
-
-        list.add(new Resource("B",readList, writeList, executeList ));
-        list.add(new Resource("A", readList, writeList, executeList ));
-        list.add(new Resource("A.B",readList, writeList, executeList ));
-        list.add(new Resource("C.C.C", readList, writeList, executeList ));
-
-        for (Resource i : list) {
+        for (Resource i : resourceList) {
             if (cutAdress.equals(i.getAdress())) {
                 if (Roles.roles.READ == Roles.roles.valueOf(param.getRole()) &&
                         i.getRead().contains(param.getLogin())) {
@@ -35,5 +26,12 @@ public class ResourceBase {
             }
         }
         return false;
+    }
+
+    ResourceBase() {
+        this.resourceList.add(new Resource("B", Arrays.asList("pa", "ha"), Arrays.asList("ha"), Arrays.asList("ha")));
+        this.resourceList.add(new Resource("A", Arrays.asList("pa"), Arrays.asList("pa"), Arrays.asList("")));
+        this.resourceList.add(new Resource("A.B", Arrays.asList("ha"), Arrays.asList(""), Arrays.asList("pa")));
+        this.resourceList.add(new Resource("C.C.C", Arrays.asList("pa"), Arrays.asList("ha"), Arrays.asList("")));
     }
 }

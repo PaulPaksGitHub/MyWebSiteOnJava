@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class UserBase {
     public User getUserFromLogin(Parameters user) {
-        List<User> list = new ArrayList<User>();
+        List<User> list = new ArrayList<>();
         try {
             Md5Hash md5 = new Md5Hash();
 

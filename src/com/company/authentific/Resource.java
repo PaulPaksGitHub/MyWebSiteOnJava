@@ -5,9 +5,9 @@ import java.util.List;
 
 public class Resource {
     private String adress;
-    private List<String> readList = new ArrayList<String>();
-    private List<String> writeList = new ArrayList<String>();
-    private List<String> executeList = new ArrayList<String>();
+    private List<String> readList = new ArrayList<>();
+    private List<String> writeList = new ArrayList<>();
+    private List<String> executeList = new ArrayList<>();
 
     public String getAdress() {
         return adress;
@@ -27,9 +27,8 @@ public class Resource {
 
     Resource(String adress, List<String> ReadLogins, List<String> WriteLogins, List<String> ExeLogins) {
         this.adress = adress;
-        String delimeter = "\\."; // Разделитель
-        readList.addAll(ReadLogins);
-        writeList.addAll(WriteLogins);
-        executeList.addAll(ExeLogins);
+        this.readList.addAll(ReadLogins);
+        this.writeList.addAll(WriteLogins);
+        this.executeList.addAll(ExeLogins);
     }
 }

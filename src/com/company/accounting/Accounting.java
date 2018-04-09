@@ -9,13 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Accounting {
-    public boolean isAccaunted(Parameters param) {
-        List<AccauntedUser> list = new ArrayList<AccauntedUser>();
+    public void isAccounted(Parameters param) {
+        List<AccauntedUser> list = new ArrayList<>();
         if (hasTrueData(param) && hasTrueVol(param)) {
             list.add(new AccauntedUser(param.getLogin(), param.getDs(), param.getDe(), param.getVol()));
-            return true;
         }
-        return false;
     }
 
     private boolean hasTrueData(Parameters param) {
