@@ -1,9 +1,0 @@
-USERS
-login pa, pass 12
-login ha, pass 34
-
-RESOURCES
-adress "B", logins accesed to  READ "pa,ha", ..to WRITE "pa,ha", ..to EXECUTE "pa,ha"
-adress "A", logins accesed to  READ "pa,ha", ..to WRITE "pa,ha", ..to EXECUTE "pa,ha"
-adress "A.B", logins accesed to  READ "pa,ha", ..to WRITE "pa,ha", ..to EXECUTE "pa,ha"
-adress "C.C.C",logins accesed to  READ "pa,ha", ..to WRITE "pa,ha", ..to EXECUTE "pa,ha"
