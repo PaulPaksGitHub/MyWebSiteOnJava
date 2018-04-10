@@ -13,14 +13,29 @@ public class UserBase {
         List<User> list = new ArrayList<>();
         try {
             Md5Hash md5 = new Md5Hash();
+            String salt;
+            String pass;
 
-            String salt1 = generateSalt();
-            String pass1 = md5.getHash(md5.getHash("12") + salt1);
-            list.add(new User("pa", pass1, salt1));
+            salt = generateSalt();
+            pass = md5.getHash(md5.getHash("34") + salt);
+            list.add(new User("ha", pass, salt));
 
-            String salt2 = generateSalt();
-            String pass2 = md5.getHash(md5.getHash("34") + salt2);
-            list.add(new User("ha", pass2, salt2));
+            salt = generateSalt();
+            pass = md5.getHash(md5.getHash("12") + salt);
+            list.add(new User("pa", pass, salt));
+
+            salt = generateSalt();
+            pass = md5.getHash(md5.getHash("sup3rpaZZ") + salt);
+            list.add(new User("jdoe", pass, salt));
+
+            salt = generateSalt();
+            pass = md5.getHash(md5.getHash("Qweqrty12") + salt);
+            list.add(new User("jrow", pass, salt));
+
+            salt = generateSalt();
+            pass = md5.getHash(md5.getHash("yyy") + salt);
+            list.add(new User("xxx", pass, salt));
+
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
             System.exit(6);
         }
