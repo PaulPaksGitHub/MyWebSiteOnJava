@@ -9,7 +9,12 @@ import com.company.parametrs.ParseLine;
 public class Main {
     public static void main(String[] args) {
         ParseLine defaultParser = new ParseLine();
-        Parameters user = defaultParser.parse(args[0].replaceAll("'","").split(" "));
+        if (args.length == 0) {
+            defaultParser.parse("".split(" "));
+            defaultParser.printHelp(defaultParser.getOptions(), System.out);
+            System.exit(0);
+        }
+        Parameters user = defaultParser.parse(args[0].replaceAll("'", "").split(" "));
 
         Autorization autorization = new Autorization();
         Authentific authentific = new Authentific();
