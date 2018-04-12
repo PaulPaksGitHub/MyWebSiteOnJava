@@ -6,7 +6,7 @@ IF %ERRORLEVEL% EQU 0 ( echo OK )
 IF %ERRORLEVEL% NEQ 0 ( echo ### CRASHED ### )
 
 echo =====smokeTest=====
-java -cp ".\out\production\prj;.\commons-cli-1.4.jar" com.company.Main ""
+java -cp ".\out\production\prj;.\commons-cli-1.4.jar" com.company.Main 
 IF %ERRORLEVEL% EQU 0 ( echo OK )
 IF %ERRORLEVEL% NEQ 0 ( echo ### CRASHED ### )
 
