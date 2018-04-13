@@ -14,18 +14,26 @@ echo "CRASH"
 return 1
 fi
 }
-testValue=1
+testValue=2
 ok=0
 
-test 2 '-login pa -pass 12'
+test 0 '-login pa -pass 12'
+if [ $? -eq 0 ]
+then ok=$(($ok + 1))
+fi
+echo $ok
+
+test 2 '-login pa -pass 43'
 if [ $? -eq 0 ]
 then ok=$(($ok + 1))
 fi
 echo $ok
 
 if [ $testValue -eq $ok ]
-then echo "All test sucessfull complite"
-else echo $($testValue - $ok)
+then
+echo "All test successful complete"
+else
+echo "Complete $ok tests from $testValue"
 fi
 
 sleep 10
