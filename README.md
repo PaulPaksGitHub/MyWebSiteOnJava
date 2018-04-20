@@ -1,4 +1,5 @@
-README
+
+[![pipeline status](https://gitlab.com/kafedra/ppakseev/badges/master/pipeline.svg)](https://gitlab.com/kafedra/ppakseev/commits/master)
 =============
 Интрукци по сборке
 -------------
