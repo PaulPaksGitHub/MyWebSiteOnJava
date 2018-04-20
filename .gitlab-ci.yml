@@ -1,5 +1,4 @@
-language: java
-
 job1:
+    language: java
     script:
         BUILD.sh && TEST.sh
