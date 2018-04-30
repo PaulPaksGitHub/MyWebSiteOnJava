@@ -1,22 +1,22 @@
 @echo off
 
 echo =====UnknownOption=====
-java -cp ".\out\production\prj;.\commons-cli-1.4.jar" com.company.Main "-egg foo"
+java -cp ".\out\production\prj;.\commons-cli-1.4.jar;.\h2-1.4.197.jar" com.company.Main "-egg foo"
 IF %ERRORLEVEL% EQU 0 ( echo OK )
 IF %ERRORLEVEL% NEQ 0 ( echo ### CRASHED ### )
 
 echo =====smokeTest=====
-java -cp ".\out\production\prj;.\commons-cli-1.4.jar" com.company.Main 
+java -cp ".\out\production\prj;.\commons-cli-1.4.jar;.\h2-1.4.197.jar" com.company.Main 
 IF %ERRORLEVEL% EQU 0 ( echo OK )
 IF %ERRORLEVEL% NEQ 0 ( echo ### CRASHED ### )
 
 echo =====LogPass=====
-java -cp ".\out\production\prj;.\commons-cli-1.4.jar" com.company.Main  "-login pa -pass 12"
+java -cp ".\out\production\prj;.\commons-cli-1.4.jar;.\h2-1.4.197.jar" com.company.Main  "-login pa -pass 12"
 IF %ERRORLEVEL% EQU 0 ( echo OK )
 IF %ERRORLEVEL% NEQ 0 ( echo ### CRASHED ### )
 
 echo =====ResRole=====
-java -cp ".\out\production\prj;.\commons-cli-1.4.jar" com.company.Main "-login 'pa' -pass '12' -res 'A.B' -role 'READ' "
+java -cp ".\out\production\prj;.\commons-cli-1.4.jar;.\h2-1.4.197.jar" com.company.Main "-login 'pa' -pass '12' -res 'A.B.C' -role 'WRITE' "
 IF %ERRORLEVEL% EQU 0 ( echo OK )
 IF %ERRORLEVEL% NEQ 0 ( echo ### CRASHED ### )
 

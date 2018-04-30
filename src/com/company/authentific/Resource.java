@@ -1,34 +1,25 @@
 package com.company.authentific;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Resource {
     private String adress;
-    private List<String> readList = new ArrayList<>();
-    private List<String> writeList = new ArrayList<>();
-    private List<String> executeList = new ArrayList<>();
+    private String login;
+    private String role;
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getRole() {
+        return role;
+    }
 
     public String getAdress() {
         return adress;
     }
 
-    public List<String> getRead() {
-        return readList;
-    }
-
-    public List<String> getWriteList() {
-        return writeList;
-    }
-
-    public List<String> getExecuteList() {
-        return executeList;
-    }
-
-    Resource(String adress, List<String> ReadLogins, List<String> WriteLogins, List<String> ExeLogins) {
+    Resource(String adress, String login, String role) {
         this.adress = adress;
-        this.readList.addAll(ReadLogins);
-        this.writeList.addAll(WriteLogins);
-        this.executeList.addAll(ExeLogins);
+        this.login = login;
+        this.role = role;
     }
 }
