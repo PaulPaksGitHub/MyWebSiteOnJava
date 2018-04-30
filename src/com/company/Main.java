@@ -8,6 +8,9 @@ import com.company.parametrs.ParseLine;
 
 public class Main {
     public static void main(String[] args) {
+        FlywayCheck migrate = new FlywayCheck();
+        migrate.checkDB();
+
         ParseLine defaultParser = new ParseLine();
         if (args.length == 0) {
             defaultParser.parse("".split(" "));

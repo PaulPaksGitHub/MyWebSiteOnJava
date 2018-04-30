@@ -27,9 +27,9 @@ public class ResourceParser {
 
     public boolean hasPermission(Parameters param, String cutAdress) {
         try(Connection conn = DriverManager.
-                getConnection("jdbc:h2:./db", "sa", "");) {
+                getConnection("jdbc:h2:./data/db", "sa", "");) {
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("select * from resources where adress = '"+cutAdress+"'");
+            ResultSet rs = st.executeQuery("select * from res where adress = '"+cutAdress+"'");
             while (rs.next()) {
                 if (rs.getString("login").equals(param.getLogin()) &&
                         rs.getString("role").equals(param.getRole())){

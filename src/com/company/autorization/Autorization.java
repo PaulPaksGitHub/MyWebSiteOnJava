@@ -48,7 +48,7 @@ public class Autorization {
 
     private User getUserFromLogin(String slogin){
         try(Connection conn = DriverManager.
-                getConnection("jdbc:h2:./db", "sa", "");) {
+                getConnection("jdbc:h2:./data/db", "sa", "");) {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("select * from users where login = '"+slogin+"'");
             while (rs.next()) {
