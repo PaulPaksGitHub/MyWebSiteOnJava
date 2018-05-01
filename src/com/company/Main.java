@@ -22,7 +22,7 @@ public class Main {
             System.exit(0);
         }
 
-        logger.info("Parametrs: "+args[0].replaceAll("'", ""));
+        logger.info("Parametrs: " + args[0].replaceAll("'", ""));
 
         Parameters user = defaultParser.parse(args[0].replaceAll("'", "").split(" "));
 

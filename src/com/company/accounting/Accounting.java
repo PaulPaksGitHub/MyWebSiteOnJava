@@ -9,9 +9,14 @@ import java.time.format.DateTimeParseException;
 
 public class Accounting {
     private static final Logger logger = Logger.getLogger(Accounting.class);
+
     public void isAccounted(Parameters param) {
         if (hasTrueData(param) && hasTrueVol(param)) {
-            logger.debug("Accaunting: "+param.getLogin()+" "+param.getDs()+" "+param.getDe()+" "+param.getVol());
+            logger.debug("Accaunting: " +
+                    param.getLogin() + " " +
+                    param.getDs() + " " +
+                    param.getDe() + " " +
+                    param.getVol());
         }
     }
 

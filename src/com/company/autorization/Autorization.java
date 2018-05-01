@@ -23,15 +23,13 @@ public class Autorization {
                 System.exit(1);
                 return;
             }
-            //name();
-            //UserBase userBibl = new UserBase();
             User userWithTheSameLogin = getUserFromLogin(param.getLogin());
             String password;
 
             try { //получаем хэш пароля, который ввел пользоаптель
                 Md5Hash hash = new Md5Hash();
                 password = hash.getHash(hash.getHash(param.getPass()) + userWithTheSameLogin.getSalt());
-                password = userWithTheSameLogin.getPass();
+
             } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
                 logger.error("Can not autorize: Can't get password hash");
                 logger.error(e);
