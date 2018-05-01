@@ -1,15 +1,17 @@
 package com.company.authentific;
 
 import com.company.parametrs.Parameters;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 
 public class ResourceParser {
+    private static final Logger logger = Logger.getLogger(ResourceParser.class);
     //из полного адреса ресурса создает частичный (начиная с родительского)
     //  и по получившемуся адресу проводит аутентификацию.
     //с каждой итерацией добавляет к частичному адресу следующий узел из полного адреса
     // и повторяет попыткум аутентификации.
-    public boolean authorizeFromAdress(Parameters param) {
+    public boolean authentificFromAdress(Parameters param) {
         String fullAdress = param.getRes();
         String[] subStr;
         String delimeter = "\\.";
@@ -18,10 +20,12 @@ public class ResourceParser {
         for (String aSubStr : subStr) {
             newStr += aSubStr;
             if (hasPermission(param, newStr)) {
+                logger.debug("Authentification success");
                 return true;
             }
             newStr += ".";
         }
+        logger.error("Authentification failed");
         return false;
     }
 

@@ -4,7 +4,7 @@ function test(){
 param=$2
 code=$1
 echo $param
-java -jar my.jar "$param"
+java -cp "commons-cli-1.4.jar;h2-1.4.197.jar;flyway-core-5.0.7.jar" -jar my.jar "$param"
 if [ $? -eq $code ]
 then
     echo "ok"
@@ -34,7 +34,7 @@ if [ $? -eq 0 ]
 then ok=$(($ok + 1))
 fi
 
-test 0 "-login 'pa' -pass '12' -res 'A.B' -role 'READ' "
+test 0 "-login 'pa' -pass '12' -res 'A' -role 'READ' "
 if [ $? -eq 0 ]
 then ok=$(($ok + 1))
 fi

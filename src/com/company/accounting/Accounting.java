@@ -1,18 +1,17 @@
 package com.company.accounting;
 
 import com.company.parametrs.Parameters;
+import org.apache.log4j.Logger;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Accounting {
+    private static final Logger logger = Logger.getLogger(Accounting.class);
     public void isAccounted(Parameters param) {
-        List<AccauntedUser> list = new ArrayList<>();
         if (hasTrueData(param) && hasTrueVol(param)) {
-            list.add(new AccauntedUser(param.getLogin(), param.getDs(), param.getDe(), param.getVol()));
+            logger.debug("Accaunting: "+param.getLogin()+" "+param.getDs()+" "+param.getDe()+" "+param.getVol());
         }
     }
 
@@ -23,6 +22,8 @@ public class Accounting {
             LocalDate.parse(param.getDe(), formatter);
             return true;
         } catch (DateTimeParseException e) {
+            logger.error("Can not account: Wrong data");
+            logger.error(e);
             System.exit(5);
             return false;
         }
@@ -33,6 +34,8 @@ public class Accounting {
             int a = Integer.parseInt(param.getVol());
             return true;
         } catch (NumberFormatException e) {
+            logger.error("Can not account: Wrong volume");
+            logger.error(e);
             System.exit(5);
             return false;
         }

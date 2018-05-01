@@ -1,5 +1,7 @@
 package com.company;
 
+import org.flywaydb.core.Flyway;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -15,7 +17,7 @@ public class FlywayCheck {
         }
         catch (SQLException e){
             // Create the FlywayCheck instance
-            org.flywaydb.core.Flyway flyway = new org.flywaydb.core.Flyway();
+            Flyway flyway = new Flyway();
 
             // Point it to the database
             flyway.setDataSource("jdbc:h2:file:./data/db", "sa", "");
