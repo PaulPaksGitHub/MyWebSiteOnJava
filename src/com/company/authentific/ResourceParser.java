@@ -26,7 +26,8 @@ public class ResourceParser {
             }
             newStr += ".";
         }
-        logger.error("Authentification failed");
+        logger.error("Authentification failed: user " + param.getLogin()
+                + " han't role " + param.getRole() + " on res " + param.getRes());
         return false;
     }
 

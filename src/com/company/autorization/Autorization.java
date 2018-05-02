@@ -20,7 +20,7 @@ public class Autorization {
 
         } else if (param.hasLogin() && param.hasPassword()) {//введениы и логин, и пароль, то пытаемся авторизировать
             if (!isLoginRegex(param.getLogin())) {//если login не соответствует шаблону
-                logger.error("Can not autorize: Login isn't regex");
+                logger.error("Can not autorize: Login " + param.getLogin() + " isn't regex");
                 System.exit(1);
                 return;
             }
@@ -32,17 +32,17 @@ public class Autorization {
                 password = hash.getHash(hash.getHash(param.getPass()) + userWithTheSameLogin.getSalt());
 
             } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-                logger.error("Can not autorize: Can't get password hash");
+                logger.error("Can not autorize: Can't get password '" + param.getPass() + "' hash");
                 logger.error(e);
                 System.exit(2);
                 return;
             }
 
             if (!userWithTheSameLogin.getLogin().equals(param.getLogin())) { //если ne совпадает логин
-                logger.error("Can not autorize: Wrong login");
+                logger.error("Can not autorize:'" + param.getLogin() + "' wrong login");
                 System.exit(1);
             } else if (!userWithTheSameLogin.getPass().equals(password)) {//если ne совпадает пароль
-                logger.error("Can not autorize: Wrong password");
+                logger.error("Can not autorize: Password '" + param.getPass() + "' is wron for user " + param.getLogin());
                 System.exit(2);
             }
 

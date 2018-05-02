@@ -5,7 +5,6 @@ import com.company.authentific.Authentific;
 import com.company.autorization.Autorization;
 import com.company.parametrs.Parameters;
 import com.company.parametrs.ParseLine;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,14 +16,16 @@ public class Main {
         migrate.checkDB();
 
         ParseLine defaultParser = new ParseLine();
+
         logger.info("================================");
+
         if (args.length == 0) {
             defaultParser.parse("".split(" "));
             defaultParser.printHelp(defaultParser.getOptions(), System.out);
             System.exit(0);
         }
 
-        logger.info("Parametrs: " + args[0].replaceAll("'", ""));
+        logger.info("Get parameters: " + args[0].replaceAll("'", ""));
 
         Parameters user = defaultParser.parse(args[0].replaceAll("'", "").split(" "));
 

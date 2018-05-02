@@ -13,10 +13,10 @@ public class Accounting {
 
     public void isAccounted(Parameters param) {
         if (hasTrueData(param) && hasTrueVol(param)) {
-            logger.debug("Accaunting: " +
-                    param.getLogin() + " " +
-                    param.getDs() + " " +
-                    param.getDe() + " " +
+            logger.debug("Accaunting success: " +
+                    param.getLogin() + ", " +
+                    param.getDs() + ", " +
+                    param.getDe() + ", " +
                     param.getVol());
         }
     }
@@ -28,7 +28,7 @@ public class Accounting {
             LocalDate.parse(param.getDe(), formatter);
             return true;
         } catch (DateTimeParseException e) {
-            logger.error("Can not account: Wrong data");
+            logger.error("Can not account: '" + param.getDs() + " " + param.getDe() + "' is wrong data");
             logger.error(e);
             System.exit(5);
             return false;
@@ -40,7 +40,7 @@ public class Accounting {
             int a = Integer.parseInt(param.getVol());
             return true;
         } catch (NumberFormatException e) {
-            logger.error("Can not account: Wrong volume");
+            logger.error("Can not account: '" + param.getVol() + "' is wrong vol");
             logger.error(e);
             System.exit(5);
             return false;
