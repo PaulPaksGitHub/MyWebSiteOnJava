@@ -1,7 +1,8 @@
 package com.company.autorization;
 
 import com.company.parametrs.Parameters;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -10,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Autorization {
-    private static final Logger logger = Logger.getLogger(Autorization.class);
+    private static final Logger logger = LogManager.getLogger(Autorization.class);
 
     public void isAutorized(Parameters param) {
         if (!param.hasLogin() && !param.hasPassword()) { //если логина и пароля нет нет, то работа программы завершается

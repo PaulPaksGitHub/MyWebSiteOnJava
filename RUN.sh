@@ -1,1 +1,1 @@
-java -jar my.jar
+java -jar app.jar

@@ -4,7 +4,7 @@ function test(){
 param=$2
 code=$1
 echo $param
-java -cp "commons-cli-1.4.jar;h2-1.4.197.jar;flyway-core-5.0.7.jar" -jar my.jar "$param"
+java -cp "./libraries/*;app.jar" com.company.Main "$param"
 if [ $? -eq $code ]
 then
     echo "ok"

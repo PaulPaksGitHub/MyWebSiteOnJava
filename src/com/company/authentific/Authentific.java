@@ -1,10 +1,11 @@
 package com.company.authentific;
 
 import com.company.parametrs.Parameters;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Authentific {
-    private static final Logger logger = Logger.getLogger(Authentific.class);
+    private static final Logger logger = LogManager.getLogger(Authentific.class);
 
     public void isAuthentificated(Parameters param) {
         try {

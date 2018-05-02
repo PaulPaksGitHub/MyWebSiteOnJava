@@ -1,12 +1,13 @@
 package com.company.authentific;
 
 import com.company.parametrs.Parameters;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
 public class ResourceParser {
-    private static final Logger logger = Logger.getLogger(ResourceParser.class);
+    private static final Logger logger = LogManager.getLogger(ResourceParser.class);
 
     //из полного адреса ресурса создает частичный (начиная с родительского)
     //  и по получившемуся адресу проводит аутентификацию.

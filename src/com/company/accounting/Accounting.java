@@ -1,14 +1,15 @@
 package com.company.accounting;
 
 import com.company.parametrs.Parameters;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Accounting {
-    private static final Logger logger = Logger.getLogger(Accounting.class);
+    private static final Logger logger = LogManager.getLogger(Accounting.class);
 
     public void isAccounted(Parameters param) {
         if (hasTrueData(param) && hasTrueVol(param)) {

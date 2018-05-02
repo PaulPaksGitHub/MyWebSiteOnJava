@@ -5,17 +5,19 @@ import com.company.authentific.Authentific;
 import com.company.autorization.Autorization;
 import com.company.parametrs.Parameters;
 import com.company.parametrs.ParseLine;
-import org.apache.log4j.Logger;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Main {
-    private static final Logger logger = Logger.getLogger(Main.class);
+    private static final Logger logger = LogManager.getLogger("Main.class");
 
     public static void main(String[] args) {
         FlywayCheck migrate = new FlywayCheck();
         migrate.checkDB();
 
         ParseLine defaultParser = new ParseLine();
+        logger.info("================================");
         if (args.length == 0) {
             defaultParser.parse("".split(" "));
             defaultParser.printHelp(defaultParser.getOptions(), System.out);
