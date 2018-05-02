@@ -4,10 +4,12 @@ import com.company.parametrs.Parameters;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.sql.SQLException;
+
 public class Authentific {
     private static final Logger logger = LogManager.getLogger(Authentific.class);
 
-    public void isAuthentificated(Parameters param) {
+    public void isAuthentificated(Parameters param) throws SQLException {
         try {
             Roles.roles.valueOf(param.getRole());
             ResourceParser user = new ResourceParser();

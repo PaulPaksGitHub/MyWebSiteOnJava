@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 public class Autorization {
     private static final Logger logger = LogManager.getLogger(Autorization.class);
 
-    public void isAutorized(Parameters param) {
+    public void isAutorized(Parameters param) throws SQLException {
         if (!param.hasLogin() && !param.hasPassword()) { //если логина и пароля нет нет, то работа программы завершается
             logger.error("Can not autorize: Hasn't login and password");
             System.exit(6);
@@ -57,23 +57,24 @@ public class Autorization {
         }
     }
 
-    private User getUserFromLogin(String slogin) {
-        try (Connection conn = DriverManager.
-                getConnection("jdbc:h2:./data/db", "sa", "");) {
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("select * from users where login = '" + slogin + "'");
-            while (rs.next()) {
-                User user = new User(
-                        rs.getString("login"),
-                        rs.getString("pass"),
-                        rs.getString("salt"));
-                conn.close();
-                return user;
-            }
+    private User getUserFromLogin(String login) throws SQLException {
+        Connection conn = DriverManager.
+                getConnection("jdbc:h2:./data/db", "sa", "");
 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        PreparedStatement st = conn.prepareStatement("select * from users where login = ?");
+
+        st.setString(1, login);
+        ResultSet rs = st.executeQuery();
+
+        if (rs.next()) {
+            User user = new User(
+                    rs.getString("login"),
+                    rs.getString("pass"),
+                    rs.getString("salt"));
+            conn.close();
+            return user;
         }
+        conn.close();
         return new User("", "", "");
     }
 

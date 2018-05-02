@@ -13,7 +13,7 @@ public class ResourceParser {
     //  и по получившемуся адресу проводит аутентификацию.
     //с каждой итерацией добавляет к частичному адресу следующий узел из полного адреса
     // и повторяет попыткум аутентификации.
-    public boolean authentificFromAdress(Parameters param) {
+    public boolean authentificFromAdress(Parameters param) throws SQLException {
         String fullAdress = param.getRes();
         String[] subStr;
         String delimeter = "\\.";
@@ -31,23 +31,23 @@ public class ResourceParser {
         return false;
     }
 
-    public boolean hasPermission(Parameters param, String cutAdress) {
-        try (Connection conn = DriverManager.
-                getConnection("jdbc:h2:./data/db", "sa", "");) {
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("select * from res where adress = '" + cutAdress + "'");
-            while (rs.next()) {
-                if (rs.getString("login").equals(param.getLogin()) &&
-                        rs.getString("role").equals(param.getRole())) {
-                    return true;
-                }
+    public boolean hasPermission(Parameters param, String cutAdress) throws SQLException {
+        Connection conn = DriverManager.
+                getConnection("jdbc:h2:./data/db", "sa", "");
+
+        PreparedStatement st = conn.prepareStatement("select * from res where adress = ?");
+
+        st.setString(1, cutAdress);
+        ResultSet rs = st.executeQuery();
+
+        while (rs.next()) {
+            if (rs.getString("login").equals(param.getLogin()) &&
+                    rs.getString("role").equals(param.getRole())) {
+                conn.close();
+                return true;
             }
-            return false;
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
-
+        conn.close();
         return false;
     }
 }
