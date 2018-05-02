@@ -1,4 +1,4 @@
-package com.company.parametrs;
+package com.company.parameters;
 
 public class Parameters {
     private String login = "";
@@ -70,7 +70,7 @@ public class Parameters {
         return new Parameters().new Builder();
     }
 
-    Parameters() {
+    public Parameters() {
         //Empty creator
     }
 

@@ -1,4 +1,4 @@
-package com.company.autorization;
+package com.company.autorization.md5hash;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;

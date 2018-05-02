@@ -3,8 +3,9 @@ package com.company;
 import com.company.accounting.Accounting;
 import com.company.authentific.Authentific;
 import com.company.autorization.Autorization;
-import com.company.parametrs.Parameters;
-import com.company.parametrs.ParseLine;
+import com.company.flyway_migrations.FlywayCheck;
+import com.company.parameters.Parameters;
+import com.company.line_parser.ParseLine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

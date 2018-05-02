@@ -1,5 +1,6 @@
-package com.company.parametrs;
+package com.company.line_parser;
 
+import com.company.parameters.Parameters;
 import org.apache.commons.cli.*;
 
 import java.io.OutputStream;

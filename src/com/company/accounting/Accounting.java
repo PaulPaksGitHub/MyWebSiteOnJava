@@ -1,6 +1,6 @@
 package com.company.accounting;
 
-import com.company.parametrs.Parameters;
+import com.company.parameters.Parameters;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

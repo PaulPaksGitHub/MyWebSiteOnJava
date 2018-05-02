@@ -2,7 +2,7 @@ package com.company.old;
 
 import com.company.autorization.Md5Hash;
 import com.company.autorization.User;
-import com.company.parametrs.Parameters;
+import com.company.line_parser.Parameters;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;

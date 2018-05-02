@@ -1,6 +1,8 @@
 package com.company.autorization;
 
-import com.company.parametrs.Parameters;
+import com.company.autorization.md5hash.Md5Hash;
+import com.company.autorization.user.User;
+import com.company.parameters.Parameters;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

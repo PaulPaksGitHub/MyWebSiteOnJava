@@ -39,3 +39,4 @@
 2018-05-02 16:23:06.305 [main] INFO  Main.class - Get parameters: -login pa -pass 12 -res A.B.C -role WRITE 
 2018-05-02 16:23:06.379 [main] DEBUG com.company.autorization.Autorization - Autorization success
 2018-05-02 16:23:06.478 [main] DEBUG com.company.authentific.Authentific - Authentification success
+2018-05-02 16:36:15.755 [main] INFO  Main.class - ================================

@@ -1,6 +1,7 @@
 package com.company.authentific;
 
-import com.company.parametrs.Parameters;
+import com.company.authentific.resource_parser.ResourceParser;
+import com.company.parameters.Parameters;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -1,4 +1,4 @@
-package com.company;
+package com.company.flyway_migrations;
 
 import org.flywaydb.core.Flyway;
 
