@@ -4,7 +4,7 @@ function test(){
 param=$2
 code=$1
 echo $param
-java -cp "./libraries/*;app.jar" com.company.Main "$param"
+java -cp "./libraries/*:app.jar" com.company.Main "$param"
 if [ $? -eq $code ]
 then
     echo "ok"
