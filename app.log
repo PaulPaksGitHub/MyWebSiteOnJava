@@ -5,3 +5,14 @@
 2018-05-02 14:57:15.986 [main] INFO  Main.class - ================================
 2018-05-02 15:06:21.598 [main] INFO  Main.class - ================================
 2018-05-02 15:20:28.693 [main] INFO  Main.class - ================================
+2018-05-02 15:32:11.682 [main] INFO  Main.class - ================================
+2018-05-02 15:32:46.922 [main] INFO  Main.class - ================================
+2018-05-02 15:32:46.969 [main] INFO  Main.class - Get parameters: -egg foo
+2018-05-02 15:32:54.251 [main] INFO  Main.class - ================================
+2018-05-02 15:32:59.533 [main] INFO  Main.class - ================================
+2018-05-02 15:32:59.548 [main] INFO  Main.class - Get parameters: -login pa -pass 12
+2018-05-02 15:32:59.705 [main] DEBUG com.company.autorization.Autorization - Autorization success
+2018-05-02 15:33:05.427 [main] INFO  Main.class - ================================
+2018-05-02 15:33:05.443 [main] INFO  Main.class - Get parameters: -login pa -pass 12 -res A.B.C -role WRITE 
+2018-05-02 15:33:05.583 [main] DEBUG com.company.autorization.Autorization - Autorization success
+2018-05-02 15:33:05.818 [main] DEBUG com.company.authentific.Authentific - Authentification success
