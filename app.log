@@ -1,6 +1,0 @@
-2018-05-01 14:02:33,037 [ INFO] com.company.Main Parametrs: -egg foo at com.company.Main.main(Main.java:25)
-2018-05-01 14:02:39,561 [ INFO] com.company.Main Parametrs: -login pa -pass 12 at com.company.Main.main(Main.java:25)
-2018-05-01 14:02:39,703 [DEBUG] com.company.autorization.Autorization Autorization success at com.company.autorization.Autorization.isAutorized(Autorization.java:48)
-2018-05-01 14:02:42,953 [ INFO] com.company.Main Parametrs: -login pa -pass 12 -res A.B.C -role WRITE  at com.company.Main.main(Main.java:25)
-2018-05-01 14:02:43,156 [DEBUG] com.company.autorization.Autorization Autorization success at com.company.autorization.Autorization.isAutorized(Autorization.java:48)
-2018-05-01 14:02:43,328 [DEBUG] com.company.authentific.Authentific Authentification success at com.company.authentific.Authentific.isAuthentificated(Authentific.java:17)
