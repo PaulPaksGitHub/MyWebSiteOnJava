@@ -24,6 +24,7 @@ public class Main {
         checkDBconnection();
 
         ParseLine defaultParser = new ParseLine();
+        args = "-login pa -pass 12".split(" ");
 
         logger.info("================================");
 
@@ -35,7 +36,7 @@ public class Main {
 
         Connection conn = DriverManager.getConnection(url, dbUser, dbPassword);
 
-        logger.info("Get parameters: " + args);
+        logger.info("Get parameters: " + args.toString());
 
         Parameters user = defaultParser.parse(args);
 

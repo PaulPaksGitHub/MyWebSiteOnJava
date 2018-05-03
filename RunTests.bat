@@ -15,6 +15,11 @@ java -cp ".\out\production\prj;.\libraries\*" com.company.Main  "-login pa -pass
 IF %ERRORLEVEL% EQU 0 ( echo OK )
 IF %ERRORLEVEL% NEQ 0 ( echo ### CRASHED ### )
 
+echo =====wrongLogin=====
+java -cp ".\out\production\prj;.\libraries\*" com.company.Main "-login kukuruzka -pass 12"
+IF %ERRORLEVEL% EQU 1 ( echo OK )
+IF %ERRORLEVEL% NEQ 1 ( echo ### CRASHED ### )
+
 echo =====ResRole=====
 java -cp ".\out\production\prj;.\libraries\*" com.company.Main "-login 'pa' -pass '12' -res 'A.B.C' -role 'WRITE' "
 IF %ERRORLEVEL% EQU 0 ( echo OK )
