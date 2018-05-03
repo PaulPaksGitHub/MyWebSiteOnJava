@@ -34,6 +34,7 @@ public class ResourceParser {
                 st.close();
                 return false;
             }
+            ad+="//.";
         }
         return false;
     }
