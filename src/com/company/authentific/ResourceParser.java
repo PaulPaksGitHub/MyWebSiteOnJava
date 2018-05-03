@@ -1,4 +1,4 @@
-package com.company.authentific.resource_parser;
+package com.company.authentific;
 
 import com.company.parameters.Parameters;
 import org.apache.logging.log4j.LogManager;
@@ -13,7 +13,7 @@ public class ResourceParser {
     //  и по получившемуся адресу проводит аутентификацию.
     //с каждой итерацией добавляет к частичному адресу следующий узел из полного адреса
     // и повторяет попыткум аутентификации.
-    public boolean authentificFromAdress(Parameters param) throws SQLException {
+    public boolean authentificFromAdress(Parameters param, Connection conn) throws SQLException {
         String fullAdress = param.getRes();
         String[] subStr;
         String delimeter = "\\.";
@@ -21,7 +21,7 @@ public class ResourceParser {
         String newStr = "";
         for (String aSubStr : subStr) {
             newStr += aSubStr;
-            if (hasPermission(param, newStr)) {
+            if (hasPermission(param, newStr, conn)) {
                 return true;
             }
             newStr += ".";
@@ -31,23 +31,21 @@ public class ResourceParser {
         return false;
     }
 
-    public boolean hasPermission(Parameters param, String cutAdress) throws SQLException {
-        Connection conn = DriverManager.
-                getConnection("jdbc:h2:./data/db", "sa", "");
-
+    public boolean hasPermission(Parameters param, String cutAdress, Connection conn) throws SQLException {
         PreparedStatement st = conn.prepareStatement("select * from res where adress = ?");
-
         st.setString(1, cutAdress);
         ResultSet rs = st.executeQuery();
 
         while (rs.next()) {
             if (rs.getString("login").equals(param.getLogin()) &&
                     rs.getString("role").equals(param.getRole())) {
-                conn.close();
+                rs.close();
+                st.close();
                 return true;
             }
         }
-        conn.close();
+        rs.close();
+        st.close();
         return false;
     }
 }

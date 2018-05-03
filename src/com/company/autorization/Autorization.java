@@ -1,7 +1,5 @@
 package com.company.autorization;
 
-import com.company.autorization.md5hash.Md5Hash;
-import com.company.autorization.user.User;
 import com.company.parameters.Parameters;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,7 +13,7 @@ import java.util.regex.Pattern;
 public class Autorization {
     private static final Logger logger = LogManager.getLogger(Autorization.class);
 
-    public void isAutorized(Parameters param) throws SQLException {
+    public void isAutorized(Parameters param, Connection  conn) throws SQLException {
         if (!param.hasLogin() && !param.hasPassword()) { //если логина и пароля нет нет, то работа программы завершается
             logger.error("Can not autorize: Hasn't login and password");
             System.exit(6);
@@ -26,7 +24,7 @@ public class Autorization {
                 System.exit(1);
                 return;
             }
-            User userWithTheSameLogin = getUserFromLogin(param.getLogin());
+            User userWithTheSameLogin = getUserFromLogin(param.getLogin(), conn);
             String password;
 
             try { //получаем хэш пароля, который ввел пользоаптель
@@ -59,13 +57,10 @@ public class Autorization {
         }
     }
 
-    private User getUserFromLogin(String login) throws SQLException {
-        Connection conn = DriverManager.
-                getConnection("jdbc:h2:./data/db", "sa", "");
-
+    private User getUserFromLogin(String login, Connection conn) throws SQLException {
         PreparedStatement st = conn.prepareStatement("select * from users where login = ?");
-
         st.setString(1, login);
+
         ResultSet rs = st.executeQuery();
 
         if (rs.next()) {
@@ -73,10 +68,12 @@ public class Autorization {
                     rs.getString("login"),
                     rs.getString("pass"),
                     rs.getString("salt"));
-            conn.close();
+            rs.close();
+            st.close();
             return user;
         }
-        conn.close();
+        rs.close();
+        st.close();
         return new User("", "", "");
     }
 

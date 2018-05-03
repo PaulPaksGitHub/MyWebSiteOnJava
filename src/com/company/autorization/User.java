@@ -1,4 +1,4 @@
-package com.company.autorization.user;
+package com.company.autorization;
 
 public class User {
     private String login;

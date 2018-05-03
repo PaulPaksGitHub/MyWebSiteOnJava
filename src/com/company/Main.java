@@ -9,10 +9,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.flywaydb.core.Flyway;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Main {
     private static final Logger logger = LogManager.getLogger(Main.class);
+
+    private static final String url = "jdbc:h2:file:./data/db";
+    private static final String dbUser = "sa";
+    private static final String dbPassword = "";
 
     public static void main(String[] args) throws SQLException {
         checkDBconnection();
@@ -27,6 +33,8 @@ public class Main {
             System.exit(0);
         }
 
+        Connection conn = DriverManager.getConnection(url, dbUser, dbPassword);
+
         logger.info("Get parameters: " + args);
 
         Parameters user = defaultParser.parse(args);
@@ -36,22 +44,25 @@ public class Main {
         Accounting accounting = new Accounting();
 
         if (user.canAutorize() && user.canAuthehtific() && user.canAccaunt()) {
-            autorization.isAutorized(user);
-            authentific.isAuthentificated(user);
+            autorization.isAutorized(user,conn);
+            authentific.isAuthentificated(user,conn);
             accounting.isAccounted(user);
         } else if (user.canAutorize() && user.canAuthehtific()) {
-            autorization.isAutorized(user);
-            authentific.isAuthentificated(user);
+            autorization.isAutorized(user,conn);
+            authentific.isAuthentificated(user,conn);
         } else if (user.canAutorize()) {
-            autorization.isAutorized(user);
+            autorization.isAutorized(user,conn);
         }
+
+        conn.close();
+
         if (user.isH()) {
             defaultParser.printHelp(defaultParser.getOptions(), System.out);
         }
     }
     private static void checkDBconnection() {
         Flyway flyway = new Flyway();
-        flyway.setDataSource("jdbc:h2:file:./data/db", "sa", "");
+        flyway.setDataSource(url, dbUser, dbPassword);
         flyway.migrate();
     }
 }
