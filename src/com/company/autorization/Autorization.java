@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 public class Autorization {
     private static final Logger logger = LogManager.getLogger(Autorization.class);
 
-    public void isAutorized(Parameters param, Connection  conn) throws SQLException {
+    public void isAutorized(Parameters param, Connection conn) throws SQLException {
         if (!param.hasLogin() && !param.hasPassword()) { //если логина и пароля нет нет, то работа программы завершается
             logger.error("Can not autorize: Hasn't login and password");
             conn.close();
@@ -24,10 +24,9 @@ public class Autorization {
                 logger.error("Can not autorize: Login " + param.getLogin() + " isn't regex");
                 conn.close();
                 System.exit(1);
-                return;
             }
             User userWithTheSameLogin = getUserFromLogin(param.getLogin(), conn);
-            String password;
+            String password = "";
 
             try { //получаем хэш пароля, который ввел пользоаптель
                 Md5Hash hash = new Md5Hash();
@@ -38,7 +37,6 @@ public class Autorization {
                 logger.error(e);
                 conn.close();
                 System.exit(2);
-                return;
             }
 
             if (!userWithTheSameLogin.getLogin().equals(param.getLogin())) { //если ne совпадает логин
@@ -51,7 +49,7 @@ public class Autorization {
                 System.exit(2);
             }
 
-            logger.debug("Autorization success");
+            logger.info("Autorization success");
 
         } else if (!param.hasLogin()) {//если отсутствует логин
             logger.error("Can not autorize: Hasn't login");

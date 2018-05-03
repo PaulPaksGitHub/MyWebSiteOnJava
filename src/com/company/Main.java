@@ -12,55 +12,57 @@ import org.flywaydb.core.Flyway;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 public class Main {
     private static final Logger logger = LogManager.getLogger(Main.class);
 
-    private static final String url = "jdbc:h2:file:./data/db";
-    private static final String dbUser = "sa";
-    private static final String dbPassword = "";
+    private static String url = "jdbc:h2:file:./data/db";
+    private static String dbUser = "sa";
+    private static String dbPassword = "";
 
     public static void main(String[] args) throws SQLException {
         checkDBconnection();
+        System.out.println(Arrays.toString(args));
+        args = args[0].replace("'", "").split(" ");
+        System.out.println(Arrays.toString(args));
 
         ParseLine defaultParser = new ParseLine();
-        args = "-login pa -pass 12".split(" ");
 
         logger.info("================================");
 
         if (args.length == 0) {
-            defaultParser.parse(args);
+            defaultParser.parse(args[0].split(" "));
             defaultParser.printHelp(defaultParser.getOptions(), System.out);
             System.exit(0);
         }
 
         Connection conn = DriverManager.getConnection(url, dbUser, dbPassword);
 
-        logger.info("Get parameters: " + args.toString());
+        logger.info("Get parameters: " + Arrays.toString(args));
 
-        Parameters user = defaultParser.parse(args);
+        Parameters param = defaultParser.parse(args);
 
         Autorization autorization = new Autorization();
         Authentific authentific = new Authentific();
         Accounting accounting = new Accounting();
 
-        if (user.canAutorize() && user.canAuthehtific() && user.canAccaunt()) {
-            autorization.isAutorized(user,conn);
-            authentific.isAuthentificated(user,conn);
-            accounting.isAccounted(user);
-        } else if (user.canAutorize() && user.canAuthehtific()) {
-            autorization.isAutorized(user,conn);
-            authentific.isAuthentificated(user,conn);
-        } else if (user.canAutorize()) {
-            autorization.isAutorized(user,conn);
+        if (param.canAutorize() && param.canAuthehtific() && param.canAccaunt()) {
+            autorization.isAutorized(param, conn);
+            authentific.isAuthentificated(param, conn);
+            accounting.isAccounted(param);
+        } else if (param.canAutorize() && param.canAuthehtific()) {
+            autorization.isAutorized(param, conn);
+            authentific.isAuthentificated(param, conn);
+        } else if (param.canAutorize()) {
+            autorization.isAutorized(param, conn);
         }
-
-        conn.close();
-
-        if (user.isH()) {
+        if (param.isH()) {
             defaultParser.printHelp(defaultParser.getOptions(), System.out);
         }
+        conn.close();
     }
+
     private static void checkDBconnection() {
         Flyway flyway = new Flyway();
         flyway.setDataSource(url, dbUser, dbPassword);
