@@ -1,6 +1,5 @@
 package com.company.parameters;
 
-import com.company.parameters.Parameters;
 import org.apache.commons.cli.*;
 
 import java.io.OutputStream;
@@ -14,34 +13,12 @@ public class ParseLine {
     }
 
     public Parameters parse(String[] args) {
-        Parameters.Builder params = new Parameters().newBuilder();
-        Option optLogin = new Option("login", true, "Login");
-        posixOptions.addOption(optLogin);
-
-        Option optPass = new Option("pass", true, "Password");
-        posixOptions.addOption(optPass);
-
-        Option optRes = new Option("res", true, "Resource");
-        posixOptions.addOption(optRes);
-
-        Option optRole = new Option("role", true, "Role");
-        posixOptions.addOption(optRole);
-
-        Option optDs = new Option("ds", true, "Ds");
-        posixOptions.addOption(optDs);
-
-        Option optDe = new Option("de", true, "De");
-        posixOptions.addOption(optDe);
-
-        Option optVol = new Option("vol", true, "Volume");
-        posixOptions.addOption(optVol);
-
-        Option optHelp = new Option("help", false, "Help");
-        posixOptions.addOption(optHelp);
+        Parameters params = new Parameters();
 
         CommandLineParser cmdLinePosixParser = new DefaultParser();
         try {
-            CommandLine commandLine = cmdLinePosixParser.parse(posixOptions, args);
+
+            CommandLine commandLine = cmdLinePosixParser.parse(getOptions(), args);
             if (commandLine.hasOption("login")) {
                 params.setLogin(commandLine.getOptionValues("login")[0]);
             }
@@ -63,13 +40,13 @@ public class ParseLine {
             if (commandLine.hasOption("vol")) {
                 params.setVol(commandLine.getOptionValues("vol")[0]);
             }
-            if (commandLine.hasOption("h") || params.build().isEmpty()) {
+            if (commandLine.hasOption("h") || params.isEmpty()) {
                 params.setH(true);
             }
-            return params.build();
+            return params;
         } catch (ParseException e) {
             params.setH(true);
-            return params.build();
+            return params;
         }
     }
 
@@ -96,5 +73,16 @@ public class ParseLine {
                 footer,
                 displayUsage);
         writer.flush();
+    }
+
+    public ParseLine(){
+        posixOptions.addOption(new Option("login", true, "Login"));
+        posixOptions.addOption(new Option("pass", true, "Password"));
+        posixOptions.addOption(new Option("res", true, "Resource"));
+        posixOptions.addOption(new Option("role", true, "Role"));
+        posixOptions.addOption(new Option("ds", true, "Ds"));
+        posixOptions.addOption(new Option("de", true, "De"));
+        posixOptions.addOption(new Option("vol", true, "Volume"));
+        posixOptions.addOption(new Option("help", false, "Help"));
     }
 }
