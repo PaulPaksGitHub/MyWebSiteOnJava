@@ -3,34 +3,33 @@ package com.company;
 import com.company.accounting.Accounting;
 import com.company.authentific.Authentific;
 import com.company.autorization.Autorization;
-import com.company.flyway_migrations.FlywayCheck;
 import com.company.parameters.Parameters;
-import com.company.line_parser.ParseLine;
+import com.company.parameters.ParseLine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.flywaydb.core.Flyway;
 
 import java.sql.SQLException;
 
 public class Main {
-    private static final Logger logger = LogManager.getLogger("Main.class");
+    private static final Logger logger = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) throws SQLException {
-        FlywayCheck migrate = new FlywayCheck();
-        migrate.checkDB();
+        checkDBconnection();
 
         ParseLine defaultParser = new ParseLine();
 
         logger.info("================================");
 
         if (args.length == 0) {
-            defaultParser.parse("".split(" "));
+            defaultParser.parse(args);
             defaultParser.printHelp(defaultParser.getOptions(), System.out);
             System.exit(0);
         }
 
-        logger.info("Get parameters: " + args[0].replaceAll("'", ""));
+        logger.info("Get parameters: " + args);
 
-        Parameters user = defaultParser.parse(args[0].replaceAll("'", "").split(" "));
+        Parameters user = defaultParser.parse(args);
 
         Autorization autorization = new Autorization();
         Authentific authentific = new Authentific();
@@ -49,5 +48,10 @@ public class Main {
         if (user.isH()) {
             defaultParser.printHelp(defaultParser.getOptions(), System.out);
         }
+    }
+    private static void checkDBconnection() {
+        Flyway flyway = new Flyway();
+        flyway.setDataSource("jdbc:h2:file:./data/db", "sa", "");
+        flyway.migrate();
     }
 }

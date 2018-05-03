@@ -1,4 +1,4 @@
-package com.company.line_parser;
+package com.company.parameters;
 
 import com.company.parameters.Parameters;
 import org.apache.commons.cli.*;
