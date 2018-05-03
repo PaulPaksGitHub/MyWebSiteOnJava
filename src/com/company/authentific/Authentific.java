@@ -16,12 +16,14 @@ public class Authentific {
             ResourceParser user = new ResourceParser();
             if (!user.authentificFromAdress(param, conn)) {
                 logger.error("Can not authentificate: '" + param.getRole() + "' is wrong resource");
+                conn.close();
                 System.exit(4);
             }
             logger.debug("Authentification success");
         } catch (IllegalArgumentException e) {
             logger.error("Can not authentificate: '" + param.getRole() + "' is wrong role");
             logger.error(e);
+            conn.close();
             System.exit(3);
         }
     }
