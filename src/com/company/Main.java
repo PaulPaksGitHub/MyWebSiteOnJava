@@ -50,7 +50,7 @@ public class Main {
         if (param.canAutorize() && param.canAuthehtific() && param.canAccaunt()) {
             autorization.isAutorized(param, conn);
             authentific.isAuthentificated(param, conn);
-            accounting.isAccounted(param);
+            accounting.isAccounted(param, conn);
         } else if (param.canAutorize() && param.canAuthehtific()) {
             autorization.isAutorized(param, conn);
             authentific.isAuthentificated(param, conn);

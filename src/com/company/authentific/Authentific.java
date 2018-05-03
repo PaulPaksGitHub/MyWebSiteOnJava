@@ -12,7 +12,7 @@ public class Authentific {
 
     public void isAuthentificated(Parameters param, Connection conn) throws SQLException {
         try {
-            Roles.roles.valueOf(param.getRole());
+            Roles.valueOf(param.getRole());
             ResourceParser user = new ResourceParser();
             if (!user.authentificFromAdress(param, conn)) {
                 logger.error("Can not authentificate: '" + param.getRole() + "' is wrong resource");
