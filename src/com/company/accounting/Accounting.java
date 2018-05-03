@@ -4,6 +4,9 @@ import com.company.parameters.Parameters;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -11,17 +14,25 @@ import java.time.format.DateTimeParseException;
 public class Accounting {
     private static final Logger logger = LogManager.getLogger(Accounting.class);
 
-    public void isAccounted(Parameters param) {
-        if (hasTrueData(param) && hasTrueVol(param)) {
+    public void isAccounted(Parameters param, Connection conn) throws SQLException {
+        if (hasTrueData(param, conn) && hasTrueVol(param, conn)) {
             logger.debug("Accaunting success: " +
                     param.getLogin() + ", " +
                     param.getDs() + ", " +
                     param.getDe() + ", " +
                     param.getVol());
+
+            PreparedStatement st = conn.prepareStatement("insert into acc (login, ds, de, vol) values (?,?,?,?) ");
+            st.setString(1, param.getLogin());
+            st.setString(2, param.getDs());
+            st.setString(3, param.getDe());
+            st.setString(4,  param.getVol());
+            st.executeUpdate();
+            st.close();
         }
     }
 
-    private boolean hasTrueData(Parameters param) {
+    private boolean hasTrueData(Parameters param, Connection conn) throws SQLException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             LocalDate.parse(param.getDs(), formatter);
@@ -30,18 +41,20 @@ public class Accounting {
         } catch (DateTimeParseException e) {
             logger.error("Can not account: '" + param.getDs() + " " + param.getDe() + "' is wrong data");
             logger.error(e);
+            conn.close();
             System.exit(5);
             return false;
         }
     }
 
-    private boolean hasTrueVol(Parameters param) {
+    private boolean hasTrueVol(Parameters param, Connection conn) throws SQLException {
         try {
             int a = Integer.parseInt(param.getVol());
             return true;
         } catch (NumberFormatException e) {
             logger.error("Can not account: '" + param.getVol() + "' is wrong vol");
             logger.error(e);
+            conn.close();
             System.exit(5);
             return false;
         }
