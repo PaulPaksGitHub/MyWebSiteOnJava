@@ -10,8 +10,8 @@ create table users
 create table res (
   id integer not null auto_increment,
   adress varchar(50) not null ,
+  parent varchar(50) ,
   login varchar(50) not null references users(login),
-  id_user integer not null references users(id) ,
   role varchar(20) not null,
   constraint res_pk primary key (login , role)
 );

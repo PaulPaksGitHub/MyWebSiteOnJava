@@ -23,19 +23,15 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
         checkDBconnection();
-        System.out.println(Arrays.toString(args));
-        args = args[0].replace("'", "").split(" ");
-        System.out.println(Arrays.toString(args));
-
         ParseLine defaultParser = new ParseLine();
 
         logger.info("================================");
 
         if (args.length == 0) {
-            defaultParser.parse(args[0].split(" "));
             defaultParser.printHelp(defaultParser.getOptions(), System.out);
             System.exit(0);
         }
+        args = args[0].replace("'", "").split(" ");
 
         Connection conn = DriverManager.getConnection(url, dbUser, dbPassword);
 
