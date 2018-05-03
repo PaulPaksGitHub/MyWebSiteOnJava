@@ -17,30 +17,24 @@ public class ResourceParser {
     //с каждой итерацией добавляет к частичному адресу следующий узел из полного адреса
     // и повторяет попыткум аутентификации.
     public boolean authentificFromAdress(Parameters param, Connection conn) throws SQLException {
-        return hasPermission(param, param.getRes(), conn);
-    }
-
-    public boolean hasPermission(Parameters param, String cutAdress, Connection conn) throws SQLException {
-        if (cutAdress == null) {
-            logger.error("Authentification failed: user " + param.getLogin()
-                    + " han't role " + param.getRole() + " on res " + param.getRes());
-            return false;
+        String ad = "";
+        for (String i : param.getRes().split("//.")) {
+            ad+=i;
+            PreparedStatement st = conn.prepareStatement("select * from res where (adress like ?) and login = ? and role = ?");
+            st.setString(1, i);
+            st.setString(2, param.getLogin());
+            st.setString(3, param.getRole());
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                rs.close();
+                st.close();
+                return true;
+            } else {
+                rs.close();
+                st.close();
+                return false;
+            }
         }
-        PreparedStatement st = conn.prepareStatement(
-                "select * from res where adress = ? and login = ? and role = ?");
-        st.setString(1, cutAdress);
-        st.setString(2, param.getLogin());
-        st.setString(3, param.getRole());
-        ResultSet rs = st.executeQuery();
-        if (rs.next()) {
-            rs.close();
-            st.close();
-            return true;
-        } else {
-            st = conn.prepareStatement("select * from res where adress = ?");
-            st.setString(1, cutAdress);
-            rs = st.executeQuery();
-            return hasPermission(param, rs.getString("parent"), conn);
-        }
+        return false;
     }
 }

@@ -1,5 +1,10 @@
 @echo off
 
+echo =====DataVol=====
+java -cp ".\out\production\prj;.\libraries\*" com.company.Main "-login pa -pass 12 -res A -role READ -ds 2101-12-12 -de 1233-12-03 -vol 4"
+IF %ERRORLEVEL% EQU 0 ( echo OK )
+IF %ERRORLEVEL% NEQ 0 ( echo ### CRASHED ### )
+
 echo =====UnknownOption=====
 java -cp ".\out\production\prj;.\libraries\*" com.company.Main "-egg foo"
 IF %ERRORLEVEL% EQU 0 ( echo OK )
@@ -15,6 +20,7 @@ java -cp ".\out\production\prj;.\libraries\*" com.company.Main  "-login pa -pass
 IF %ERRORLEVEL% EQU 0 ( echo OK )
 IF %ERRORLEVEL% NEQ 0 ( echo ### CRASHED ### )
 
+
 echo =====wrongLogin=====
 java -cp ".\out\production\prj;.\libraries\*" com.company.Main "-login kukuruzka -pass 12"
 IF %ERRORLEVEL% EQU 1 ( echo OK )
@@ -25,10 +31,6 @@ java -cp ".\out\production\prj;.\libraries\*" com.company.Main "-login 'pa' -pas
 IF %ERRORLEVEL% EQU 0 ( echo OK )
 IF %ERRORLEVEL% NEQ 0 ( echo ### CRASHED ### )
 
-echo =====DataVol=====
-java -cp ".\out\production\prj;.\commons-cli-1.4.jar;.\h2-1.4.197.jar;.\log4j-1.2.17.jar" com.company.Main "-login pa -pass 12 -res A.B -role READ -ds 2101-12-12 -de 1233-12-03 -vol 4"
-IF %ERRORLEVEL% EQU 0 ( echo OK )
-IF %ERRORLEVEL% NEQ 0 ( echo ### CRASHED ### )
 
 echo =====OnlyLogin=====
 java -cp ".\out\production\prj;.\commons-cli-1.4.jar;.\h2-1.4.197.jar;.\log4j-1.2.17.jar" com.company.Main "-login pa "

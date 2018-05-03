@@ -22,16 +22,18 @@ public class Main {
     private static String dbPassword = "";
 
     public static void main(String[] args) throws SQLException {
-        checkDBconnection();
-        ParseLine defaultParser = new ParseLine();
-
         logger.info("================================");
+        logger.info("Start migrations");
+        checkDBconnection();
+        logger.info("End migrations");
+
+        ParseLine defaultParser = new ParseLine();
 
         if (args.length == 0) {
             defaultParser.printHelp(defaultParser.getOptions(), System.out);
             System.exit(0);
         }
-        args = args[0].replace("'", "").split(" ");
+
 
         Connection conn = DriverManager.getConnection(url, dbUser, dbPassword);
 

@@ -13,6 +13,10 @@ public class ParseLine {
     }
 
     public Parameters parse(String[] args) {
+        //В тестх очень удобно передавать все аргументы единой строкой.
+        //Для работы парсеру нужно разбить строку.
+        args = args[0].replace("'", "").split(" ");
+
         Parameters params = new Parameters();
 
         CommandLineParser cmdLinePosixParser = new DefaultParser();
