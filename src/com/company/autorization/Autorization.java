@@ -14,7 +14,16 @@ public class Autorization {
     private static final Logger logger = LogManager.getLogger(Autorization.class);
 
     public void isAutorized(Parameters param, Connection conn) throws SQLException {
-        if (!param.hasLoginAndPass()) { //если логина и пароля нет нет, то работа программы завершается
+        if (!param.hasLogin()) {//если отсутствует логин
+            logger.error("Can not autorize: Hasn't login");
+            conn.close();
+            System.exit(1);
+        } else if (!param.hasPassword()) {//если отсутствует пароль
+            logger.error("Can not autorize: Hasn't password");
+            conn.close();
+            System.exit(2);
+        }
+        else if (!param.hasLoginAndPass()) { //если логина и пароля нет
             logger.error("Can not autorize: Hasn't login and password");
             conn.close();
             System.exit(6);
@@ -25,6 +34,7 @@ public class Autorization {
                 conn.close();
                 System.exit(1);
             }
+            
             User userWithTheSameLogin = getUserFromLogin(param.getLogin(), conn);
             String password = "";
 
@@ -51,14 +61,6 @@ public class Autorization {
 
             logger.info("Autorization success for user {}", param.getLogin());
 
-        } else if (!param.hasLogin()) {//если отсутствует логин
-            logger.error("Can not autorize: Hasn't login");
-            conn.close();
-            System.exit(1);
-        } else if (!param.hasPassword()) {//если отсутствует пароль
-            logger.error("Can not autorize: Hasn't password");
-            conn.close();
-            System.exit(2);
         }
     }
 
