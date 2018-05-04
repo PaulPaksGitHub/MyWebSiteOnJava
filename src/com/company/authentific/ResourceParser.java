@@ -17,24 +17,20 @@ public class ResourceParser {
     //с каждой итерацией добавляет к частичному адресу следующий узел из полного адреса
     // и повторяет попыткум аутентификации.
     public boolean authentificFromAdress(Parameters param, Connection conn) throws SQLException {
-        String ad = "";
-        for (String i : param.getRes().split("//.")) {
-            ad+=i;
-            PreparedStatement st = conn.prepareStatement("select * from res where (adress like ?) and login = ? and role = ?");
-            st.setString(1, i);
-            st.setString(2, param.getLogin());
-            st.setString(3, param.getRole());
-            ResultSet rs = st.executeQuery();
-            if (rs.next()) {
-                rs.close();
-                st.close();
-                return true;
-            } else {
-                rs.close();
-                st.close();
-                return false;
-            }
+
+        PreparedStatement st = conn.prepareStatement("select * from res where (adress like concat(?,'%')) and login = ? and role = ?");
+        st.setString(1, param.getRes().split("\\.")[0]);
+        st.setString(2, param.getLogin());
+        st.setString(3, param.getRole());
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            rs.close();
+            st.close();
+            return true;
+        } else {
+            rs.close();
+            st.close();
+            return false;
         }
-        return false;
     }
 }
