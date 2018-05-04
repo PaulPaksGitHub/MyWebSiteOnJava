@@ -14,12 +14,12 @@ public class Autorization {
     private static final Logger logger = LogManager.getLogger(Autorization.class);
 
     public void isAutorized(Parameters param, Connection conn) throws SQLException {
-        if (!param.hasLogin() && !param.hasPassword()) { //если логина и пароля нет нет, то работа программы завершается
+        if (!param.hasLoginAndPass()) { //если логина и пароля нет нет, то работа программы завершается
             logger.error("Can not autorize: Hasn't login and password");
             conn.close();
             System.exit(6);
 
-        } else if (param.hasLogin() && param.hasPassword()) {//введениы и логин, и пароль, то пытаемся авторизировать
+        } else if (param.hasLoginAndPass()) {//введениы и логин, и пароль, то пытаемся авторизировать
             if (!isLoginRegex(param.getLogin())) {//если login не соответствует шаблону
                 logger.error("Can not autorize: Login {} isn't regex", param.getLogin());
                 conn.close();

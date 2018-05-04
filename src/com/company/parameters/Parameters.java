@@ -42,6 +42,10 @@ public class Parameters {
         return ds != null|| de != null|| vol != null;
     }
 
+    public boolean hasLoginAndPass() {
+        return hasLogin() && hasPassword();
+    }
+
     public String getLogin() {
         return login;
     }
