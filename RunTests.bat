@@ -1,4 +1,8 @@
 @echo off
+echo C3.6
+java -cp ".\out\production\prj;.\libraries\*" com.company.Main "-login 'jdoe' -pass 'sup3rpaZZ' -role 'WRITE' -res 'a.bc'"
+IF %ERRORLEVEL% EQU 4 ( echo OK )
+IF %ERRORLEVEL% NEQ 4 ( echo ### CRASHED ### )
 
 echo =====onlyRole=====
 java -cp ".\out\production\prj;.\libraries\*" com.company.Main "-login pa -pass 12 -role READ"
