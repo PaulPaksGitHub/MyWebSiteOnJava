@@ -26,20 +26,20 @@ public class Parameters {
         return role == null;
     }
 
-    public boolean hasNotRes(){
+    public boolean hasNotRes() {
         return res == null;
     }
 
     public boolean canAutorize() {
-        return login!= null|| pass!= null;
+        return login != null || pass != null;
     }
 
     public boolean canAuthehtific() {
-        return role!= null || res!= null;
+        return role != null || res != null;
     }
 
     public boolean canAccaunt() {
-        return ds != null|| de != null|| vol != null;
+        return ds != null || de != null || vol != null;
     }
 
     public boolean hasLoginAndPass() {

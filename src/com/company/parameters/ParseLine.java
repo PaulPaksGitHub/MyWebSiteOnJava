@@ -13,7 +13,7 @@ public class ParseLine {
     }
 
     public Parameters parse(String[] args) {
-        //В тестх очень удобно передавать все аргументы единой строкой.
+        //В тестaх очень удобно передавать все аргументы единой строкой.
         //Для работы парсеру нужно разбить строку.
         args = args[0].replace("'", "").split(" ");
 
@@ -79,7 +79,7 @@ public class ParseLine {
         writer.flush();
     }
 
-    public ParseLine(){
+    public ParseLine() {
         posixOptions.addOption(new Option("login", true, "Login"));
         posixOptions.addOption(new Option("pass", true, "Password"));
         posixOptions.addOption(new Option("res", true, "Resource"));

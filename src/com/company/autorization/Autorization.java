@@ -6,7 +6,10 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,8 +25,7 @@ public class Autorization {
             logger.error("Can not autorize: Hasn't password");
             conn.close();
             System.exit(2);
-        }
-        else if (!param.hasLoginAndPass()) { //если логина и пароля нет
+        } else if (!param.hasLoginAndPass()) { //если и логина и пароля нет
             logger.error("Can not autorize: Hasn't login and password");
             conn.close();
             System.exit(6);
@@ -34,7 +36,7 @@ public class Autorization {
                 conn.close();
                 System.exit(1);
             }
-            
+
             User userWithTheSameLogin = getUserFromLogin(param.getLogin(), conn);
             String password = "";
 
@@ -50,7 +52,7 @@ public class Autorization {
             }
 
             if (!userWithTheSameLogin.getLogin().equals(param.getLogin())) { //если ne совпадает логин
-                logger.error("Can not autorize: {] is wrong login",   param.getLogin() );
+                logger.error("Can not autorize: {] is wrong login", param.getLogin());
                 conn.close();
                 System.exit(1);
             } else if (!userWithTheSameLogin.getPass().equals(password)) {//если ne совпадает пароль
@@ -60,7 +62,6 @@ public class Autorization {
             }
 
             logger.info("Autorization success for user {}", param.getLogin());
-
         }
     }
 

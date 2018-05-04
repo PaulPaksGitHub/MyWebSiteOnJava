@@ -34,10 +34,9 @@ public class Main {
             System.exit(0);
         }
 
-
         Connection conn = DriverManager.getConnection(url, dbUser, dbPassword);
 
-        logger.info("Get parameters: {}" , Arrays.toString(args));
+        logger.info("Get parameters: {}", Arrays.toString(args));
 
         Parameters param = defaultParser.parse(args);
 

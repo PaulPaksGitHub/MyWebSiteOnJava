@@ -11,7 +11,7 @@ public class Authentific {
     private static final Logger logger = LogManager.getLogger(Authentific.class);
 
     public void isAuthentificated(Parameters param, Connection conn) throws SQLException {
-        if (param.hasNotRole()){
+        if (param.hasNotRole()) {
             logger.error("User {} has not role parameter", param.getLogin());
             conn.close();
             System.exit(3);
@@ -24,7 +24,7 @@ public class Authentific {
         try {
             Roles.valueOf(param.getRole());
             ResourceParser user = new ResourceParser();
-            if (!user.authentificFromAdressOneSQL(param, conn) ) {
+            if (!user.authentificFromAdressOneSQL(param, conn)) {
                 logger.error("Can not authentificate: {} is wrong res for user {}", param.getRes(), param.getLogin());
                 conn.close();
                 System.exit(4);
