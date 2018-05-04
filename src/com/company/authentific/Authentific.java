@@ -24,7 +24,7 @@ public class Authentific {
         try {
             Roles.valueOf(param.getRole());
             ResourceParser user = new ResourceParser();
-            if (!user.authentificFromAdress(param, conn) ) {
+            if (!user.authentificFromAdressOneSQL(param, conn) ) {
                 logger.error("Can not authentificate: {} is wrong res for user {}", param.getRes(), param.getLogin());
                 conn.close();
                 System.exit(4);
