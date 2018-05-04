@@ -18,8 +18,7 @@ public class ResourceParser {
     // и повторяет попыткум аутентификации.
     public boolean authentificFromAdressOneSQL(Parameters param, Connection conn) throws SQLException {
         PreparedStatement st = conn.prepareStatement(
-                "select * from res where (adress like concat(?,'%')) and (? like concat(res.adress, '[.]%')) " +
-                        "and login = ? and role = ?");
+                "select * from res where (adress like concat(?,'%'))and (concat(?,'.') like concat(res.adress,'.%')) and login = ? and role = ?");
         st.setString(1, param.getRes().split("\\.")[0]);
         st.setString(2, param.getRes());
         st.setString(3, param.getLogin());
