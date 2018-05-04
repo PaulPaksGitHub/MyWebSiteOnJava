@@ -6,13 +6,13 @@ values
 ('jrow', '1878356a24ead84df12e2afa97a4d0b9', '7X1PFTWGNZ7DO0RIINYQPWITMBPLLJ7J'),
 ('xxx', 'a051f8237087d0c4dd768505cf2952f9', 'VST7AR0FYAJ8KIK6QFQ6O58X82I9SRIU');
 
-insert into res (adress, parent, login , role)
+insert into res (adress, login , role)
 values
-('A',null, 'pa', 'READ'),
-('A',null, 'ha', 'EXECUTE'),
-('A.B','A', 'pa', 'EXECUTE'),
-('A.B.C','A.B', 'pa', 'WRITE'),
-('a',null, 'jdoe', 'READ'),
-('a.b', 'a','jdoe', 'WRITE'),
-('a.b.c','a.b', 'jrow', 'EXECUTE'),
-('a.bc','a', 'jdoe', 'EXECUTE');
+('A', 'pa', 'READ'),
+('A', 'ha', 'EXECUTE'),
+('A.B', 'pa', 'EXECUTE'),
+('A.B.C', 'pa', 'WRITE'),
+('a', 'jdoe', 'READ'),
+('a.b','jdoe', 'WRITE'),
+('a.b.c', 'jrow', 'EXECUTE'),
+('a.bc', 'jdoe', 'EXECUTE');
