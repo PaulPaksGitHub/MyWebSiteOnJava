@@ -1,37 +1,45 @@
 package com.company.parameters;
 
 public class Parameters {
-    private String login = "";
-    private String pass = "";
-    private String res = "";
-    private String role = "";
-    private String ds = "";
-    private String de = "";
-    private String vol = "";
+    private String login = null;
+    private String pass = null;
+    private String res = null;
+    private String role = null;
+    private String ds = null;
+    private String de = null;
+    private String vol = null;
     private boolean h = false;
 
-    public boolean isEmpty() {
+    public boolean isParamEmpty() {
         return !canAutorize() && !canAuthehtific() && !canAccaunt();
     }
 
     public boolean hasLogin() {
-        return !login.equals("");
+        return login != null;
     }
 
     public boolean hasPassword() {
-        return !pass.equals("");
+        return pass != null;
+    }
+
+    public boolean hasNotRole() {
+        return role == null;
+    }
+
+    public boolean hasNotRes(){
+        return res == null;
     }
 
     public boolean canAutorize() {
-        return !login.equals("") || !pass.equals("");
+        return login!= null|| pass!= null;
     }
 
     public boolean canAuthehtific() {
-        return !role.equals("") || !res.equals("");
+        return role!= null || res!= null;
     }
 
     public boolean canAccaunt() {
-        return !ds.equals("") || !de.equals("") || !vol.equals("");
+        return ds != null|| de != null|| vol != null;
     }
 
     public String getLogin() {

@@ -44,7 +44,7 @@ public class ParseLine {
             if (commandLine.hasOption("vol")) {
                 params.setVol(commandLine.getOptionValues("vol")[0]);
             }
-            if (commandLine.hasOption("h") || params.isEmpty()) {
+            if (commandLine.hasOption("h") || params.isParamEmpty()) {
                 params.setH(true);
             }
             return params;
