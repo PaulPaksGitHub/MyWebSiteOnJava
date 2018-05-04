@@ -16,10 +16,10 @@ public class Accounting {
 
     public void isAccounted(Parameters param, Connection conn) throws SQLException {
         if (hasTrueData(param, conn) && hasTrueVol(param, conn)) {
-            logger.debug("Accaunting success: " +
-                    param.getLogin() + ", " +
-                    param.getDs() + ", " +
-                    param.getDe() + ", " +
+            logger.debug("Accaunting success: {}, {}, {}, {}" ,
+                    param.getLogin() ,
+                    param.getDs() ,
+                    param.getDe() ,
                     param.getVol());
 
             PreparedStatement st = conn.prepareStatement("insert into acc (login, ds, de, vol) values (?,?,?,?) ");
@@ -39,7 +39,7 @@ public class Accounting {
             LocalDate.parse(param.getDe(), formatter);
             return true;
         } catch (DateTimeParseException e) {
-            logger.error("Can not account: '" + param.getDs() + " " + param.getDe() + "' is wrong data");
+            logger.error("Can not account: {}, {} is wrong data", param.getDs(), param.getDe());
             logger.error(e);
             conn.close();
             System.exit(5);
@@ -52,7 +52,7 @@ public class Accounting {
             int a = Integer.parseInt(param.getVol());
             return true;
         } catch (NumberFormatException e) {
-            logger.error("Can not account: '" + param.getVol() + "' is wrong vol");
+            logger.error("Can not account: {} is wrong vol", param.getVol());
             logger.error(e);
             conn.close();
             System.exit(5);

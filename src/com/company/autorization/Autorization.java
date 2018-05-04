@@ -21,7 +21,7 @@ public class Autorization {
 
         } else if (param.hasLogin() && param.hasPassword()) {//введениы и логин, и пароль, то пытаемся авторизировать
             if (!isLoginRegex(param.getLogin())) {//если login не соответствует шаблону
-                logger.error("Can not autorize: Login " + param.getLogin() + " isn't regex");
+                logger.error("Can not autorize: Login {} isn't regex", param.getLogin());
                 conn.close();
                 System.exit(1);
             }
@@ -33,23 +33,23 @@ public class Autorization {
                 password = hash.getHash(hash.getHash(param.getPass()) + userWithTheSameLogin.getSalt());
 
             } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-                logger.error("Can not autorize: Can't get password '" + param.getPass() + "' hash");
+                logger.error("Can not autorize: Can't get hash of pass {]", param.getPass());
                 logger.error(e);
                 conn.close();
                 System.exit(2);
             }
 
             if (!userWithTheSameLogin.getLogin().equals(param.getLogin())) { //если ne совпадает логин
-                logger.error("Can not autorize:'" + param.getLogin() + "' wrong login");
+                logger.error("Can not autorize: {] is wrong login",   param.getLogin() );
                 conn.close();
                 System.exit(1);
             } else if (!userWithTheSameLogin.getPass().equals(password)) {//если ne совпадает пароль
-                logger.error("Can not autorize: Password '" + param.getPass() + "' is wron for user " + param.getLogin());
+                logger.error("Can not autorize: Password {} is wrong for user {}", param.getPass(), param.getLogin());
                 conn.close();
                 System.exit(2);
             }
 
-            logger.info("Autorization success");
+            logger.info("Autorization success for user {}", param.getLogin());
 
         } else if (!param.hasLogin()) {//если отсутствует логин
             logger.error("Can not autorize: Hasn't login");

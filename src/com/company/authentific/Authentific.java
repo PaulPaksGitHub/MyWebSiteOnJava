@@ -12,11 +12,11 @@ public class Authentific {
 
     public void isAuthentificated(Parameters param, Connection conn) throws SQLException {
         if (param.hasNotRole()){
-            logger.error("Has not role");
+            logger.error("User {} has not role parameter", param.getLogin());
             conn.close();
             System.exit(3);
         } else if (param.hasNotRes()) {
-            logger.error("Has not res");
+            logger.error("User {} has not res parameter", param.getLogin());
             conn.close();
             System.exit(4);
         }
@@ -25,13 +25,14 @@ public class Authentific {
             Roles.valueOf(param.getRole());
             ResourceParser user = new ResourceParser();
             if (!user.authentificFromAdress(param, conn) ) {
-                logger.error("Can not authentificate: '" + param.getRes() + "' is wrong res");
+                logger.error("Can not authentificate: {} is wrong res for user {}", param.getRes(), param.getLogin());
                 conn.close();
                 System.exit(4);
             }
             logger.debug("Authentification success");
+
         } catch (IllegalArgumentException e) {
-            logger.error("Can not authentificate: '" + param.getRole() + "' is wrong role");
+            logger.error("Can not authentificate: {} is wrong role for user {}", param.getRole(), param.getLogin());
             logger.error(e);
             conn.close();
             System.exit(3);
