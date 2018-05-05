@@ -52,7 +52,7 @@ public class Autorization {
             }
 
             if (!userWithTheSameLogin.getLogin().equals(param.getLogin())) { //если ne совпадает логин
-                logger.error("Can not autorize: {] is wrong login", param.getLogin());
+                logger.error("Can not autorize: {} is wrong login", param.getLogin());
                 conn.close();
                 System.exit(1);
             } else if (!userWithTheSameLogin.getPass().equals(password)) {//если ne совпадает пароль
