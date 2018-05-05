@@ -1,1 +1,1 @@
-java -jar app.jar
+java -cp "./libraries/*:app.jar" com.company.Main

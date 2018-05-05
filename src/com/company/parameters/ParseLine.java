@@ -1,11 +1,14 @@
 package com.company.parameters;
 
 import org.apache.commons.cli.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
 public class ParseLine {
+    private static final Logger logger = LogManager.getLogger(ParseLine.class);
     private Options posixOptions = new Options();
 
     public Options getOptions() {
@@ -13,9 +16,7 @@ public class ParseLine {
     }
 
     public Parameters parse(String[] args) {
-        //В тестaх очень удобно передавать все аргументы единой строкой.
-        //Для работы парсеру нужно разбить строку.
-        args = args[0].replace("'", "").split(" ");
+        logger.info("Start parsing");
 
         Parameters params = new Parameters();
 
@@ -24,31 +25,32 @@ public class ParseLine {
 
             CommandLine commandLine = cmdLinePosixParser.parse(getOptions(), args);
             if (commandLine.hasOption("login")) {
-                params.setLogin(commandLine.getOptionValues("login")[0]);
+                params.setLogin(commandLine.getOptionValues("login")[0].replace("'", ""));
             }
             if (commandLine.hasOption("pass")) {
-                params.setPass(commandLine.getOptionValues("pass")[0]);
+                params.setPass(commandLine.getOptionValues("pass")[0].replace("'", ""));
             }
             if (commandLine.hasOption("res")) {
-                params.setRes(commandLine.getOptionValues("res")[0]);
+                params.setRes(commandLine.getOptionValues("res")[0].replace("'", ""));
             }
             if (commandLine.hasOption("role")) {
-                params.setRole(commandLine.getOptionValues("role")[0]);
+                params.setRole(commandLine.getOptionValues("role")[0].replace("'", ""));
             }
             if (commandLine.hasOption("ds")) {
-                params.setDs(commandLine.getOptionValues("ds")[0]);
+                params.setDs(commandLine.getOptionValues("ds")[0].replace("'", ""));
             }
             if (commandLine.hasOption("de")) {
-                params.setDe(commandLine.getOptionValues("de")[0]);
+                params.setDe(commandLine.getOptionValues("de")[0].replace("'", ""));
             }
             if (commandLine.hasOption("vol")) {
-                params.setVol(commandLine.getOptionValues("vol")[0]);
+                params.setVol(commandLine.getOptionValues("vol")[0].replace("'", ""));
             }
             if (commandLine.hasOption("h") || params.isParamEmpty()) {
                 params.setH(true);
             }
             return params;
         } catch (ParseException e) {
+            logger.error(e);
             params.setH(true);
             return params;
         }
