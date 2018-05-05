@@ -86,7 +86,7 @@ public class Autorization {
     }
 
     private boolean isLoginRegex(String login) {
-        Pattern p = Pattern.compile("^[a-z0-9]+");
+        Pattern p = Pattern.compile("^[a-zA-Z0-9]+");
         Matcher m = p.matcher(login);
         return m.matches();
     }
