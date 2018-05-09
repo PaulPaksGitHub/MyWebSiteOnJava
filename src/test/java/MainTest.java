@@ -5,12 +5,10 @@ import org.junit.Test;
 
 import java.sql.SQLException;
 
-import static org.junit.Assert.*;
-
 public class MainTest {
     @Test
     public void testMain() throws SQLException {
-        Main.main(new String[]{"12"});
+        Main.main(new String[]{"-login", "pa", "-pass", "12"});
     }
 
 }
