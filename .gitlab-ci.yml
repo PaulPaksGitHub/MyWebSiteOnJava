@@ -1,7 +1,3 @@
 job1:
     image: java
-    script: gradle build
-
-job2:
-    image: java
-    script: ./gradlew test
+    script: RUN.sh

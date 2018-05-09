@@ -1,1 +1,2 @@
-java -cp "./libraries/*:app.jar" com.company.Main
+./gradlew build
+./gradlew test
