@@ -1,9 +1,9 @@
 apply plugin: "java"
 apply plugin: "application"
 apply plugin: "findbugs"
-//apply plugin: "checkstyle"
+apply plugin: "checkstyle"
 
-mainClassName = "com.company.Main"
+mainClassName = "main.java.com.company.Main"
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8

@@ -46,14 +46,14 @@ public class Main {
         Accounting accounting = new Accounting();
 
         if (param.canAutorize() && param.canAuthehtific() && param.canAccaunt()) {
-            autorization.isAuthorizable(param, conn);
-            authentific.isAuthentificable(param, conn);
+            checkExit(autorization.isAuthorizable(param, conn));
+            checkExit(authentific.isAuthentificable(param, conn));
             checkExit(accounting.isAccountable(param, conn));
         } else if (param.canAutorize() && param.canAuthehtific()) {
-            autorization.isAuthorizable(param, conn);
-            authentific.isAuthentificable(param, conn);
+            checkExit(autorization.isAuthorizable(param, conn));
+            checkExit(authentific.isAuthentificable(param, conn));
         } else if (param.canAutorize()) {
-            autorization.isAuthorizable(param, conn);
+            checkExit(autorization.isAuthorizable(param, conn));
         }
         if (param.isH()) {
             defaultParser.printHelp(defaultParser.getOptions(), System.out);
