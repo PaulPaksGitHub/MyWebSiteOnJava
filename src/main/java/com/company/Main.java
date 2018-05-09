@@ -61,7 +61,7 @@ public class Main {
         conn.close();
     }
 
-    private static void checkDBconnection() {
+    public static void checkDBconnection() {
         Flyway flyway = new Flyway();
         flyway.setDataSource(url, dbUser, dbPassword);
         flyway.migrate();

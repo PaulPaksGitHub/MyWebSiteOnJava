@@ -1,5 +1,6 @@
 package test.java.Authorizaion;
 
+import main.java.com.company.Main;
 import main.java.com.company.SysExits;
 import main.java.com.company.authorization.Authorization;
 import main.java.com.company.parameters.Parameters;
@@ -25,6 +26,7 @@ public class AuthorizationTest {
 
     @Before
     public void initTest() throws SQLException {
+        Main.checkDBconnection();
         auth = new Authorization();
         conn = DriverManager.getConnection(url, dbUser, dbPassword);
     }

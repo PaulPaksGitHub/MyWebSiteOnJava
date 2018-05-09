@@ -1,5 +1,6 @@
 package test.java.accounting;
 
+import main.java.com.company.Main;
 import main.java.com.company.SysExits;
 import main.java.com.company.accounting.Accounting;
 import main.java.com.company.parameters.Parameters;
@@ -27,6 +28,7 @@ public class AccountingTest {
 
     @Before
     public void initTest() throws SQLException {
+        Main.checkDBconnection();
         acc = new Accounting();
         conn = DriverManager.getConnection(url, dbUser, dbPassword);
     }
