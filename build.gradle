@@ -22,6 +22,10 @@ dependencies {
     testCompile 'org.hamcrest:hamcrest-core:1.3'
 }
 
+findbugs {
+    ignoreFailures = true
+    reportLevel = "high"
+}
 jar {
     manifest.attributes("Main-Class": mainClassName);
     baseName = 'app_gradle'
