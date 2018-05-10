@@ -1,7 +1,7 @@
 apply plugin: "java"
 apply plugin: "application"
 apply plugin: "findbugs"
-//apply plugin: "checkstyle"
+apply plugin: "checkstyle"
 
 mainClassName = "main.java.com.company.Main"
 
@@ -22,6 +22,11 @@ dependencies {
     testCompile 'org.hamcrest:hamcrest-core:1.3'
 }
 
+checkstyle {
+
+    ignoreFailures = true
+}
+
 findbugs {
     ignoreFailures = true
     reportLevel = "high"
@@ -29,7 +34,7 @@ findbugs {
 jar {
     manifest.attributes("Main-Class": mainClassName);
     baseName = 'app_gradle'
-    version =  '4.0'
+    version = '4.0'
 }
 
 task wrapper(type: Wrapper) {
