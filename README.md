@@ -2,26 +2,26 @@
 =============
 Интрукци по сборке
 -------------
-javac -sourcepath ./src -implicit:class -classpath "./libraries/*" -d bin src/com/company/Main.java
-- Создает папу .\bin с фалами класса. 
-
-jar -cvfm app.jar bin/META-INF/MANIFEST.MF -C bin .
-- собирает из папки .\bin файл с расширением jar. 
+./gradlew build
+или
+gradle build
+- Создает папку build с отчетами и собранным приложением. 
 
 Инструкция по запуску.
 -------------
-java -cp "./libraries/*:app.jar" com.company.Main
+./gradlew run или gradle run 
 - Запускает собранное приложение .
 
 Инструкция по тестированию.
 -------------
-java -cp "./libraries/*:app.jar" com.company.Main 'parametrs'
-- Запускает приложение с указанными параметрами. 
+./gradlew test или gradle test
+- Запускает unit тесты приложения. 
 
-echo $?
-- Вернет в консоль exit-code работы программы.
+gradle coberturaCheck 
+- Создает отчет по покрытию тестами
 
 Roadmaps (Наборы требований).
 -------------
 2. https://gitlab.com/kafedra/ppakseev/blob/master/Roadmaps/RoadMap2.md
 3. https://gitlab.com/kafedra/ppakseev/blob/master/Roadmaps/RoadMap3.md
+4. https://gitlab.com/kafedra/ppakseev/blob/master/roadmaps/Roadmap4.md
