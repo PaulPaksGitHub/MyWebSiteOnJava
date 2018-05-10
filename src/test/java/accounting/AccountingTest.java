@@ -13,6 +13,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 public class AccountingTest {
 
@@ -42,29 +44,29 @@ public class AccountingTest {
     @Test
     public void testHasTrueVol() throws SQLException {
         param.setVol("4");
-        assertEquals(SysExits.valueOf("EXIT0"), acc.hasTrueVol(param, conn));
+        assertTrue(acc.hasTrueVol(param, conn));
 
         param.setVol("4.2");
-        assertEquals(SysExits.valueOf("EXIT5"), acc.hasTrueVol(param, conn));
+        assertFalse(acc.hasTrueVol(param, conn));
     }
 
     @Test
     public void testHasTrueData() throws SQLException {
         param.setDs("2001-12-12");
         param.setDe("2004-12-11");
-        assertEquals(SysExits.valueOf("EXIT0"), acc.hasTrueData(param, conn));
+        assertTrue(acc.hasTrueData(param, conn));
 
         param.setDs("12-12-2001");
         param.setDe("2004-12-11");
-        assertEquals(SysExits.valueOf("EXIT5"), acc.hasTrueData(param, conn));
+        assertFalse(acc.hasTrueData(param, conn));
 
         param.setDs("2001-12-12");
         param.setDe("12-11-2004");
-        assertEquals(SysExits.valueOf("EXIT5"), acc.hasTrueData(param, conn));
+        assertFalse( acc.hasTrueData(param, conn));
 
         param.setDs("2001-20-12");
         param.setDe("2004-12-11");
-        assertEquals(SysExits.valueOf("EXIT5"), acc.hasTrueData(param, conn));
+        assertFalse( acc.hasTrueData(param, conn));
     }
 
     @Test

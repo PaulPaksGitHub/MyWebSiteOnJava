@@ -46,14 +46,14 @@ public class Main {
         Accounting accounting = new Accounting();
 
         if (param.canAutorize() && param.canAuthehtific() && param.canAccaunt()) {
-            checkExit(autorization.isAuthorizable(param, conn));
             checkExit(authentific.isAuthentificable(param, conn));
+            checkExit(autorization.isAuthorizable(param, conn));
             checkExit(accounting.isAccountable(param, conn));
         } else if (param.canAutorize() && param.canAuthehtific()) {
-            checkExit(autorization.isAuthorizable(param, conn));
             checkExit(authentific.isAuthentificable(param, conn));
-        } else if (param.canAutorize()) {
             checkExit(autorization.isAuthorizable(param, conn));
+        } else if (param.canAutorize()) {
+            checkExit(authentific.isAuthentificable(param, conn));
         }
         if (param.isH()) {
             defaultParser.printHelp(defaultParser.getOptions(), System.out);
@@ -69,9 +69,10 @@ public class Main {
 
     private static void checkExit(SysExits exit) throws SQLException {
         if (exit.equals(SysExits.valueOf("EXIT0"))) {
-            System.out.println("ALL IS OK");
+            logger.info("Operation complete");
         }
         if (!exit.equals(SysExits.valueOf("EXIT0"))) {
+            logger.error("Operation crashed");
             conn.close();
         }
         if (exit.equals(SysExits.valueOf("EXIT1"))) {
