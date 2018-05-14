@@ -1,18 +1,14 @@
 package main.java.com.company.authorization;
 
 import main.java.com.company.parameters.Parameters;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ResourceParser {
-    private static final Logger logger = LogManager.getLogger(ResourceParser.class);
-
-    public boolean authentificFromAdressOneSQL(Parameters param, Connection conn) throws SQLException {
+public class AuthorizationDAO {
+    public boolean getAccessToRes(Parameters param, Connection conn) throws SQLException {
         PreparedStatement st = conn.prepareStatement(
                 "select * from res where (adress like concat(?,'%'))and (concat(?,'.') like concat(res.adress,'.%')) and login = ? and role = ?");
         st.setString(1, param.getRes().split("\\.")[0]);
@@ -20,14 +16,11 @@ public class ResourceParser {
         st.setString(3, param.getLogin());
         st.setString(4, param.getRole());
         ResultSet rs = st.executeQuery();
+        st.close();
+        rs.close();
         if (rs.next()) {
-            rs.close();
-            st.close();
             return true;
         }
-        rs.close();
-        st.close();
         return false;
-
     }
 }

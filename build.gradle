@@ -1,11 +1,9 @@
-plugins {
-    id "net.saliman.cobertura" version "2.5.4"
-}
 apply plugin: "java"
 apply plugin: "application"
 apply plugin: "findbugs"
 apply plugin: "checkstyle"
 apply plugin: "pmd"
+apply plugin: "jacoco"
 
 mainClassName = "main.java.com.company.Main"
 
@@ -24,13 +22,15 @@ dependencies {
     compile "com.h2database:h2:1.4.197"
     testCompile 'junit:junit:4.12'
     testCompile 'org.hamcrest:hamcrest-core:1.3'
+    testCompile 'org.mockito:mockito-core:2.9.0'
 }
 
-cobertura {
-    coverageFormats = ['html', 'xml']
-    coverageIgnoreTrivial = true
-    coverageIgnores = ['org.slf4j.Logger.*']
-    coverageReportDir = new File("$buildDir/reports/cobertura")
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/reports/jacocoHtml")
+    }
 }
 
 checkstyle {
@@ -43,7 +43,6 @@ pmd {
 
 findbugs {
     ignoreFailures = true
-    reportLevel = "high"
 }
 
 jar {

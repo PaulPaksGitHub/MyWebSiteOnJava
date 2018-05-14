@@ -1,75 +1,79 @@
 package test.java.authentifiacation;
 
-import main.java.com.company.Main;
 import main.java.com.company.SysExits;
 import main.java.com.company.authentification.Authentification;
+import main.java.com.company.authentification.AuthentificatonDAO;
+import main.java.com.company.authentification.User;
 import main.java.com.company.parameters.Parameters;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class AuthentificationTest {
 
-    private static String url = "jdbc:h2:file:./data/db";
-    private static String dbUser = "sa";
-    private static String dbPassword = "";
-    private Connection conn;
-    private Parameters param = new Parameters();
+    private Parameters param;
     private Authentification auth;
+    private AuthentificatonDAO dao;
 
     @Before
     public void initTest() throws SQLException {
-        Main.checkDBconnection();
-        auth = new Authentification();
-        conn = DriverManager.getConnection(url, dbUser, dbPassword);
-    }
-
-    @After
-    public void afterTest() throws SQLException {
-        auth = null;
-        conn.close();
+        dao = mock(AuthentificatonDAO.class);
+        auth = new Authentification(dao);
+        param = new Parameters();
     }
 
     @Test
     public void testIsLoginRegex() {
-        assertTrue( auth.isLoginRegex("TrueLogin"));
+        assertTrue(auth.isLoginRegex("TrueLogin"));
         assertFalse(auth.isLoginRegex("False_Password-123"));
-    }
-
-    @Test
-    public void testGetUserFromLogin() throws SQLException {
-        assertEquals("pa", auth.getUserFromLogin("pa",conn).getLogin());
-        assertEquals("", auth.getUserFromLogin("TEST",conn).getLogin());
     }
 
     @Test
     public void testIsAuthentificable() throws SQLException {
         param.setLogin("pa");
         param.setPass("12");
-        assertEquals(SysExits.valueOf("EXIT0"), auth.isAuthentificable(param, conn));
+        when(dao.getUserFromLogin(param.getLogin(), null)).thenReturn
+                (new User("pa", "1c597a01f767c2a9de609927a87946cc", "6B3BP7O4C8PJRMAA1VHAJD3YSEI0LITT"));
+        assertEquals(SysExits.valueOf("EXIT0"), auth.isAuthentificable(param, null));
+    }
 
+    @Test
+    public void testIsAuthentificable1() throws SQLException {
         param.setLogin(null);
         param.setPass("12");
-        assertEquals(SysExits.valueOf("EXIT1"), auth.isAuthentificable(param, conn));
+        assertEquals(SysExits.valueOf("EXIT1"), auth.isAuthentificable(param, null));
+    }
 
+    @Test
+    public void testIsAuthentificable2() throws SQLException {
         param.setLogin("pa");
         param.setPass(null);
-        assertEquals(SysExits.valueOf("EXIT2"), auth.isAuthentificable(param, conn));
+        assertEquals(SysExits.valueOf("EXIT2"), auth.isAuthentificable(param, null));
+    }
 
+    @Test
+    public void testIsAuthentificable3() throws SQLException {
         param.setLogin("pa");
         param.setPass("34");
-        assertEquals(SysExits.valueOf("EXIT2"), auth.isAuthentificable(param, conn));
+        when(dao.getUserFromLogin(param.getLogin(), null)).thenReturn
+                (new User("pa", "1c597a01f767c2a9de609927a87946cc", "6B3BP7O4C8PJRMAA1VHAJD3YSEI0LITT"));
+        assertEquals(SysExits.valueOf("EXIT2"), auth.isAuthentificable(param, null));
+    }
 
+    @Test
+    public void testIsAuthentificable4() throws SQLException {
         param.setLogin("TEST");
         param.setPass("12");
-        assertEquals(SysExits.valueOf("EXIT1"), auth.isAuthentificable(param, conn));
+        param.setPass("12");
+        when(dao.getUserFromLogin(param.getLogin(), null)).thenReturn
+                (new User("", "", ""));
+        assertEquals(SysExits.valueOf("EXIT1"), auth.isAuthentificable(param, null));
     }
 }

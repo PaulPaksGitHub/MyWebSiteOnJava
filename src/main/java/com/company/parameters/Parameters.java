@@ -11,7 +11,7 @@ public class Parameters {
     private boolean h = false;
 
     public boolean isParamEmpty() {
-        return !canAutorize() && !canAuthehtific() && !canAccaunt();
+        return !canAuthentific() && !canAuthorize() && !canAccaunt();
     }
 
     public boolean hasLogin() {
@@ -30,11 +30,11 @@ public class Parameters {
         return res == null;
     }
 
-    public boolean canAutorize() {
+    public boolean canAuthentific() {
         return login != null || pass != null;
     }
 
-    public boolean canAuthehtific() {
+    public boolean canAuthorize() {
         return role != null || res != null;
     }
 

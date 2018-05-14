@@ -6,7 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,22 +13,16 @@ import java.time.format.DateTimeParseException;
 
 public class Accounting {
     private static final Logger logger = LogManager.getLogger(Accounting.class);
+    private AccountingDAO dao;
 
     public SysExits isAccountable(Parameters param, Connection conn) throws SQLException {
-        if ( hasTrueData(param, conn) && hasTrueVol(param, conn)) {
+        if ( hasTrueData(param) && hasTrueVol(param)) {
             logger.debug("Accaunting success: {}, {}, {}, {}",
                     param.getLogin(),
                     param.getDs(),
                     param.getDe(),
                     param.getVol());
-
-            PreparedStatement st = conn.prepareStatement("insert into acc (login, ds, de, vol) values (?,?,?,?) ");
-            st.setString(1, param.getLogin());
-            st.setString(2, param.getDs());
-            st.setString(3, param.getDe());
-            st.setString(4, param.getVol());
-            st.executeUpdate();
-            st.close();
+            dao.writeUserToTable(param, conn);
             return SysExits.valueOf("EXIT0");
         }
         else {
@@ -37,7 +30,7 @@ public class Accounting {
         }
     }
 
-    public boolean hasTrueData(Parameters param, Connection conn) throws SQLException {
+    public boolean hasTrueData(Parameters param) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             LocalDate.parse(param.getDs(), formatter);
@@ -50,7 +43,7 @@ public class Accounting {
         }
     }
 
-    public boolean hasTrueVol(Parameters param, Connection conn) throws SQLException {
+    public boolean hasTrueVol(Parameters param) {
         try {
             int a = Integer.parseInt(param.getVol());
             return true;
@@ -59,5 +52,12 @@ public class Accounting {
             logger.error(e);
             return false;
         }
+    }
+
+    public Accounting(AccountingDAO dao) {
+        this.dao = dao;
+    }
+
+    public Accounting() {
     }
 }

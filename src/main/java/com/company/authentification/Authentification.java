@@ -8,14 +8,13 @@ import org.apache.logging.log4j.Logger;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Authentification {
     private static final Logger logger = LogManager.getLogger(Authentification.class);
+    private AuthentificatonDAO dao;
 
     public SysExits isAuthentificable(Parameters param, Connection conn) throws SQLException {
         if (!param.hasLogin()) {//если отсутствует логин
@@ -34,7 +33,7 @@ public class Authentification {
                 return SysExits.valueOf("EXIT1");
             }
 
-            User userWithTheSameLogin = getUserFromLogin(param.getLogin(), conn);
+            User userWithTheSameLogin = dao.getUserFromLogin(param.getLogin(), conn);
             String password = "";
 
             try { //получаем хэш пароля, который ввел пользоаптель
@@ -59,29 +58,15 @@ public class Authentification {
         return SysExits.valueOf("EXIT0");
     }
 
-    public User getUserFromLogin(String login, Connection conn) throws SQLException {
-        PreparedStatement st = conn.prepareStatement("select * from users where login = ?");
-        st.setString(1, login);
-
-        ResultSet rs = st.executeQuery();
-
-        if (rs.next()) {
-            User user = new User(
-                    rs.getString("login"),
-                    rs.getString("pass"),
-                    rs.getString("salt"));
-            rs.close();
-            st.close();
-            return user;
-        }
-        rs.close();
-        st.close();
-        return new User("", "", "");
-    }
-
     public boolean isLoginRegex(String login) {
         Pattern p = Pattern.compile("^[a-zA-Z0-9]+");
         Matcher m = p.matcher(login);
         return m.matches();
+    }
+
+    public Authentification(AuthentificatonDAO dao) {
+        this.dao = dao;
+    }
+    public Authentification() {
     }
 }

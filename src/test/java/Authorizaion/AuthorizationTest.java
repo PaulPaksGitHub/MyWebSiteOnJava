@@ -1,40 +1,27 @@
 package test.java.Authorizaion;
 
-import main.java.com.company.Main;
 import main.java.com.company.SysExits;
 import main.java.com.company.authorization.Authorization;
+import main.java.com.company.authorization.AuthorizationDAO;
 import main.java.com.company.parameters.Parameters;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import static junit.framework.TestCase.assertEquals;
 
-public class AuthorizationTest {
-
-    private static String url = "jdbc:h2:file:./data/db";
-    private static String dbUser = "sa";
-    private static String dbPassword = "";
-    private Connection conn;
-    private Parameters param = new Parameters();
+public class AuthorizationTest extends Mockito {
+    private Parameters param;
     private Authorization auth;
-
+    private AuthorizationDAO dao;
 
     @Before
     public void initTest() throws SQLException {
-        Main.checkDBconnection();
-        auth = new Authorization();
-        conn = DriverManager.getConnection(url, dbUser, dbPassword);
-    }
-
-    @After
-    public void afterTest() throws SQLException {
-        auth = null;
-        conn.close();
+        param = new Parameters();
+        dao = mock(AuthorizationDAO.class);
+        auth = new Authorization(dao);
     }
 
     @Test
@@ -42,31 +29,47 @@ public class AuthorizationTest {
         param.setLogin("pa");
         param.setRes("A");
         param.setRole("READ");
-        assertEquals(SysExits.valueOf("EXIT0"), auth.isAuthorizable(param, conn));
+        when(dao.getAccessToRes(param, null)).thenReturn(true);
+        assertEquals(SysExits.valueOf("EXIT0"), auth.isAuthorizable(param, null));
+    }
 
+    @Test
+    public void testIsAuthorizable1() throws SQLException {
         param.setLogin("pa");
         param.setRes("A");
         param.setRole("EXECUTE");
-        assertEquals(SysExits.valueOf("EXIT4"), auth.isAuthorizable(param, conn));
+        when(dao.getAccessToRes(param, null)).thenReturn(false);
+        assertEquals(SysExits.valueOf("EXIT4"), auth.isAuthorizable(param, null));}
 
+    @Test
+    public void testIsAuthorizable2() throws SQLException {
         param.setLogin("pa");
         param.setRes("TEST");
         param.setRole("READ");
-        assertEquals(SysExits.valueOf("EXIT4"), auth.isAuthorizable(param, conn));
+        assertEquals(SysExits.valueOf("EXIT4"), auth.isAuthorizable(param, null));}
 
+    @Test
+    public void testIsAuthorizable3() throws SQLException {
         param.setLogin("pa");
         param.setRes(null);
         param.setRole("EXECUTE");
-        assertEquals(SysExits.valueOf("EXIT4"), auth.isAuthorizable(param, conn));
+        when(dao.getAccessToRes(param, null)).thenReturn(false);
+        assertEquals(SysExits.valueOf("EXIT4"), auth.isAuthorizable(param, null));}
 
+    @Test
+    public void testIsAuthorizable4() throws SQLException {
         param.setLogin("pa");
         param.setRes("A");
         param.setRole(null);
-        assertEquals(SysExits.valueOf("EXIT3"), auth.isAuthorizable(param, conn));
+        when(dao.getAccessToRes(param, null)).thenReturn(false);
+        assertEquals(SysExits.valueOf("EXIT3"), auth.isAuthorizable(param, null));}
 
+    @Test
+    public void testIsAuthorizable5() throws SQLException {
         param.setLogin("pa");
         param.setRes("A");
         param.setRole("KITTY");
-        assertEquals(SysExits.valueOf("EXIT3"), auth.isAuthorizable(param, conn));
+        when(dao.getAccessToRes(param, null)).thenReturn(false);
+        assertEquals(SysExits.valueOf("EXIT3"), auth.isAuthorizable(param, null));
     }
 }
