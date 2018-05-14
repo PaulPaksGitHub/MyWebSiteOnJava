@@ -1,4 +1,4 @@
-package main.java.com.company.authentification;
+package com.company.authentification;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

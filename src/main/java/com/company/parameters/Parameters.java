@@ -1,4 +1,4 @@
-package main.java.com.company.parameters;
+package com.company.parameters;
 
 public class Parameters {
     private String login = null;

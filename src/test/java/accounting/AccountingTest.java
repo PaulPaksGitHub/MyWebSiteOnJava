@@ -1,9 +1,9 @@
-package test.java.accounting;
+package accounting;
 
-import main.java.com.company.SysExits;
-import main.java.com.company.accounting.Accounting;
-import main.java.com.company.accounting.AccountingDAO;
-import main.java.com.company.parameters.Parameters;
+import com.company.SysExits;
+import com.company.accounting.Accounting;
+import com.company.accounting.AccountingDAO;
+import com.company.parameters.Parameters;
 import org.junit.Before;
 import org.junit.Test;
 

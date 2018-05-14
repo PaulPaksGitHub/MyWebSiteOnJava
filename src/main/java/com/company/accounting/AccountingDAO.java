@@ -1,6 +1,6 @@
-package main.java.com.company.accounting;
+package com.company.accounting;
 
-import main.java.com.company.parameters.Parameters;
+import com.company.parameters.Parameters;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

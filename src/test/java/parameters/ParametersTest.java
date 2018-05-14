@@ -1,6 +1,6 @@
-package test.java.parameters;
+package parameters;
 
-import main.java.com.company.parameters.Parameters;
+import com.company.parameters.Parameters;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

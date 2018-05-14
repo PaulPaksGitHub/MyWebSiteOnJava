@@ -1,4 +1,4 @@
-package main.java.com.company.authorization;
+package com.company.authorization;
 
 public enum Roles {READ, WRITE, EXECUTE}
 

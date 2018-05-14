@@ -1,4 +1,4 @@
-package main.java.com.company.parameters;
+package com.company.parameters;
 
 import org.apache.commons.cli.*;
 import org.apache.logging.log4j.LogManager;

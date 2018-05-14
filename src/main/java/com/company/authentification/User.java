@@ -1,4 +1,4 @@
-package main.java.com.company.authentification;
+package com.company.authentification;
 
 public class User {
     private String login;

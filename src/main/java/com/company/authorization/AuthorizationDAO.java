@@ -1,6 +1,6 @@
-package main.java.com.company.authorization;
+package com.company.authorization;
 
-import main.java.com.company.parameters.Parameters;
+import com.company.parameters.Parameters;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

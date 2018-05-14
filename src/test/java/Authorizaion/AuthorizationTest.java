@@ -1,9 +1,9 @@
-package test.java.Authorizaion;
+package Authorizaion;
 
-import main.java.com.company.SysExits;
-import main.java.com.company.authorization.Authorization;
-import main.java.com.company.authorization.AuthorizationDAO;
-import main.java.com.company.parameters.Parameters;
+import com.company.SysExits;
+import com.company.authorization.Authorization;
+import com.company.authorization.AuthorizationDAO;
+import com.company.parameters.Parameters;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;

@@ -1,10 +1,10 @@
-package main.java.com.company;
+package com.company;
 
-import main.java.com.company.accounting.Accounting;
-import main.java.com.company.authorization.Authorization;
-import main.java.com.company.authentification.Authentification;
-import main.java.com.company.parameters.Parameters;
-import main.java.com.company.parameters.ParseLine;
+import com.company.accounting.Accounting;
+import com.company.authentification.Authentification;
+import com.company.authorization.Authorization;
+import com.company.parameters.Parameters;
+import com.company.parameters.ParseLine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.flywaydb.core.Flyway;

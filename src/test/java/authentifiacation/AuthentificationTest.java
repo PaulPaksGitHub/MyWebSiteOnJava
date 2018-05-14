@@ -1,10 +1,10 @@
-package test.java.authentifiacation;
+package authentifiacation;
 
-import main.java.com.company.SysExits;
-import main.java.com.company.authentification.Authentification;
-import main.java.com.company.authentification.AuthentificatonDAO;
-import main.java.com.company.authentification.User;
-import main.java.com.company.parameters.Parameters;
+import com.company.SysExits;
+import com.company.authentification.Authentification;
+import com.company.authentification.AuthentificatonDAO;
+import com.company.authentification.User;
+import com.company.parameters.Parameters;
 import org.junit.Before;
 import org.junit.Test;
 

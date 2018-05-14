@@ -1,7 +1,7 @@
-package main.java.com.company.accounting;
+package com.company.accounting;
 
-import main.java.com.company.SysExits;
-import main.java.com.company.parameters.Parameters;
+import com.company.SysExits;
+import com.company.parameters.Parameters;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

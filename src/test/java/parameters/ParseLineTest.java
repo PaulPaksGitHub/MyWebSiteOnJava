@@ -1,10 +1,10 @@
-package test.java.parameters;
+package parameters;
 
-import main.java.com.company.parameters.Parameters;
-import main.java.com.company.parameters.ParseLine;
+import com.company.parameters.Parameters;
+import com.company.parameters.ParseLine;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static junit.framework.TestCase.assertEquals;
 
 public class ParseLineTest {
     private ParseLine parser = new ParseLine();
