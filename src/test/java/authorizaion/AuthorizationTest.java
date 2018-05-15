@@ -1,4 +1,4 @@
-package Authorizaion;
+package authorizaion;
 
 import com.company.SysExits;
 import com.company.authorization.Authorization;

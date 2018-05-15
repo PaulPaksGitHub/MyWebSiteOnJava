@@ -29,7 +29,7 @@ jacocoTestReport {
     reports {
         xml.enabled false
         csv.enabled false
-        html.destination file("${buildDir}/reports/jacocoHtml")
+        html.destination file("${buildDir}/jacocoHtml")
     }
 }
 
@@ -43,12 +43,20 @@ pmd {
 
 findbugs {
     ignoreFailures = true
+    reportLevel = "low"
 }
 
 jar {
     manifest.attributes("Main-Class": mainClassName);
     baseName = 'app_gradle'
     version = '4.0'
+}
+
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
 }
 
 task wrapper(type: Wrapper) {
