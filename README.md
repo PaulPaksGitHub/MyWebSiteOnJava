@@ -17,8 +17,13 @@ gradle build
 ./gradlew test или gradle test
 - Запускает unit тесты приложения. 
 
-gradle coberturaCheck 
+gradle jacocoTestReport
 - Создает отчет по покрытию тестами
+
+gradle findbugsMain
+
+gradle findbugsTest
+- Генерирует отчет по найденным багам.
 
 Roadmaps (Наборы требований).
 -------------
