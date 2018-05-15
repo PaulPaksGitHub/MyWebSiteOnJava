@@ -10,15 +10,17 @@ public class AuthentificatonDAO {
         PreparedStatement st = conn.prepareStatement("select * from users where login = ?");
         st.setString(1, login);
         ResultSet rs = st.executeQuery();
-        rs.close();
-        st.close();
         if (rs.next()) {
             User user = new User(
                     rs.getString("login"),
                     rs.getString("pass"),
                     rs.getString("salt"));
+            rs.close();
+            st.close();
             return user;
         }
-        return new User("", "", "");
+        rs.close();
+        st.close();
+        return null;
     }
 }

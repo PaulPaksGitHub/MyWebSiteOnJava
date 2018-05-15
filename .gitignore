@@ -6,3 +6,5 @@ old
 app.log
 app.jar
 build
+bin
+out

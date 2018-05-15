@@ -68,25 +68,13 @@ public class Main {
     }
 
     private static void checkExit(SysExits exit) throws SQLException {
-        if (exit.equals(SysExits.valueOf("EXIT0"))) {
+        if (exit.equals(SysExits.EXIT0)) {
             logger.info("Operation complete");
         }
-        if (!exit.equals(SysExits.valueOf("EXIT0"))) {
+        else {
             logger.error("Operation crashed");
             conn.close();
-        }
-        if (exit.equals(SysExits.valueOf("EXIT1"))) {
-            System.exit(1);
-        } else if (exit.equals(SysExits.valueOf("EXIT2"))) {
-            System.exit(2);
-        } else if (exit.equals(SysExits.valueOf("EXIT3"))) {
-            System.exit(3);
-        } else if (exit.equals(SysExits.valueOf("EXIT4"))) {
-            System.exit(4);
-        } else if (exit.equals(SysExits.valueOf("EXIT5"))) {
-            System.exit(5);
-        } else if (exit.equals(SysExits.valueOf("EXIT6"))) {
-            System.exit(6);
+            System.exit(exit.getExitCode());
         }
     }
 }

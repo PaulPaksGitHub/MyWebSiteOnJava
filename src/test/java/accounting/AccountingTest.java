@@ -74,6 +74,6 @@ public class AccountingTest {
         param.setDs("2001-12-12");
         param.setDe("2004-12-11");
         when(dao.writeUserToTable(param, null)).thenReturn(true);
-        assertEquals(SysExits.valueOf("EXIT0"), acc.isAccountable(param, null));
+        assertEquals(SysExits.EXIT0, acc.isAccountable(param, null));
     }
 }

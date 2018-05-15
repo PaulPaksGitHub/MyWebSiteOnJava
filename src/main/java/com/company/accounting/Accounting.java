@@ -23,10 +23,10 @@ public class Accounting {
                     param.getDe(),
                     param.getVol());
             dao.writeUserToTable(param, conn);
-            return SysExits.valueOf("EXIT0");
+            return SysExits.EXIT0;
         }
         else {
-            return SysExits.valueOf("EXIT5");
+            return SysExits.EXIT5;
         }
     }
 

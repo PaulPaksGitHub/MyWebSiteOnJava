@@ -41,21 +41,21 @@ public class AuthentificationTest {
         param.setPass("12");
         when(dao.getUserFromLogin(param.getLogin(), null)).thenReturn
                 (new User("pa", "1c597a01f767c2a9de609927a87946cc", "6B3BP7O4C8PJRMAA1VHAJD3YSEI0LITT"));
-        assertEquals(SysExits.valueOf("EXIT0"), auth.isAuthentificable(param, null));
+        assertEquals(SysExits.EXIT0, auth.isAuthentificable(param, null));
     }
 
     @Test
     public void testIsAuthentificable1() throws SQLException {
         param.setLogin(null);
         param.setPass("12");
-        assertEquals(SysExits.valueOf("EXIT1"), auth.isAuthentificable(param, null));
+        assertEquals(SysExits.EXIT1, auth.isAuthentificable(param, null));
     }
 
     @Test
     public void testIsAuthentificable2() throws SQLException {
         param.setLogin("pa");
         param.setPass(null);
-        assertEquals(SysExits.valueOf("EXIT2"), auth.isAuthentificable(param, null));
+        assertEquals(SysExits.EXIT2, auth.isAuthentificable(param, null));
     }
 
     @Test
@@ -64,16 +64,15 @@ public class AuthentificationTest {
         param.setPass("34");
         when(dao.getUserFromLogin(param.getLogin(), null)).thenReturn
                 (new User("pa", "1c597a01f767c2a9de609927a87946cc", "6B3BP7O4C8PJRMAA1VHAJD3YSEI0LITT"));
-        assertEquals(SysExits.valueOf("EXIT2"), auth.isAuthentificable(param, null));
+        assertEquals(SysExits.EXIT2, auth.isAuthentificable(param, null));
     }
 
     @Test
     public void testIsAuthentificable4() throws SQLException {
         param.setLogin("TEST");
         param.setPass("12");
-        param.setPass("12");
         when(dao.getUserFromLogin(param.getLogin(), null)).thenReturn
-                (new User("", "", ""));
-        assertEquals(SysExits.valueOf("EXIT1"), auth.isAuthentificable(param, null));
+                (null);
+        assertEquals(SysExits.EXIT1, auth.isAuthentificable(param, null));
     }
 }

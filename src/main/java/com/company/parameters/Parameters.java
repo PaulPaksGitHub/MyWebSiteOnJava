@@ -79,41 +79,69 @@ public class Parameters {
     }
 
     public Parameters() {
-        //Empty creator
+        //Empty constructor
     }
 
     public Parameters setLogin(String login) {
-        Parameters.this.login = login;
+        if (login != null){
+            Parameters.this.login = login.replace("'","");
+        } else {
+            Parameters.this.login = null;
+        }
         return this;
     }
 
     public Parameters setPass(String pass) {
-        Parameters.this.pass = pass;
+        if (pass != null){
+            Parameters.this.pass = pass.replace("'","");
+        } else {
+            Parameters.this.pass = null;
+        }
         return this;
     }
 
     public Parameters setRes(String res) {
-        Parameters.this.res = res;
+        if (res != null) {
+            Parameters.this.res = res.replace("'","");
+        } else {
+            Parameters.this.res = null;
+        }
         return this;
     }
 
     public Parameters setRole(String role) {
-        Parameters.this.role = role;
+        if (role != null) {
+            Parameters.this.role = role.replace("'","");
+        } else {
+            Parameters.this.role = null;
+        }
         return this;
     }
 
     public Parameters setDs(String ds) {
-        Parameters.this.ds = ds;
+        if (ds != null) {
+            Parameters.this.ds = ds.replace("'", "");
+        } else {
+            Parameters.this.ds = null;
+        }
         return this;
     }
 
     public Parameters setDe(String de) {
-        Parameters.this.de = de;
+        if (de != null) {
+            Parameters.this.de = de.replace("'", "");
+        } else {
+            Parameters.this.de = null;
+        }
         return this;
     }
 
     public Parameters setVol(String vol) {
-        Parameters.this.vol = vol;
+        if (vol != null) {
+            Parameters.this.vol = vol.replace("'", "");
+        } else {
+            Parameters.this.vol = null;
+        }
         return this;
     }
 

@@ -30,7 +30,7 @@ public class AuthorizationTest extends Mockito {
         param.setRes("A");
         param.setRole("READ");
         when(dao.getAccessToRes(param, null)).thenReturn(true);
-        assertEquals(SysExits.valueOf("EXIT0"), auth.isAuthorizable(param, null));
+        assertEquals(SysExits.EXIT0, auth.isAuthorizable(param, null));
     }
 
     @Test
@@ -39,14 +39,14 @@ public class AuthorizationTest extends Mockito {
         param.setRes("A");
         param.setRole("EXECUTE");
         when(dao.getAccessToRes(param, null)).thenReturn(false);
-        assertEquals(SysExits.valueOf("EXIT4"), auth.isAuthorizable(param, null));}
+        assertEquals(SysExits.EXIT4, auth.isAuthorizable(param, null));}
 
     @Test
     public void testIsAuthorizable2() throws SQLException {
         param.setLogin("pa");
         param.setRes("TEST");
         param.setRole("READ");
-        assertEquals(SysExits.valueOf("EXIT4"), auth.isAuthorizable(param, null));}
+        assertEquals(SysExits.EXIT4, auth.isAuthorizable(param, null));}
 
     @Test
     public void testIsAuthorizable3() throws SQLException {
@@ -54,7 +54,7 @@ public class AuthorizationTest extends Mockito {
         param.setRes(null);
         param.setRole("EXECUTE");
         when(dao.getAccessToRes(param, null)).thenReturn(false);
-        assertEquals(SysExits.valueOf("EXIT4"), auth.isAuthorizable(param, null));}
+        assertEquals(SysExits.EXIT4, auth.isAuthorizable(param, null));}
 
     @Test
     public void testIsAuthorizable4() throws SQLException {
@@ -62,7 +62,7 @@ public class AuthorizationTest extends Mockito {
         param.setRes("A");
         param.setRole(null);
         when(dao.getAccessToRes(param, null)).thenReturn(false);
-        assertEquals(SysExits.valueOf("EXIT3"), auth.isAuthorizable(param, null));}
+        assertEquals(SysExits.EXIT3, auth.isAuthorizable(param, null));}
 
     @Test
     public void testIsAuthorizable5() throws SQLException {
@@ -70,6 +70,6 @@ public class AuthorizationTest extends Mockito {
         param.setRes("A");
         param.setRole("KITTY");
         when(dao.getAccessToRes(param, null)).thenReturn(false);
-        assertEquals(SysExits.valueOf("EXIT3"), auth.isAuthorizable(param, null));
+        assertEquals(SysExits.EXIT3, auth.isAuthorizable(param, null));
     }
 }

@@ -16,11 +16,13 @@ public class AuthorizationDAO {
         st.setString(3, param.getLogin());
         st.setString(4, param.getRole());
         ResultSet rs = st.executeQuery();
-        st.close();
-        rs.close();
         if (rs.next()) {
+            st.close();
+            rs.close();
             return true;
         }
+        st.close();
+        rs.close();
         return false;
     }
 }

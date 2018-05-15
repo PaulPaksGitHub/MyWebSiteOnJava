@@ -20,27 +20,20 @@ public class ParseLine {
         CommandLineParser cmdLinePosixParser = new DefaultParser();
         try {
             CommandLine commandLine = cmdLinePosixParser.parse(getOptions(), args);
-            if (commandLine.hasOption("login")) {
-                params.setLogin(commandLine.getOptionValues("login")[0].replace("'", ""));
-            }
-            if (commandLine.hasOption("pass")) {
-                params.setPass(commandLine.getOptionValues("pass")[0].replace("'", ""));
-            }
-            if (commandLine.hasOption("res")) {
-                params.setRes(commandLine.getOptionValues("res")[0].replace("'", ""));
-            }
-            if (commandLine.hasOption("role")) {
-                params.setRole(commandLine.getOptionValues("role")[0].replace("'", ""));
-            }
-            if (commandLine.hasOption("ds")) {
-                params.setDs(commandLine.getOptionValues("ds")[0].replace("'", ""));
-            }
-            if (commandLine.hasOption("de")) {
-                params.setDe(commandLine.getOptionValues("de")[0].replace("'", ""));
-            }
-            if (commandLine.hasOption("vol")) {
-                params.setVol(commandLine.getOptionValues("vol")[0].replace("'", ""));
-            }
+            params.setLogin(commandLine.getOptionValue("login",null));
+
+            params.setPass(commandLine.getOptionValue("pass", null));
+
+            params.setRes(commandLine.getOptionValue("res",null));
+
+            params.setRole(commandLine.getOptionValue("role", null));
+
+            params.setDs(commandLine.getOptionValue("ds",null));
+
+            params.setDe(commandLine.getOptionValue("de", null));
+
+            params.setVol(commandLine.getOptionValue("vol", null));
+
             if (commandLine.hasOption("h") || params.isParamEmpty()) {
                 params.setH(true);
             }
