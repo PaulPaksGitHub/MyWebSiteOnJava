@@ -1,0 +1,122 @@
+ WARN  Failed startup of context o.a.g.JettyWebAppContext@1ee4f1b{/prj,file:/C:/Users/Amausr/prj/build/inplaceWebapp/,STARTING}
+org.eclipse.jetty.util.MultiException: Multiple exceptions
+        at org.eclipse.jetty.annotations.AnnotationConfiguration.scanForAnnotations(AnnotationConfiguration.java:537) ~[jetty-annotations-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.eclipse.jetty.annotations.AnnotationConfiguration.configure(AnnotationConfiguration.java:448) ~[jetty-annotations-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.eclipse.jetty.webapp.WebAppContext.configure(WebAppContext.java:479) ~[jetty-webapp-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.eclipse.jetty.webapp.WebAppContext.startContext(WebAppContext.java:1337) ~[jetty-webapp-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741) ~[jetty-server-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.eclipse.jetty.webapp.WebAppContext.doStart(WebAppContext.java:505) ~[jetty-webapp-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.akhikhl.gretty.JettyWebAppContext.super$10$doStart(JettyWebAppContext.groovy) [gretty-runner-jetty9-2.0.0.jar:na]
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_162]
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_162]
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_162]
+        at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_162]
+        at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:93) [groovy-2.4.11.jar:2.4.11]
+        at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:325) [groovy-2.4.11.jar:2.4.11]
+        at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1213) [groovy-2.4.11.jar:2.4.11]
+        at org.codehaus.groovy.runtime.ScriptBytecodeAdapter.invokeMethodOnSuperN(ScriptBytecodeAdapter.java:132) [groovy-2.4.11.jar:2.4.11]
+        at org.codehaus.groovy.runtime.ScriptBytecodeAdapter.invokeMethodOnSuper0(ScriptBytecodeAdapter.java:152) [groovy-2.4.11.jar:2.4.11]
+        at org.akhikhl.gretty.JettyWebAppContext.doStart(JettyWebAppContext.groovy:44) [gretty-runner-jetty9-2.0.0.jar:na]
+        at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68) [jetty-util-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:132) [jetty-util-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:114) [jetty-util-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.eclipse.jetty.server.handler.AbstractHandler.doStart(AbstractHandler.java:61) [jetty-server-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.eclipse.jetty.server.handler.ContextHandlerCollection.doStart(ContextHandlerCollection.java:163) [jetty-server-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68) [jetty-util-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:132) [jetty-util-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.eclipse.jetty.server.Server.start(Server.java:387) [jetty-server-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:114) [jetty-util-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.eclipse.jetty.server.handler.AbstractHandler.doStart(AbstractHandler.java:61) [jetty-server-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.eclipse.jetty.server.Server.doStart(Server.java:354) [jetty-server-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:68) [jetty-util-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.eclipse.jetty.util.component.LifeCycle$start$0.call(Unknown Source) [jetty-util-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:48) [groovy-2.4.11.jar:2.4.11]
+        at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:113) [groovy-2.4.11.jar:2.4.11]
+        at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117) [groovy-2.4.11.jar:2.4.11]
+        at org.akhikhl.gretty.JettyServerManager.startServer(JettyServerManager.groovy:45) [gretty-runner-jetty-2.0.0.jar:na]
+        at org.akhikhl.gretty.ServerManager$startServer$0.call(Unknown Source) [gretty-runner-2.0.0.jar:na]
+        at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:48) [groovy-2.4.11.jar:2.4.11]
+        at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:113) [groovy-2.4.11.jar:2.4.11]
+        at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125) [groovy-2.4.11.jar:2.4.11]
+        at org.akhikhl.gretty.Runner.run(Runner.groovy:117) [gretty-runner-2.0.0.jar:na]
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_162]
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_162]
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_162]
+        at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_162]
+        at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSiteNoUnwrapNoCoerce.invoke(PogoMetaMethodSite.java:210) [groovy-2.4.11.jar:2.4.11]
+        at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.call(PogoMetaMethodSite.java:71) [groovy-2.4.11.jar:2.4.11]
+        at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:48) [groovy-2.4.11.jar:2.4.11]
+        at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:113) [groovy-2.4.11.jar:2.4.11]
+        at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:117) [groovy-2.4.11.jar:2.4.11]
+        at org.akhikhl.gretty.Runner.main(Runner.groovy:44) [gretty-runner-2.0.0.jar:na]
+        Suppressed: java.lang.RuntimeException: Error scanning entry META-INF/versions/9/org/h2/util/Bits.class from jar file:/C:/Users/Amausr/.gradle/caches/modules-2/files-2.1/com.h2database/h2/1.4.197/bb391050048ca8ae3e32451b5a3714ecd3596a46/h2-1.4.197.jar
+                at org.eclipse.jetty.annotations.AnnotationParser.parseJar(AnnotationParser.java:913) ~[jetty-annotations-9.2.22.v20170606.jar:9.2.22.v20170606]
+                at org.eclipse.jetty.annotations.AnnotationParser.parse(AnnotationParser.java:831) ~[jetty-annotations-9.2.22.v20170606.jar:9.2.22.v20170606]
+                at org.eclipse.jetty.annotations.AnnotationConfiguration$ParserTask.call(AnnotationConfiguration.java:164) ~[jetty-annotations-9.2.22.v20170606.jar:9.2.22.v20170606]
+                at org.eclipse.jetty.annotations.AnnotationConfiguration$1.run(AnnotationConfiguration.java:549) ~[jetty-annotations-9.2.22.v20170606.jar:9.2.22.v20170606]
+                at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:635) ~[jetty-util-9.2.22.v20170606.jar:9.2.22.v20170606]
+                at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:555) ~[jetty-util-9.2.22.v20170606.jar:9.2.22.v20170606]
+                at java.lang.Thread.run(Thread.java:748) ~[na:1.8.0_162]
+        Caused by: java.lang.IllegalArgumentException: null
+                at org.objectweb.asm.ClassReader.<init>(Unknown Source)
+                at org.objectweb.asm.ClassReader.<init>(Unknown Source)
+                at org.objectweb.asm.ClassReader.<init>(Unknown Source)
+                at org.eclipse.jetty.annotations.AnnotationParser.scanClass(AnnotationParser.java:973)
+                at org.eclipse.jetty.annotations.AnnotationParser.parseJarEntry(AnnotationParser.java:956)
+                at org.eclipse.jetty.annotations.AnnotationParser.parseJar(AnnotationParser.java:909)
+                ... 6 common frames omitted
+Caused by: org.eclipse.jetty.util.MultiException: Multiple exceptions
+        at org.eclipse.jetty.annotations.AnnotationParser.parseJar(AnnotationParser.java:899) ~[jetty-annotations-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.eclipse.jetty.annotations.AnnotationParser.parse(AnnotationParser.java:831) ~[jetty-annotations-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.eclipse.jetty.annotations.AnnotationConfiguration$ParserTask.call(AnnotationConfiguration.java:164) ~[jetty-annotations-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.eclipse.jetty.annotations.AnnotationConfiguration$1.run(AnnotationConfiguration.java:549) ~[jetty-annotations-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:635) ~[jetty-util-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:555) ~[jetty-util-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at java.lang.Thread.run(Thread.java:748) ~[na:1.8.0_162]
+        Suppressed: java.lang.RuntimeException: Error scanning entry META-INF/versions/9/org/apache/logging/log4j/util/internal/DefaultObjectInputFilter.class from jar file:/C:/Users/Amausr/.gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-api/2.11.0/bede79a3f150711634a3047985517431bf6499f2/log4j-api-2.11.0.jar
+                at org.eclipse.jetty.annotations.AnnotationParser.parseJar(AnnotationParser.java:913) ~[jetty-annotations-9.2.22.v20170606.jar:9.2.22.v20170606]
+                ... 6 common frames omitted
+        Caused by: java.lang.IllegalArgumentException: null
+                at org.objectweb.asm.ClassReader.<init>(Unknown Source)
+                at org.objectweb.asm.ClassReader.<init>(Unknown Source)
+                at org.objectweb.asm.ClassReader.<init>(Unknown Source)
+                at org.eclipse.jetty.annotations.AnnotationParser.scanClass(AnnotationParser.java:973)
+                at org.eclipse.jetty.annotations.AnnotationParser.parseJarEntry(AnnotationParser.java:956)
+                at org.eclipse.jetty.annotations.AnnotationParser.parseJar(AnnotationParser.java:909)
+                ... 6 common frames omitted
+        Suppressed: java.lang.RuntimeException: Error scanning entry META-INF/versions/9/org/apache/logging/log4j/util/StackLocator.class from jar file:/C:/Users/Amausr/.gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-api/2.11.0/bede79a3f150711634a3047985517431bf6499f2/log4j-api-2.11.0.jar
+                at org.eclipse.jetty.annotations.AnnotationParser.parseJar(AnnotationParser.java:913) ~[jetty-annotations-9.2.22.v20170606.jar:9.2.22.v20170606]
+                ... 6 common frames omitted
+        Caused by: java.lang.IllegalArgumentException: null
+                at org.objectweb.asm.ClassReader.<init>(Unknown Source)
+                at org.objectweb.asm.ClassReader.<init>(Unknown Source)
+                at org.objectweb.asm.ClassReader.<init>(Unknown Source)
+                at org.eclipse.jetty.annotations.AnnotationParser.scanClass(AnnotationParser.java:973)
+                at org.eclipse.jetty.annotations.AnnotationParser.parseJarEntry(AnnotationParser.java:956)
+                at org.eclipse.jetty.annotations.AnnotationParser.parseJar(AnnotationParser.java:909)
+                ... 6 common frames omitted
+        Suppressed: java.lang.RuntimeException: Error scanning entry META-INF/versions/9/org/apache/logging/log4j/util/ProcessIdUtil.class from jar file:/C:/Users/Amausr/.gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-api/2.11.0/bede79a3f150711634a3047985517431bf6499f2/log4j-api-2.11.0.jar
+                at org.eclipse.jetty.annotations.AnnotationParser.parseJar(AnnotationParser.java:913) ~[jetty-annotations-9.2.22.v20170606.jar:9.2.22.v20170606]
+                ... 6 common frames omitted
+        Caused by: java.lang.IllegalArgumentException: null
+                at org.objectweb.asm.ClassReader.<init>(Unknown Source)
+                at org.objectweb.asm.ClassReader.<init>(Unknown Source)
+                at org.objectweb.asm.ClassReader.<init>(Unknown Source)
+                at org.eclipse.jetty.annotations.AnnotationParser.scanClass(AnnotationParser.java:973)
+                at org.eclipse.jetty.annotations.AnnotationParser.parseJarEntry(AnnotationParser.java:956)
+                at org.eclipse.jetty.annotations.AnnotationParser.parseJar(AnnotationParser.java:909)
+                ... 6 common frames omitted
+Caused by: java.lang.RuntimeException: Error scanning entry META-INF/versions/9/module-info.class from jar file:/C:/Users/Amausr/.gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-api/2.11.0/bede79a3f150711634a3047985517431bf6499f2/log4j-api-2.11.0.jar
+        at org.eclipse.jetty.annotations.AnnotationParser.parseJar(AnnotationParser.java:913) ~[jetty-annotations-9.2.22.v20170606.jar:9.2.22.v20170606]
+        ... 6 common frames omitted
+Caused by: java.lang.IllegalArgumentException: null
+        at org.objectweb.asm.ClassReader.<init>(Unknown Source) ~[asm-5.0.3.jar:5.0.3]
+        at org.objectweb.asm.ClassReader.<init>(Unknown Source) ~[asm-5.0.3.jar:5.0.3]
+        at org.objectweb.asm.ClassReader.<init>(Unknown Source) ~[asm-5.0.3.jar:5.0.3]
+        at org.eclipse.jetty.annotations.AnnotationParser.scanClass(AnnotationParser.java:973) ~[jetty-annotations-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.eclipse.jetty.annotations.AnnotationParser.parseJarEntry(AnnotationParser.java:956) ~[jetty-annotations-9.2.22.v20170606.jar:9.2.22.v20170606]
+        at org.eclipse.jetty.annotations.AnnotationParser.parseJar(AnnotationParser.java:909) ~[jetty-annotations-9.2.22.v20170606.jar:9.2.22.v20170606]
+        ... 6 common frames omitted
+21:30:40 INFO  Jetty 9.2.22.v20170606 started and listening on port 8080
+21:30:41 INFO  prj runs at:
+21:30:41 INFO    http://localhost:8080/prj
