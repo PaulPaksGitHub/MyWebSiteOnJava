@@ -3,7 +3,7 @@ plugins {
     id 'java'
 }
 apply plugin: "war"
-
+mainClassName = "main.java.com.company.Main"
 version 'unspecified'
 
 sourceCompatibility = 1.8
