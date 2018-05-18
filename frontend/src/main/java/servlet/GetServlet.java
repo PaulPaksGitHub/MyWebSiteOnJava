@@ -1,4 +1,4 @@
-package org.gradle.demo;
+package servlet;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +11,7 @@ public class GetServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         String id = request.getParameter("id");
+        response.setContentType("text/html;charset=utf-8");
         response.getWriter().print("GET id = " + id);
     }
 }

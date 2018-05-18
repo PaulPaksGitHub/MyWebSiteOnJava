@@ -1,4 +1,4 @@
-package org.gradle.demo;
+package servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 
 @WebServlet(urlPatterns = "/echo/post")
 public class PostServlet extends HttpServlet {
@@ -14,6 +15,6 @@ public class PostServlet extends HttpServlet {
         String id = request.getParameter("id");
         response.setContentType("text/html;charset=utf-8");
         if (id == null) id = "DEFAULT";
-        response.sendRedirect("/prj/echo/get?id="+id);
+        response.sendRedirect(request.getContextPath() + "/echo/get?id="+URLEncoder.encode(id, "UTF-8"));
     }
 }

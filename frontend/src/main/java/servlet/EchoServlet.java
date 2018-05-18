@@ -1,4 +1,4 @@
-package org.gradle.demo;
+package servlet;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
