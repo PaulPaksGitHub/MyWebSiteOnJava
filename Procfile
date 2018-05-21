@@ -1,0 +1,1 @@
+web: java $JAVA_OPTS -jar frontend/build/server/webapp-runner-8.5.11.3.jar --port $PORT frontend/build/libs/frontend.war
