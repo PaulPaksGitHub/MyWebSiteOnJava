@@ -1,5 +1,7 @@
 [![pipeline status](https://gitlab.com/kafedra/ppakseev/badges/master/pipeline.svg)](https://gitlab.com/kafedra/ppakseev/commits/master)
 =============
+Приложение на heroku: https://ppakseev.herokuapp.com
+
 Интрукци по сборке
 -------------
 ./gradlew build
