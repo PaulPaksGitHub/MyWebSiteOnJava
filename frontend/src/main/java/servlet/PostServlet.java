@@ -14,7 +14,8 @@ public class PostServlet extends HttpServlet {
             throws IOException, ServletException {
         String id = request.getParameter("id");
         response.setContentType("text/html;charset=utf-8");
-        if (id == null) id = "DEFAULT";
+        if (id == null) id = "NULL";
         response.sendRedirect(request.getContextPath() + "/echo/get?id="+URLEncoder.encode(id, "UTF-8"));
+
     }
 }
