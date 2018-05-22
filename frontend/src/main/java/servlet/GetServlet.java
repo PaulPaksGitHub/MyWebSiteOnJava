@@ -13,7 +13,7 @@ public class GetServlet extends HttpServlet {
             throws IOException, ServletException {
         String id = request.getParameter("id");
         response.setContentType("text/html;charset=utf-8");
-        //response.getWriter().print("GET id = " + id);
+
         request.setAttribute("id", id);
         request.getRequestDispatcher("/getservlet.jsp").forward(request, response);
     }
