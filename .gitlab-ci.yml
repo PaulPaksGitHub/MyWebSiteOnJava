@@ -1,8 +1,8 @@
-
 image: java
 
 stages:
   - build
+  - deploy
   - test
 
 before_script:
@@ -16,6 +16,12 @@ cache:
   paths:
     - .gradle/wrapper
     - .gradle/caches
+
+deploy:
+    stage: deploy
+    script:
+        - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/ppakseev.git
+        - git push heroku master
 
 build:
   stage: build
