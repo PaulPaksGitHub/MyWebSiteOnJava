@@ -1,5 +1,7 @@
 [![pipeline status](https://gitlab.com/kafedra/ppakseev/badges/master/pipeline.svg)](https://gitlab.com/kafedra/ppakseev/commits/master)
 =============
+Приложение на heroku: https://ppakseev.herokuapp.com
+
 Интрукци по сборке
 -------------
 ./gradlew build
@@ -12,8 +14,16 @@ gradle build
 ./gradlew run или gradle run 
 - Запускает собранное приложение .
 
+Инструкция по деплою приложения на heroku
+-------------
+git push heroku master
+- Деплоит приложение на heroku
+
 Инструкция по тестированию.
 -------------
+gradle appRun
+- Запускает локальный сервер с web проектом
+
 ./gradlew test или gradle test
 - Запускает unit тесты приложения. 
 
@@ -30,3 +40,4 @@ Roadmaps (Наборы требований).
 2. https://gitlab.com/kafedra/ppakseev/blob/master/Roadmaps/RoadMap2.md
 3. https://gitlab.com/kafedra/ppakseev/blob/master/Roadmaps/RoadMap3.md
 4. https://gitlab.com/kafedra/ppakseev/blob/master/roadmaps/Roadmap4.md
+5. https://gitlab.com/kafedra/ppakseev/blob/master/roadmaps/Roadmap5.md

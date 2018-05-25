@@ -4,6 +4,6 @@
     <title>ID Page</title>
 </head>
 <body>
-<h3>Hello, ${id}!</h3>
+<h3>Out is ${id}!</h3>
 </body>
 </html>
