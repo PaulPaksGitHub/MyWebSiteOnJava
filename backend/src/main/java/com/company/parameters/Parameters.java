@@ -1,5 +1,8 @@
 package com.company.parameters;
 
+import lombok.Getter;
+import lombok.Setter;
+@Getter @Setter
 public class Parameters {
     private String login = null;
     private String pass = null;
@@ -44,34 +47,6 @@ public class Parameters {
 
     public boolean hasLoginAndPass() {
         return hasLogin() && hasPassword();
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public String getRes() {
-        return res;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public String getDs() {
-        return ds;
-    }
-
-    public String getDe() {
-        return de;
-    }
-
-    public String getVol() {
-        return vol;
     }
 
     public boolean isH() {
