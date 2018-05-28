@@ -1,5 +1,6 @@
 package servlet;
 
+import com.google.gson.Gson;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.MembersInjector;
@@ -12,11 +13,11 @@ import com.google.inject.spi.TypeListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.ServletContextEvent;
 import java.lang.reflect.Field;
 
 public class GuiceListtener extends GuiceServletContextListener {
     private static final Logger logger = LogManager.getLogger(GuiceListtener.class);
+    private static final Gson gson = new Gson();
 
     @Override
     protected Injector getInjector() {
@@ -30,6 +31,7 @@ public class GuiceListtener extends GuiceServletContextListener {
                 serve("/echo/*").with(EchoServlet.class);
                 serve("/ajax/authority").with(AuthorityServlet.class);
                 serve("/ajax/user").with(UserServlet.class);
+                serve("/ajax/activity").with(ActivityServlet.class);
 
                 bindListener(Matchers.any(), new Log4JTypeListener());
             }
@@ -45,6 +47,11 @@ public class GuiceListtener extends GuiceServletContextListener {
                             field.isAnnotationPresent(LogAnot.class)) {
                         typeEncounter.register(new Log4JMembersInjector<T>(field));
                     }
+                    if (field.getType() == Gson.class &&
+                            field.isAnnotationPresent(GsonAnot.class)) {
+                        typeEncounter.register(new GsonInjector<T>(field));
+                    }
+                    logger.error("!!!!!!! Another anot");
                 }
                 clazz = clazz.getSuperclass();
             }
@@ -64,6 +71,26 @@ public class GuiceListtener extends GuiceServletContextListener {
         public void injectMembers(T t) {
             try {
                 field.set(t, logger);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+
+    class GsonInjector<T> implements MembersInjector<T> {
+        private final Field field;
+        private Gson gson;
+
+        GsonInjector(Field field) {
+            this.field = field;
+            this.gson = new Gson();
+            field.setAccessible(true);
+        }
+
+        public void injectMembers(T t) {
+            try {
+                field.set(t, gson);
             } catch (IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
