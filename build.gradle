@@ -9,6 +9,8 @@ subprojects {
     dependencies {
         compile "org.apache.logging.log4j:log4j-api:2.11.0"
         compile "org.apache.logging.log4j:log4j-core:2.11.0"
+        compile 'com.google.code.gson:gson:2.8.5'
+        compile "org.flywaydb:flyway-core:5.0.7"
     }
 
 }

@@ -1,6 +1,6 @@
 package servlet.ajax;
 
-import com.company.authorization.AuthorizationDAO;
+import com.company.accounting.AccountingDAO;
 import com.google.gson.Gson;
 import org.apache.logging.log4j.Logger;
 import servlet.ConnectionAnot;
@@ -17,7 +17,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 @Singleton
-public class AuthorityServlet extends HttpServlet {
+public class ActivityServlet extends HttpServlet {
     @LogAnot
     Logger logger;
 
@@ -30,16 +30,16 @@ public class AuthorityServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         response.setContentType("text/html;charset=utf-8");
+        AccountingDAO dao = new AccountingDAO();
 
         String id = request.getParameter("id");
-        String userid = request.getParameter("userid");
+        logger.debug("id = " + id);
+        String autorityid = request.getParameter("autorityid");
+        logger.debug("autorityid = " + autorityid);
         String text;
+        request.setAttribute("id", "AMA Activity SERVLET");
 
-        request.setAttribute("id", "AMA AUTHORITY SERVLET");
-
-        AuthorizationDAO dao = new AuthorizationDAO();
-
-        if (id == null && userid == null) {
+        if (id == null && autorityid == null) {
             try {
                 text = dao.getAll(conn);
                 logger.error(text);
@@ -49,7 +49,7 @@ public class AuthorityServlet extends HttpServlet {
             }
         } else if (id != null) {
             try {
-                text = dao.getResFromID(conn, id);
+                text = dao.getAccFromID(conn, id);
                 logger.error(text);
                 request.setAttribute("id", text);
             } catch (SQLException e) {
@@ -57,7 +57,7 @@ public class AuthorityServlet extends HttpServlet {
             }
         } else {
             try {
-                text = dao.getResFromUserID(conn, userid);
+                text = dao.getAccFromAutorityID(conn, autorityid);
                 logger.error(text);
                 request.setAttribute("id", text);
             } catch (SQLException e) {
@@ -68,3 +68,4 @@ public class AuthorityServlet extends HttpServlet {
         request.getRequestDispatcher("/getservlet.jsp").forward(request, response);
     }
 }
+

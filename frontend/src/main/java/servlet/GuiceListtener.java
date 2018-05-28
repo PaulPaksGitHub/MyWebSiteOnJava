@@ -1,6 +1,7 @@
 package servlet;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.MembersInjector;
@@ -12,8 +13,18 @@ import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.flywaydb.core.Flyway;
+import servlet.ajax.ActivityServlet;
+import servlet.ajax.AuthorityServlet;
+import servlet.ajax.UserServlet;
+import servlet.echo.EchoServlet;
+import servlet.echo.GetServlet;
+import servlet.echo.PostServlet;
 
 import java.lang.reflect.Field;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class GuiceListtener extends GuiceServletContextListener {
     private static final Logger logger = LogManager.getLogger(GuiceListtener.class);
@@ -22,7 +33,6 @@ public class GuiceListtener extends GuiceServletContextListener {
     @Override
     protected Injector getInjector() {
         logger.debug("ACTIVATE");
-        //if (true) throw new RuntimeException("1221213213");
         return Guice.createInjector(new ServletModule() {
             @Override
             protected void configureServlets() {
@@ -47,11 +57,14 @@ public class GuiceListtener extends GuiceServletContextListener {
                             field.isAnnotationPresent(LogAnot.class)) {
                         typeEncounter.register(new Log4JMembersInjector<T>(field));
                     }
-                    if (field.getType() == Gson.class &&
-                            field.isAnnotationPresent(GsonAnot.class)) {
-                        typeEncounter.register(new GsonInjector<T>(field));
+                    if (field.getType() == Provider.class &&
+                            field.isAnnotationPresent(ProviderAnot.class)) {
+                        typeEncounter.register(new ProviderInjector<T>(field));
                     }
-                    logger.error("!!!!!!! Another anot");
+                    if (field.getType() == Connection.class &&
+                            field.isAnnotationPresent(ConnectionAnot.class)) {
+                        typeEncounter.register(new ConnectionInjector<T>(field));
+                    }
                 }
                 clazz = clazz.getSuperclass();
             }
@@ -77,25 +90,61 @@ public class GuiceListtener extends GuiceServletContextListener {
         }
     }
 
+    static class ConnectionInjector<T> implements MembersInjector<T> {
+        private Field field;
+        private String url = "jdbc:h2:file:../data/db";
+        private String dbUser = "sa";
+        private String dbPassword = "";
+        private Connection conn;
 
-    class GsonInjector<T> implements MembersInjector<T> {
-        private final Field field;
-        private Gson gson;
-
-        GsonInjector(Field field) {
+        ConnectionInjector(Field field) {
             this.field = field;
-            this.gson = new Gson();
+            try {
+                Flyway flyway = new Flyway();
+                flyway.setDataSource(url, dbUser, dbPassword);
+                flyway.migrate();
+                this.conn = DriverManager.getConnection(url, dbUser, dbPassword);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             field.setAccessible(true);
         }
 
         public void injectMembers(T t) {
             try {
-                field.set(t, gson);
+                field.set(t, conn);
             } catch (IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
         }
     }
 
+    public interface Provider<T> {
+        T get();
+    }
 
+    public class ProviderInjector<Gson> implements MembersInjector<Gson> {
+        private final Field field;
+        private final Gson provider;
+
+        public ProviderInjector(Field field) {
+            this.field = field;
+
+            GsonBuilder builder = new GsonBuilder();
+            builder.excludeFieldsWithoutExposeAnnotation();
+            com.google.gson.Gson gson = builder.create();
+
+            this.provider = (Gson) gson;
+            field.setAccessible(true);
+        }
+
+        @Override
+        public void injectMembers(Gson t) {
+            try {
+                field.set(t, provider);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 }

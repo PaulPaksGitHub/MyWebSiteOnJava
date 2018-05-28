@@ -1,7 +1,7 @@
-package servlet;
+package servlet.echo;
 
-import com.google.gson.Gson;
 import org.apache.logging.log4j.Logger;
+import servlet.LogAnot;
 
 import javax.inject.Singleton;
 import javax.servlet.ServletException;
@@ -17,8 +17,6 @@ public class GetServlet extends HttpServlet {
     @LogAnot
     Logger logger;
 
-    @GsonAnot
-    Gson gson;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
