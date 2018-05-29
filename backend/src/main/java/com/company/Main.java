@@ -17,7 +17,7 @@ import java.util.Arrays;
 public class Main {
     private static final Logger logger = LogManager.getLogger(Main.class);
 
-    private static String url = "jdbc:h2:file:./data/db";
+    private static String url = "jdbc:h2:file:../data/db";
     private static String dbUser = "sa";
     private static String dbPassword = "";
     private static Connection conn = null;
