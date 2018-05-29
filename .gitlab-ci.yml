@@ -1,9 +1,8 @@
 image: java
 
 stages:
-  - build
   - deploy
-  - test
+
 
 before_script:
   - chmod +x ./gradlew
@@ -22,6 +21,8 @@ deploy:
     script:
         - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/ppakseev.git
         - git push heroku master
+        - heroku run rake db:migrate
+        - heroku restart
 
 build:
   stage: build

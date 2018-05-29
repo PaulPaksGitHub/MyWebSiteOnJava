@@ -29,7 +29,7 @@ import java.sql.SQLException;
 public class GuiceListtener extends GuiceServletContextListener {
     private static final Logger logger = LogManager.getLogger(GuiceListtener.class);
     private static final Gson gson = new Gson();
-    private static String url = "jdbc:h2:file:../data/db";
+    private static String url = "jdbc:h2:file:./data/db";
     private static String dbUser = "sa";
     private static String dbPassword = "";
 
