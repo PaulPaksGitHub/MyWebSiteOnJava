@@ -1,7 +1,9 @@
 image: java
 
 stages:
+  - build
   - deploy
+  - test
 
 
 before_script:
