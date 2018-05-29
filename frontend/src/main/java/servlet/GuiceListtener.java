@@ -29,10 +29,19 @@ import java.sql.SQLException;
 public class GuiceListtener extends GuiceServletContextListener {
     private static final Logger logger = LogManager.getLogger(GuiceListtener.class);
     private static final Gson gson = new Gson();
+    private static String url = "jdbc:h2:file:../data/db";
+    private static String dbUser = "sa";
+    private static String dbPassword = "";
+
+
 
     @Override
     protected Injector getInjector() {
-        logger.debug("ACTIVATE");
+        logger.debug("START MIGRATIONS");
+        Flyway flyway = new Flyway();
+        flyway.setDataSource(url, dbUser, dbPassword);
+        flyway.migrate();
+        logger.debug("END MIGRATIONS");
         return Guice.createInjector(new ServletModule() {
             @Override
             protected void configureServlets() {
@@ -92,17 +101,11 @@ public class GuiceListtener extends GuiceServletContextListener {
 
     static class ConnectionInjector<T> implements MembersInjector<T> {
         private Field field;
-        private String url = "jdbc:h2:file:../data/db";
-        private String dbUser = "sa";
-        private String dbPassword = "";
         private Connection conn;
 
         ConnectionInjector(Field field) {
             this.field = field;
             try {
-                Flyway flyway = new Flyway();
-                flyway.setDataSource(url, dbUser, dbPassword);
-                flyway.migrate();
                 this.conn = DriverManager.getConnection(url, dbUser, dbPassword);
             } catch (SQLException e) {
                 e.printStackTrace();
