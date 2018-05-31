@@ -1,14 +1,13 @@
-
 create table users
 (
-  id integer bigserial primary key ,
+  id bigserial primary key ,
   login varchar(50) not null unique ,
   pass varchar(64) not null,
   salt varchar(64) not null
 );
 
 create table res (
-  id integer bigserial primary key,
+  id bigserial primary key,
   adress varchar(50) not null ,
   login varchar(50) not null references users(login),
   userid integer not null references users(id),
@@ -16,7 +15,7 @@ create table res (
 );
 
 create table acc (
-  id integer bigserial primary key ,
+  id bigserial primary key ,
   login varchar(50) not null references users(login),
   autorityid varchar(50) not null,
   ds varchar(15) not null ,
