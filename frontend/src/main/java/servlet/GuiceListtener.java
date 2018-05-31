@@ -39,7 +39,9 @@ public class GuiceListtener extends GuiceServletContextListener {
     protected Injector getInjector() {
         URI dbUri = null;
         try {
-            dbUri = new URI(System.getenv("DATABASE_URL"));
+            if (System.getenv("DATABASE_URL") != null) {
+                dbUri = new URI(System.getenv("DATABASE_URL"));
+            }
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
