@@ -11,7 +11,7 @@ create table res (
   adress varchar(50) not null ,
   login varchar(50) not null references users(login),
   userid integer not null references users(id),
-  role varchar(20) not null,
+  role varchar(20) not null
 );
 
 create table acc (
@@ -21,4 +21,4 @@ create table acc (
   ds varchar(15) not null ,
   de varchar(15) not null ,
   vol integer not null
-)
+);
