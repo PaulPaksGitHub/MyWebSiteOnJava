@@ -29,14 +29,13 @@ import java.sql.SQLException;
 public class GuiceListtener extends GuiceServletContextListener {
     private static final Logger logger = LogManager.getLogger(GuiceListtener.class);
     private static final Gson gson = new Gson();
-    private static String url = "jdbc:h2:file:./data/db";
+    private static String url = "jdbc:h2:file:./data/db;MODE=PostgreSQL";
     private static String dbUser = "sa";
     private static String dbPassword = "";
 
-
-
     @Override
     protected Injector getInjector() {
+        logger.debug(System.getenv("DATABASE_URL"));
         logger.debug("START MIGRATIONS");
         Flyway flyway = new Flyway();
         flyway.setDataSource(url, dbUser, dbPassword);
