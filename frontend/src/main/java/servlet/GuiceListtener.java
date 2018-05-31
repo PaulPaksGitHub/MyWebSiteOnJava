@@ -22,6 +22,8 @@ import servlet.echo.GetServlet;
 import servlet.echo.PostServlet;
 
 import java.lang.reflect.Field;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -29,16 +31,28 @@ import java.sql.SQLException;
 public class GuiceListtener extends GuiceServletContextListener {
     private static final Logger logger = LogManager.getLogger(GuiceListtener.class);
     private static final Gson gson = new Gson();
-    private static String url ;
-    private static String dbUser = "sa";
-    private static String dbPassword = "";
+    private static String url;
+    private static String dbUser;
+    private static String dbPassword;
 
     @Override
     protected Injector getInjector() {
-        url = System.getenv("DATABASE_URL");
-        if (url == null) {
-            url = "jdbc:h2:file:./data/db;MODE=PostgreSQL";
+        URI dbUri = null;
+        try {
+            dbUri = new URI(System.getenv("DATABASE_URL"));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
         }
+        if (dbUri == null) {
+            url = "jdbc:h2:file:./data/db;MODE=PostgreSQL";
+            dbUser = "sa";
+            dbPassword = "";
+        } else {
+            url = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+            dbUser = dbUri.getUserInfo().split(":")[0];
+            dbPassword = dbUri.getUserInfo().split(":")[1];
+        }
+
         logger.debug("Database URL: {}", url);
         logger.debug("START MIGRATIONS");
         Flyway flyway = new Flyway();
