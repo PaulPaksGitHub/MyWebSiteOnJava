@@ -20,7 +20,7 @@ public class GetServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        logger.error("Get servlet");
+        logger.debug("Get servlet");
         String id = request.getParameter("id");
         response.setContentType("text/html;charset=utf-8");
 
