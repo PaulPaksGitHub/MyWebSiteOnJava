@@ -29,13 +29,17 @@ import java.sql.SQLException;
 public class GuiceListtener extends GuiceServletContextListener {
     private static final Logger logger = LogManager.getLogger(GuiceListtener.class);
     private static final Gson gson = new Gson();
-    private static String url = "jdbc:h2:file:./data/db;MODE=PostgreSQL";
+    private static String url ;
     private static String dbUser = "sa";
     private static String dbPassword = "";
 
     @Override
     protected Injector getInjector() {
-        logger.debug(System.getenv("DATABASE_URL"));
+        url = System.getenv("DATABASE_URL");
+        if (url == null) {
+            url = "jdbc:h2:file:./data/db;MODE=PostgreSQL";
+        }
+        logger.debug("Database URL: {}", url);
         logger.debug("START MIGRATIONS");
         Flyway flyway = new Flyway();
         flyway.setDataSource(url, dbUser, dbPassword);
@@ -104,6 +108,8 @@ public class GuiceListtener extends GuiceServletContextListener {
 
         ConnectionInjector(Field field) {
             this.field = field;
+
+
             try {
                 this.conn = DriverManager.getConnection(url, dbUser, dbPassword);
             } catch (SQLException e) {
