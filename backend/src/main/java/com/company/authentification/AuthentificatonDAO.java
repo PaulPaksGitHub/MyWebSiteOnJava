@@ -40,7 +40,7 @@ public class AuthentificatonDAO {
         List<User> list = new ArrayList<>();
         while (rs.next()) {
             User user = new User(
-                    rs.getString("id"),
+                    rs.getString("userid"),
                     rs.getString("login"),
                     rs.getString("pass"),
                     rs.getString("salt"));
@@ -52,7 +52,7 @@ public class AuthentificatonDAO {
     }
 
     public String getUserFromID(Connection conn, String id) throws SQLException {
-        PreparedStatement st = conn.prepareStatement("select * from users where id = ?");
+        PreparedStatement st = conn.prepareStatement("select * from users where userid = ?");
         st.setString(1, id);
         ResultSet rs = st.executeQuery();
 
@@ -62,7 +62,7 @@ public class AuthentificatonDAO {
 
         if (rs.next()) {
             User user = new User(
-                    rs.getString("id"),
+                    rs.getString("userid"),
                     rs.getString("login"),
                     rs.getString("pass"),
                     rs.getString("salt"));

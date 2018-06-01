@@ -37,30 +37,9 @@ public class GuiceListtener extends GuiceServletContextListener {
 
     @Override
     protected Injector getInjector() {
-        URI dbUri = null;
-        try {
-            if (System.getenv("DATABASE_URL") != null) {
-                dbUri = new URI(System.getenv("DATABASE_URL"));
-            }
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        if (dbUri == null) {
-            url = "jdbc:h2:file:./data/db;MODE=PostgreSQL";
-            dbUser = "sa";
-            dbPassword = "";
-        } else {
-            url = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
-            dbUser = dbUri.getUserInfo().split(":")[0];
-            dbPassword = dbUri.getUserInfo().split(":")[1];
-        }
-
-        logger.debug("Database URL: {}", url);
-        logger.debug("START MIGRATIONS");
-        Flyway flyway = new Flyway();
-        flyway.setDataSource(url, dbUser, dbPassword);
-        flyway.migrate();
-        logger.debug("END MIGRATIONS");
+        setDbUrl();
+        migrate();
+        
         return Guice.createInjector(new ServletModule() {
             @Override
             protected void configureServlets() {
@@ -170,5 +149,35 @@ public class GuiceListtener extends GuiceServletContextListener {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    private void setDbUrl() {
+        URI dbUri = null;
+        try {
+            if (System.getenv("DATABASE_URL") != null) {
+                dbUri = new URI(System.getenv("DATABASE_URL"));
+            }
+        } catch (URISyntaxException e) {
+            logger.error("Cannot get db url {}", e);
+        }
+        if (dbUri == null) {
+            url = "jdbc:h2:file:./data/db;MODE=PostgreSQL";
+            dbUser = "sa";
+            dbPassword = "";
+        } else {
+            url = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+            dbUser = dbUri.getUserInfo().split(":")[0];
+            dbPassword = dbUri.getUserInfo().split(":")[1];
+        }
+    }
+
+    private void migrate () {
+        logger.debug("Database URL: {}", url);
+        logger.debug("START MIGRATIONS");
+        Flyway flyway = new Flyway();
+        flyway.setLocations("db/migration/pg");
+        flyway.setDataSource(url, dbUser, dbPassword);
+        flyway.migrate();
+        logger.debug("END MIGRATIONS");
     }
 }

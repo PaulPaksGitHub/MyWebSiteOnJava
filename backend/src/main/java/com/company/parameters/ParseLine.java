@@ -20,19 +20,19 @@ public class ParseLine {
         CommandLineParser cmdLinePosixParser = new DefaultParser();
         try {
             CommandLine commandLine = cmdLinePosixParser.parse(getOptions(), args);
-            params.setLogin(commandLine.getOptionValue("login",null));
+            params.setLogin(commandLine.getOptionValue("login"));
 
-            params.setPass(commandLine.getOptionValue("pass", null));
+            params.setPass(commandLine.getOptionValue("pass"));
 
-            params.setRes(commandLine.getOptionValue("res",null));
+            params.setRes(commandLine.getOptionValue("res"));
 
-            params.setRole(commandLine.getOptionValue("role", null));
+            params.setRole(commandLine.getOptionValue("role"));
 
-            params.setDs(commandLine.getOptionValue("ds",null));
+            params.setDs(commandLine.getOptionValue("ds"));
 
-            params.setDe(commandLine.getOptionValue("de", null));
+            params.setDe(commandLine.getOptionValue("de"));
 
-            params.setVol(commandLine.getOptionValue("vol", null));
+            params.setVol(commandLine.getOptionValue("vol"));
 
             if (commandLine.hasOption("h") || params.isParamEmpty()) {
                 params.setH(true);

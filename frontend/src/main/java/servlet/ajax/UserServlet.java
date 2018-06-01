@@ -32,7 +32,7 @@ public class UserServlet extends HttpServlet {
             throws IOException, ServletException {
         response.setContentType("text/html;charset=utf-8");
 
-        String id = request.getParameter("id");
+        String id = request.getParameter("userid");
         logger.error("ID = " + id);
         AuthentificatonDAO auth = new AuthentificatonDAO();
 
@@ -45,14 +45,14 @@ public class UserServlet extends HttpServlet {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            request.setAttribute("id", "ID of all users:" + idlist);
+            request.setAttribute("userid", "ID of all users:" + idlist);
         } else {
             try {
                 idlist = auth.getUserFromID(conn, id);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            request.setAttribute("id", "User json:" + idlist);
+            request.setAttribute("userid", "User json:" + idlist);
         }
 
         request.getRequestDispatcher("/getservlet.jsp").forward(request, response);

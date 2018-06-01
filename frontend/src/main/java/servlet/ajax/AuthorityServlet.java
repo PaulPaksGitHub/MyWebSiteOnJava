@@ -31,11 +31,11 @@ public class AuthorityServlet extends HttpServlet {
             throws IOException, ServletException {
         response.setContentType("text/html;charset=utf-8");
 
-        String id = request.getParameter("id");
+        String id = request.getParameter("userid");
         String userid = request.getParameter("userid");
         String text;
 
-        request.setAttribute("id", "AMA AUTHORITY SERVLET");
+        request.setAttribute("userid", "AMA AUTHORITY SERVLET");
 
         AuthorizationDAO dao = new AuthorizationDAO();
 
@@ -43,7 +43,7 @@ public class AuthorityServlet extends HttpServlet {
             try {
                 text = dao.getAll(conn);
                 logger.error(text);
-                request.setAttribute("id", text);
+                request.setAttribute("userid", text);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -51,7 +51,7 @@ public class AuthorityServlet extends HttpServlet {
             try {
                 text = dao.getResFromID(conn, id);
                 logger.error(text);
-                request.setAttribute("id", text);
+                request.setAttribute("userid", text);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -59,7 +59,7 @@ public class AuthorityServlet extends HttpServlet {
             try {
                 text = dao.getResFromUserID(conn, userid);
                 logger.error(text);
-                request.setAttribute("id", text);
+                request.setAttribute("userid", text);
             } catch (SQLException e) {
                 e.printStackTrace();
             }

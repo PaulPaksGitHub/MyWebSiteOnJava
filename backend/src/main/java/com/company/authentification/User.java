@@ -4,12 +4,25 @@ import com.google.gson.annotations.Expose;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Version;
+
 @Getter
 @Setter
+@Entity
 public class User {
-    @Expose()
-    public String id = null;
-    @Expose()
+    @Id
+    @GeneratedValue
+    @Expose
+    long entityid;
+    @Expose
+    @Version
+    long version;
+    @Expose
+    public String userid;
+    @Expose
     public String login;
     @Expose(serialize = false)
     public String pass;
@@ -22,8 +35,8 @@ public class User {
         this.salt = salt;
     }
 
-    public User(String id, String login, String pass, String salt) {
-        this.id = id;
+    public User(String userid, String login, String pass, String salt) {
+        this.userid = userid;
         this.login = login;
         this.pass = pass;
         this.salt = salt;

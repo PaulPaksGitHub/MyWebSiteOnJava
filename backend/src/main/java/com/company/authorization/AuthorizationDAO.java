@@ -42,7 +42,7 @@ public class AuthorizationDAO {
         List<AutorizationParams> list = new ArrayList<>();
         while (rs.next()) {
             AutorizationParams params = new AutorizationParams(
-                    rs.getString("id"),
+                    rs.getString("userid"),
                     rs.getString("adress"),
                     rs.getString("login"),
                     rs.getString("userid"),
@@ -55,7 +55,7 @@ public class AuthorizationDAO {
     }
 
     public String getResFromID(Connection conn, String id) throws SQLException {
-        PreparedStatement st = conn.prepareStatement("select * from res where id = ?");
+        PreparedStatement st = conn.prepareStatement("select * from res where userid = ?");
         st.setString(1, id);
         ResultSet rs = st.executeQuery();
 
@@ -65,7 +65,7 @@ public class AuthorizationDAO {
 
         if (rs.next()) {
             AutorizationParams params = new AutorizationParams(
-                    rs.getString("id"),
+                    rs.getString("userid"),
                     rs.getString("adress"),
                     rs.getString("login"),
                     rs.getString("userid"),
@@ -91,7 +91,7 @@ public class AuthorizationDAO {
         List<AutorizationParams> list = new ArrayList<>();
         while (rs.next()) {
             AutorizationParams params = new AutorizationParams(
-                    rs.getString("id"),
+                    rs.getString("userid"),
                     rs.getString("adress"),
                     rs.getString("login"),
                     rs.getString("userid"),

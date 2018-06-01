@@ -4,14 +4,14 @@ import lombok.Getter;
 import lombok.Setter;
 @Getter @Setter
 public class Parameters {
-    private String login = null;
-    private String pass = null;
-    private String res = null;
-    private String role = null;
-    private String ds = null;
-    private String de = null;
-    private String vol = null;
-    private boolean h = false;
+    private String login;
+    private String pass;
+    private String res;
+    private String role;
+    private String ds;
+    private String de;
+    private String vol;
+    private boolean h;
 
     public boolean isParamEmpty() {
         return !canAuthentific() && !canAuthorize() && !canAccaunt();

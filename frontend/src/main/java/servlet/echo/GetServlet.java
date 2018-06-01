@@ -21,10 +21,10 @@ public class GetServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         logger.debug("Get servlet");
-        String id = request.getParameter("id");
+        String id = request.getParameter("userid");
         response.setContentType("text/html;charset=utf-8");
 
-        request.setAttribute("id", id);
+        request.setAttribute("userid", id);
         request.getRequestDispatcher("/getservlet.jsp").forward(request, response);
     }
 }

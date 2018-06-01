@@ -38,7 +38,7 @@ public class AccountingDAO {
         List<AccountingParams> list = new ArrayList<>();
         while (rs.next()) {
             AccountingParams params = new AccountingParams(
-                    rs.getString("id"),
+                    rs.getString("userid"),
                     rs.getString("login"),
                     rs.getString("autorityid"),
                     rs.getString("ds"),
@@ -52,7 +52,7 @@ public class AccountingDAO {
     }
 
     public String getAccFromID(Connection conn, String id) throws SQLException {
-        PreparedStatement st = conn.prepareStatement("select * from acc where id = ?");
+        PreparedStatement st = conn.prepareStatement("select * from acc where userid = ?");
         st.setString(1, id);
         ResultSet rs = st.executeQuery();
 
@@ -62,7 +62,7 @@ public class AccountingDAO {
 
         if (rs.next()) {
             AccountingParams params = new AccountingParams(
-                    rs.getString("id"),
+                    rs.getString("userid"),
                     rs.getString("login"),
                     rs.getString("autorityid"),
                     rs.getString("ds"),
@@ -89,7 +89,7 @@ public class AccountingDAO {
         List<AccountingParams> list = new ArrayList<>();
         while (rs.next()) {
             AccountingParams params = new AccountingParams(
-                    rs.getString("id"),
+                    rs.getString("userid"),
                     rs.getString("login"),
                     rs.getString("autorityid"),
                     rs.getString("ds"),
