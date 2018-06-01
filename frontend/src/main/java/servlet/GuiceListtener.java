@@ -1,5 +1,9 @@
 package servlet;
 
+import com.company.accounting.AccountingDAO;
+import com.company.authentification.Authentification;
+import com.company.authentification.AuthentificatonDAO;
+import com.company.authorization.AuthorizationDAO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.inject.Guice;
@@ -39,7 +43,7 @@ public class GuiceListtener extends GuiceServletContextListener {
     protected Injector getInjector() {
         setDbUrl();
         migrate();
-        
+
         return Guice.createInjector(new ServletModule() {
             @Override
             protected void configureServlets() {
@@ -72,6 +76,15 @@ public class GuiceListtener extends GuiceServletContextListener {
                             field.isAnnotationPresent(ConnectionAnot.class)) {
                         typeEncounter.register(new ConnectionInjector<T>(field));
                     }
+                    if (field.getType() == AuthentificatonDAO.class) {
+                        typeEncounter.register(new AuthentificatonDaoInjector<T>(field));
+                    }
+                    if (field.getType() == AuthorizationDAO.class) {
+                        typeEncounter.register(new AuthorizationDaoInjector<T>(field));
+                    }
+                    if (field.getType() == AccountingDAO.class) {
+                        typeEncounter.register(new AccountingDaoInjector<T>(field));
+                    }
                 }
                 clazz = clazz.getSuperclass();
             }
@@ -96,6 +109,64 @@ public class GuiceListtener extends GuiceServletContextListener {
             }
         }
     }
+
+    class AuthentificatonDaoInjector<T> implements MembersInjector<T> {
+        private final Field field;
+        AuthentificatonDAO auth;
+
+        AuthentificatonDaoInjector(Field field) {
+            this.field = field;
+            field.setAccessible(true);
+            this.auth = new AuthentificatonDAO();
+        }
+
+        public void injectMembers(T t) {
+            try {
+                field.set(t, auth);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+    class AuthorizationDaoInjector<T> implements MembersInjector<T> {
+        private final Field field;
+        AuthorizationDAO dao;
+
+        AuthorizationDaoInjector(Field field) {
+            this.field = field;
+            field.setAccessible(true);
+            this.dao = new AuthorizationDAO();
+        }
+
+        public void injectMembers(T t) {
+            try {
+                field.set(t, dao);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+    class AccountingDaoInjector<T> implements MembersInjector<T> {
+        private final Field field;
+        AccountingDAO dao;
+
+        AccountingDaoInjector(Field field) {
+            this.field = field;
+            field.setAccessible(true);
+            this.dao = new AccountingDAO();
+        }
+
+        public void injectMembers(T t) {
+            try {
+                field.set(t, dao);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+
+
 
     static class ConnectionInjector<T> implements MembersInjector<T> {
         private Field field;

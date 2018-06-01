@@ -61,8 +61,9 @@ public class Main {
         conn.close();
     }
 
-    public static void checkDBconnection() {
+    private static void checkDBconnection() {
         Flyway flyway = new Flyway();
+        flyway.setLocations("db/migraton/h2");
         flyway.setDataSource(url, dbUser, dbPassword);
         flyway.migrate();
     }

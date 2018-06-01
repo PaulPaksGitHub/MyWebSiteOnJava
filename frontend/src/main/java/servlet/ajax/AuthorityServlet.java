@@ -27,6 +27,8 @@ public class AuthorityServlet extends HttpServlet {
     @ProviderAnot
     Gson gson;
 
+    AuthorizationDAO dao;
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         response.setContentType("text/html;charset=utf-8");
@@ -37,7 +39,7 @@ public class AuthorityServlet extends HttpServlet {
 
         request.setAttribute("userid", "AMA AUTHORITY SERVLET");
 
-        AuthorizationDAO dao = new AuthorizationDAO();
+
 
         if (id == null && userid == null) {
             try {

@@ -27,6 +27,7 @@ public class UserServlet extends HttpServlet {
 
     @ConnectionAnot
     Connection conn;
+    AuthentificatonDAO auth;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
@@ -34,7 +35,6 @@ public class UserServlet extends HttpServlet {
 
         String id = request.getParameter("userid");
         logger.error("ID = " + id);
-        AuthentificatonDAO auth = new AuthentificatonDAO();
 
         String idlist = null;
 

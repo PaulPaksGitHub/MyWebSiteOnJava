@@ -27,10 +27,11 @@ public class ActivityServlet extends HttpServlet {
     @ProviderAnot
     Gson gson;
 
+    AccountingDAO dao;
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         response.setContentType("text/html;charset=utf-8");
-        AccountingDAO dao = new AccountingDAO();
 
         String id = request.getParameter("userid");
         logger.debug("userid = " + id);
