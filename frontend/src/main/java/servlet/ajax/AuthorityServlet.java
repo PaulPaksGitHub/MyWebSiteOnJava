@@ -31,13 +31,12 @@ public class AuthorityServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        response.setContentType("text/html;charset=utf-8");
 
-        String id = request.getParameter("userid");
-        String userid = request.getParameter("userid");
+        String id = request.getParameter("id");
+        String userid = request.getParameter("id");
         String text;
 
-        request.setAttribute("userid", "AMA AUTHORITY SERVLET");
+        request.setAttribute("id", "AMA AUTHORITY SERVLET");
 
 
 
@@ -45,7 +44,7 @@ public class AuthorityServlet extends HttpServlet {
             try {
                 text = dao.getAll(conn);
                 logger.error(text);
-                request.setAttribute("userid", text);
+                request.setAttribute("id", text);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -53,7 +52,7 @@ public class AuthorityServlet extends HttpServlet {
             try {
                 text = dao.getResFromID(conn, id);
                 logger.error(text);
-                request.setAttribute("userid", text);
+                request.setAttribute("id", text);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -61,7 +60,7 @@ public class AuthorityServlet extends HttpServlet {
             try {
                 text = dao.getResFromUserID(conn, userid);
                 logger.error(text);
-                request.setAttribute("userid", text);
+                request.setAttribute("id", text);
             } catch (SQLException e) {
                 e.printStackTrace();
             }

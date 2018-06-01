@@ -33,18 +33,18 @@ public class ActivityServlet extends HttpServlet {
             throws IOException, ServletException {
         response.setContentType("text/html;charset=utf-8");
 
-        String id = request.getParameter("userid");
-        logger.debug("userid = " + id);
+        String id = request.getParameter("id");
+        logger.debug("id = " + id);
         String autorityid = request.getParameter("autorityid");
         logger.debug("autorityid = " + autorityid);
         String text;
-        request.setAttribute("userid", "AMA Activity SERVLET");
+        request.setAttribute("id", "AMA Activity SERVLET");
 
         if (id == null && autorityid == null) {
             try {
                 text = dao.getAll(conn);
                 logger.error(text);
-                request.setAttribute("userid", text);
+                request.setAttribute("id", text);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -52,7 +52,7 @@ public class ActivityServlet extends HttpServlet {
             try {
                 text = dao.getAccFromID(conn, id);
                 logger.error(text);
-                request.setAttribute("userid", text);
+                request.setAttribute("id", text);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -60,7 +60,7 @@ public class ActivityServlet extends HttpServlet {
             try {
                 text = dao.getAccFromAutorityID(conn, autorityid);
                 logger.error(text);
-                request.setAttribute("userid", text);
+                request.setAttribute("id", text);
             } catch (SQLException e) {
                 e.printStackTrace();
             }

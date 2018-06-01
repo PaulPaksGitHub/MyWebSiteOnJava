@@ -33,26 +33,26 @@ public class UserServlet extends HttpServlet {
             throws IOException, ServletException {
         response.setContentType("text/html;charset=utf-8");
 
-        String id = request.getParameter("userid");
-        logger.error("ID = " + id);
+        String id = request.getParameter("id");
+        logger.debug("ID = {}", id);
 
         String idlist = null;
 
         if (id == null) {
             try {
                 idlist = auth.getAll(conn);
-                logger.error(idlist);
+                logger.debug(idlist);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            request.setAttribute("userid", "ID of all users:" + idlist);
+            request.setAttribute("id", "ID of all users:" + idlist);
         } else {
             try {
                 idlist = auth.getUserFromID(conn, id);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            request.setAttribute("userid", "User json:" + idlist);
+            request.setAttribute("id", "User json:" + idlist);
         }
 
         request.getRequestDispatcher("/getservlet.jsp").forward(request, response);
