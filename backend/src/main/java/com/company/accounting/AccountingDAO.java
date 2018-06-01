@@ -38,7 +38,7 @@ public class AccountingDAO {
         List<AccountingParams> list = new ArrayList<>();
         while (rs.next()) {
             AccountingParams params = new AccountingParams(
-                    rs.getString("userid"),
+                    rs.getString("id"),
                     rs.getString("login"),
                     rs.getString("autorityid"),
                     rs.getString("ds"),
@@ -62,7 +62,7 @@ public class AccountingDAO {
 
         if (rs.next()) {
             AccountingParams params = new AccountingParams(
-                    rs.getString("userid"),
+                    rs.getString("id"),
                     rs.getString("login"),
                     rs.getString("autorityid"),
                     rs.getString("ds"),
@@ -89,7 +89,7 @@ public class AccountingDAO {
         List<AccountingParams> list = new ArrayList<>();
         while (rs.next()) {
             AccountingParams params = new AccountingParams(
-                    rs.getString("userid"),
+                    rs.getString("id"),
                     rs.getString("login"),
                     rs.getString("autorityid"),
                     rs.getString("ds"),

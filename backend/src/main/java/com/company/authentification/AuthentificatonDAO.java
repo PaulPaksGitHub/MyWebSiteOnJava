@@ -40,7 +40,7 @@ public class AuthentificatonDAO {
         List<User> list = new ArrayList<>();
         while (rs.next()) {
             User user = new User(
-                    rs.getString("userid"),
+                    rs.getString("id"),
                     rs.getString("login"),
                     rs.getString("pass"),
                     rs.getString("salt"));
@@ -62,7 +62,7 @@ public class AuthentificatonDAO {
 
         if (rs.next()) {
             User user = new User(
-                    rs.getString("userid"),
+                    rs.getString("id"),
                     rs.getString("login"),
                     rs.getString("pass"),
                     rs.getString("salt"));

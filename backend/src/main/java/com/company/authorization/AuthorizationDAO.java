@@ -42,7 +42,7 @@ public class AuthorizationDAO {
         List<AutorizationParams> list = new ArrayList<>();
         while (rs.next()) {
             AutorizationParams params = new AutorizationParams(
-                    rs.getString("userid"),
+                    rs.getString("id"),
                     rs.getString("adress"),
                     rs.getString("login"),
                     rs.getString("userid"),
@@ -65,7 +65,7 @@ public class AuthorizationDAO {
 
         if (rs.next()) {
             AutorizationParams params = new AutorizationParams(
-                    rs.getString("userid"),
+                    rs.getString("id"),
                     rs.getString("adress"),
                     rs.getString("login"),
                     rs.getString("userid"),
@@ -91,7 +91,7 @@ public class AuthorizationDAO {
         List<AutorizationParams> list = new ArrayList<>();
         while (rs.next()) {
             AutorizationParams params = new AutorizationParams(
-                    rs.getString("userid"),
+                    rs.getString("id"),
                     rs.getString("adress"),
                     rs.getString("login"),
                     rs.getString("userid"),
