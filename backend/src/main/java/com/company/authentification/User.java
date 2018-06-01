@@ -13,9 +13,9 @@ import javax.persistence.Version;
 @Setter
 @Entity
 public class User {
+    @Expose
     @Id
     @GeneratedValue
-    @Expose
     long entityid;
     @Expose
     @Version
