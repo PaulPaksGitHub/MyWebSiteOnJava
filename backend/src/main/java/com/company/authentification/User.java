@@ -14,13 +14,11 @@ import javax.persistence.Version;
 @Entity
 public class User {
     @Expose
-    @Id
-    @GeneratedValue
-    long entityid;
-    @Expose
     @Version
     long version;
     @Expose
+    @Id
+    @GeneratedValue
     public String userid;
     @Expose
     public String login;

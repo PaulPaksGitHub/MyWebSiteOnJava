@@ -25,12 +25,16 @@ import servlet.echo.EchoServlet;
 import servlet.echo.GetServlet;
 import servlet.echo.PostServlet;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.lang.reflect.Field;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 public class GuiceListtener extends GuiceServletContextListener {
     private static final Logger logger = LogManager.getLogger(GuiceListtener.class);
@@ -38,11 +42,18 @@ public class GuiceListtener extends GuiceServletContextListener {
     private static String url;
     private static String dbUser;
     private static String dbPassword;
+    private static EntityManager entityManager;
 
     @Override
     protected Injector getInjector() {
         setDbUrl();
         migrate();
+
+        HashMap<String,String> props=new HashMap<>();
+        props.put("javax.persistence.jdbc.url", url);
+        props.put("javax.persistence.jdbc.user", dbUser);
+        props.put("javax.persistence.jdbc.password", dbPassword);
+        EntityManagerFactory emf=Persistence.createEntityManagerFactory("YourPersistenceUnitPU",props);
 
         return Guice.createInjector(new ServletModule() {
             @Override
