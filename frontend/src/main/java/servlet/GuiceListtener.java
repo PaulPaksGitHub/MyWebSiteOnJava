@@ -71,15 +71,6 @@ public class GuiceListtener extends GuiceServletContextListener {
 
         EntityManager em = entityManagerFactory.createEntityManager();
 
-        em.getTransaction().begin();
-
-        logger.debug(em.createQuery("SELECT u FROM users u WHERE u.id LIKE :userid")
-                .setParameter("userid", 1).getResultList().toString());
-
-        em.getTransaction().commit();
-        em.close();
-
-
         return Guice.createInjector(new ServletModule() {
             @Override
             protected void configureServlets() {

@@ -17,9 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AuthentificatonDAO {
-    private final EntityManager em;
+    private EntityManager em;
 
-    //@Inject
+    @Inject
     public AuthentificatonDAO(EntityManager em) {
         this.em = em;
     }
@@ -54,13 +54,13 @@ public class AuthentificatonDAO {
         Gson gson = builder.create();
         logger.error(gson.toJson(em));
 
-        long userid = Long.parseLong(id);
         em.getTransaction().begin();
 
-        logger.debug(em.createQuery("SELECT u FROM users u WHERE u.id LIKE :userid")
-                .setParameter("userid", userid).getResultList().toString());
 
-        String text = gson.toJson(em.createQuery("SELECT u FROM users u WHERE u.id LIKE :userid")
+        logger.debug(em.createQuery("SELECT u FROM User u WHERE u.id = :id")
+                .setParameter("id", Long.parseLong(id)).getResultList());
+
+        String text = gson.toJson(em.createQuery("SELECT u FROM User u WHERE u.id = :userid")
                 .setParameter("userid", id).getResultList());
 
         em.getTransaction().commit();

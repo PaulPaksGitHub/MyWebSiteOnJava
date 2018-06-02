@@ -13,17 +13,21 @@ import javax.persistence.*;
 public class User {
     @Expose
     @Version
-    @Column(name = "id")
+    @Column(name = "version")
     long version;
     @Expose
     @Id
     @GeneratedValue
+    @Column(name = "id")
     long id;
     @Expose
+    @Column(name = "login")
     public String login;
     @Expose(serialize = false)
+    @Column(name = "pass")
     public String pass;
     @Expose(serialize = false)
+    @Column(name = "salt")
     public String salt;
 
     public User(String login, String pass, String salt) {
