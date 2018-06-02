@@ -9,17 +9,17 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "users")
+@Table(name="users")
 public class User {
     @Expose
     @Version
     @Column(name = "version")
-    long version;
+    public long version;
     @Expose
     @Id
     @GeneratedValue
     @Column(name = "id")
-    long id;
+    public long id;
     @Expose
     @Column(name = "login")
     public String login;
@@ -36,8 +36,8 @@ public class User {
         this.salt = salt;
     }
 
-    public User(long userid, String login, String pass, String salt) {
-        this.id = userid;
+    public User(long id, String login, String pass, String salt) {
+        this.id = id;
         this.login = login;
         this.pass = pass;
         this.salt = salt;

@@ -6,6 +6,9 @@
              version="2.1">
 
     <persistence-unit name="EnManager" transaction-type="RESOURCE_LOCAL">
+        <class>com.company.authentification.User</class>
+        <class>com.company.accounting.AccountingParams</class>
+        <class>com.company.authorization.AutorizationParams</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" /> <!-- DB Driver -->
@@ -17,7 +20,10 @@
 
             <property name="hibernate.show_sql" value="true" /> <!-- Show SQL in console -->
             <property name="hibernate.format_sql" value="true" /> <!-- Show SQL formatted -->
+
+
         </properties>
+
 
     </persistence-unit>
 

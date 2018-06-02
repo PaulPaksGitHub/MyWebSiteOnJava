@@ -1,7 +1,11 @@
 package servlet;
 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.inject.*;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.MembersInjector;
+import com.google.inject.TypeLiteral;
 import com.google.inject.matcher.Matchers;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
@@ -21,7 +25,6 @@ import servlet.echo.EchoServlet;
 import servlet.echo.GetServlet;
 import servlet.echo.PostServlet;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.beans.PropertyVetoException;
@@ -35,36 +38,39 @@ import java.util.HashMap;
 
 public class GuiceListtener extends GuiceServletContextListener {
     private static final Logger logger = LogManager.getLogger(GuiceListtener.class);
-    //private static final Gson gson = new Gson();
     private static String url;
     private static String dbUser;
     private static String dbPassword;
-    //private static EntityManager entityManager;
     private static DataSource pool;
     private static EntityManagerFactory entityManagerFactory;
+    private static Gson gson;
 
     @Override
     protected Injector getInjector() {
-        setDbUrl();
-        migrate();
+        setDbUrl(); // Конфигурирует пути в зависимости от доступной БД
+        migrate(); // Миграции БД
+        // Создание пула коннектов
         try {
             pool = new DataSource();
         } catch (IOException | SQLException | PropertyVetoException e) {
             logger.error("Pool cannot be created: {}", e);
         }
-
+        // Инициализация EntityManagerFactory
         HashMap<String, String> props = new HashMap<>();
-//        if (url.split(":")[1].equals("h2")) {
-////            props.put("javax.persistence.jdbc.driver", "org.h2.Driver");
-////            props.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-////        } else {
-////            props.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
-////        }
+        if (url.split(":")[1].equals("h2")) {
+            props.put("javax.persistence.jdbc.driver", "org.h2.Driver");
+            props.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        } else {
+            props.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
+        }
         props.put("javax.persistence.jdbc.url", url);
         props.put("javax.persistence.jdbc.user", dbUser);
         props.put("javax.persistence.jdbc.password", dbPassword);
         entityManagerFactory = Persistence.createEntityManagerFactory("EnManager", props);
-
+        // Инициализация Gson
+        GsonBuilder builder = new GsonBuilder();
+        builder.excludeFieldsWithoutExposeAnnotation().setPrettyPrinting();
+        this.gson = builder.create();
 
         return Guice.createInjector(new ServletModule() {
             @Override
@@ -92,14 +98,6 @@ public class GuiceListtener extends GuiceServletContextListener {
                             field.isAnnotationPresent(LogAnot.class)) {
                         typeEncounter.register(new Log4JMembersInjector<T>(field));
                     }
-                    if (field.getType() == Provider.class &&
-                            field.isAnnotationPresent(ProviderAnot.class)) {
-                        typeEncounter.register(new ProviderInjector<T>(field));
-                    }
-                    if (field.getType() == Connection.class &&
-                            field.isAnnotationPresent(ConnectionAnot.class)) {
-                        typeEncounter.register(new ConnectionInjector<T>(field));
-                    }
                     if (field.getType() == AuthentificatonDAO.class) {
                         typeEncounter.register(new AuthentificatonDaoInjector<T>(field));
                     }
@@ -109,10 +107,6 @@ public class GuiceListtener extends GuiceServletContextListener {
                     if (field.getType() == AccountingDAO.class) {
                         typeEncounter.register(new AccountingDaoInjector<T>(field));
                     }
-                    if (field.getType() == EntityManager.class) {
-                        typeEncounter.register(new EntityManagerInjector<T>(field));
-                    }
-
                 }
                 clazz = clazz.getSuperclass();
             }
@@ -145,7 +139,8 @@ public class GuiceListtener extends GuiceServletContextListener {
         AuthentificatonDaoInjector(Field field) {
             this.field = field;
             field.setAccessible(true);
-            this.auth = new AuthentificatonDAO(entityManagerFactory.createEntityManager());//
+            this.auth = new AuthentificatonDAO(
+                    entityManagerFactory.createEntityManager(), gson, LogManager.getLogger(field.getDeclaringClass()));//
         }
 
         public void injectMembers(T t) {
@@ -164,7 +159,8 @@ public class GuiceListtener extends GuiceServletContextListener {
         AuthorizationDaoInjector(Field field) {
             this.field = field;
             field.setAccessible(true);
-            this.dao = new AuthorizationDAO();
+            this.dao = new AuthorizationDAO(
+                    entityManagerFactory.createEntityManager(), gson, LogManager.getLogger(field.getDeclaringClass()));
         }
 
         public void injectMembers(T t) {
@@ -183,66 +179,13 @@ public class GuiceListtener extends GuiceServletContextListener {
         AccountingDaoInjector(Field field) {
             this.field = field;
             field.setAccessible(true);
-            this.dao = new AccountingDAO();
+            this.dao = new AccountingDAO(
+                    entityManagerFactory.createEntityManager(), gson, LogManager.getLogger(field.getDeclaringClass()));
         }
 
         public void injectMembers(T t) {
             try {
                 field.set(t, dao);
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    static class ConnectionInjector<T> implements MembersInjector<T> {
-        private Field field;
-        private Connection conn;
-
-        ConnectionInjector(Field field) {
-            this.field = field;
-
-
-            try {
-                this.conn = pool.getConnection();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            field.setAccessible(true);
-        }
-
-        public void injectMembers(T t) {
-            try {
-                field.set(t, conn);
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    public interface Provider<T> {
-        T get();
-    }
-
-    public class ProviderInjector<Gson> implements MembersInjector<Gson> {
-        private final Field field;
-        private final Gson provider;
-
-        public ProviderInjector(Field field) {
-            this.field = field;
-
-            GsonBuilder builder = new GsonBuilder();
-            builder.excludeFieldsWithoutExposeAnnotation();
-            com.google.gson.Gson gson = builder.create();
-
-            this.provider = (Gson) gson;
-            field.setAccessible(true);
-        }
-
-        @Override
-        public void injectMembers(Gson t) {
-            try {
-                field.set(t, provider);
             } catch (IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
@@ -316,32 +259,5 @@ public class GuiceListtener extends GuiceServletContextListener {
             return this.cpds.getConnection();
         }
 
-    }
-
-    class EntityManagerInjector<T> implements MembersInjector<T> {
-        private final Field field;
-        EntityManager em;
-
-        EntityManagerInjector(Field field) {
-            this.field = field;
-            this.em = entityManagerFactory.createEntityManager();
-
-            field.setAccessible(true);
-        }
-
-        public void injectMembers(T t) {
-            try {
-                field.set(t, em);
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-    public static class ManagerProvider implements Provider<EntityManager> {
-        @Inject EntityManager em;  // All sorts of injection work, including constructor injection.
-
-        @Override public EntityManager get() {
-            return entityManagerFactory.createEntityManager();
-        }
     }
 }

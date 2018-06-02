@@ -19,16 +19,16 @@ public class AccountingParams {
     @Version
     long version;
     @Expose(serialize= false) public String login;
-    @Expose(serialize= false) public String role;
+    @Expose(serialize= false) public String autorityid;
     @Expose public String ds;
     @Expose public String de;
     @Expose public String vol;
 
 
-    public AccountingParams(long id, String login, String role, String ds, String de, String vol) {
+    public AccountingParams(long id, String login, String autorityid, String ds, String de, String vol) {
         this.id = id;
         this.login = login;
-        this.role = role;
+        this.autorityid = autorityid;
         this.ds = ds;
         this.de = de;
         this.vol = vol;
