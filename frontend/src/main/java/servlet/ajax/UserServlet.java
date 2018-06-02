@@ -27,6 +27,7 @@ public class UserServlet extends HttpServlet {
 
     @ConnectionAnot
     Connection conn;
+
     AuthentificatonDAO auth;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

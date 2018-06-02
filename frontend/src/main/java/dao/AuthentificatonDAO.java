@@ -19,11 +19,11 @@ import java.util.List;
 public class AuthentificatonDAO {
     private EntityManager em;
 
+
     @Inject
     public AuthentificatonDAO(EntityManager em) {
         this.em = em;
     }
-
     private Logger logger = LogManager.getLogger(GuiceListtener.class);
 
     public String getAll(Connection conn) throws SQLException {

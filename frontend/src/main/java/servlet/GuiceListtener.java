@@ -1,6 +1,5 @@
 package servlet;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.inject.*;
 import com.google.inject.matcher.Matchers;
@@ -55,24 +54,17 @@ public class GuiceListtener extends GuiceServletContextListener {
         }
 
         HashMap<String, String> props = new HashMap<>();
-//        if (url.split(":")[1].equals("h2")) {
-//            props.put("javax.persistence.jdbc.driver", "org.h2.Driver");
-//            props.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-//        } else {
-//            props.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
-//        }
-
+        if (url.split(":")[1].equals("h2")) {
+            props.put("javax.persistence.jdbc.driver", "org.h2.Driver");
+            props.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        } else {
+            props.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
+        }
         props.put("javax.persistence.jdbc.url", url);
         props.put("javax.persistence.jdbc.user", dbUser);
         props.put("javax.persistence.jdbc.password", dbPassword);
         entityManagerFactory = Persistence.createEntityManagerFactory("EnManager", props);
-//        Injector injector = Guice.createInjector(new JpaPersistModule("EnManager"));
 
-        //EntityManager em = entityManagerFactory.createEntityManager();
-        GsonBuilder builder = new GsonBuilder();
-        builder.excludeFieldsWithoutExposeAnnotation();
-        Gson gson = builder.create();
-        logger.error(gson.toJson(entityManagerFactory));
 
         return Guice.createInjector(new ServletModule() {
             @Override
@@ -153,7 +145,7 @@ public class GuiceListtener extends GuiceServletContextListener {
         AuthentificatonDaoInjector(Field field) {
             this.field = field;
             field.setAccessible(true);
-            this.auth = new AuthentificatonDAO(entityManagerFactory.createEntityManager());
+            this.auth = new AuthentificatonDAO(entityManagerFactory.createEntityManager());//
         }
 
         public void injectMembers(T t) {
