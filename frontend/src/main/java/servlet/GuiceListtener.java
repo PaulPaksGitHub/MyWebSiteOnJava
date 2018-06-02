@@ -54,12 +54,12 @@ public class GuiceListtener extends GuiceServletContextListener {
         }
 
         HashMap<String, String> props = new HashMap<>();
-        if (url.split(":")[1].equals("h2")) {
-            props.put("javax.persistence.jdbc.driver", "org.h2.Driver");
-            props.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-        } else {
-            props.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
-        }
+//        if (url.split(":")[1].equals("h2")) {
+////            props.put("javax.persistence.jdbc.driver", "org.h2.Driver");
+////            props.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+////        } else {
+////            props.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
+////        }
         props.put("javax.persistence.jdbc.url", url);
         props.put("javax.persistence.jdbc.user", dbUser);
         props.put("javax.persistence.jdbc.password", dbPassword);
