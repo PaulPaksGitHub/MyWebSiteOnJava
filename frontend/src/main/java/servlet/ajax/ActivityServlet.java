@@ -1,7 +1,7 @@
 package servlet.ajax;
 
-import com.company.accounting.AccountingDAO;
 import com.google.gson.Gson;
+import dao.AccountingDAO;
 import org.apache.logging.log4j.Logger;
 import servlet.ConnectionAnot;
 import servlet.LogAnot;
@@ -31,42 +31,31 @@ public class ActivityServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        response.setContentType("text/html;charset=utf-8");
+        try {
+            String text;
 
-        String id = request.getParameter("id");
-        logger.debug("id = " + id);
-        String autorityid = request.getParameter("autorityid");
-        logger.debug("autorityid = " + autorityid);
-        String text;
-        request.setAttribute("id", "AMA Activity SERVLET");
-
-        if (id == null && autorityid == null) {
-            try {
+            if (isRequestEmpty(request)) {
                 text = dao.getAll(conn);
-                logger.error(text);
-                request.setAttribute("id", text);
-            } catch (SQLException e) {
-                e.printStackTrace();
+            } else if (hasId(request)) {
+                text = dao.getAccFromID(conn, request.getParameter("id"));
+            } else {
+                text = dao.getAccFromAutorityID(conn, request.getParameter("autorityid"));
             }
-        } else if (id != null) {
-            try {
-                text = dao.getAccFromID(conn, id);
-                logger.error(text);
-                request.setAttribute("id", text);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        } else {
-            try {
-                text = dao.getAccFromAutorityID(conn, autorityid);
-                logger.error(text);
-                request.setAttribute("id", text);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            logger.debug(text);
+            request.setAttribute("id", text);
+        } catch (SQLException e) {
+            logger.error("SQLException {}", e);
+            response.sendError(500, "SQLException");
         }
-
         request.getRequestDispatcher("/getservlet.jsp").forward(request, response);
+    }
+
+    private boolean isRequestEmpty(HttpServletRequest request) {
+        return (request.getParameter("id") == null && request.getParameter("autorityid") == null);
+    }
+
+    private boolean hasId(HttpServletRequest request) {
+        return request.getParameter("id") != null;
     }
 }
 

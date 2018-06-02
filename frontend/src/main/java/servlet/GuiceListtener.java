@@ -1,20 +1,18 @@
 package servlet;
 
-import com.company.accounting.AccountingDAO;
-import com.company.authentification.Authentification;
-import com.company.authentification.AuthentificatonDAO;
-import com.company.authorization.AuthorizationDAO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.MembersInjector;
-import com.google.inject.TypeLiteral;
+import com.google.inject.*;
 import com.google.inject.matcher.Matchers;
+import com.google.inject.persist.jpa.JpaPersistModule;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+import dao.AccountingDAO;
+import dao.AuthentificatonDAO;
+import dao.AuthorizationDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.flywaydb.core.Flyway;
@@ -28,11 +26,12 @@ import servlet.echo.PostServlet;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.beans.PropertyVetoException;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
 
@@ -42,18 +41,44 @@ public class GuiceListtener extends GuiceServletContextListener {
     private static String url;
     private static String dbUser;
     private static String dbPassword;
-    private static EntityManager entityManager;
+    //private static EntityManager entityManager;
+    private static DataSource pool;
+    private static EntityManagerFactory entityManagerFactory;
 
     @Override
     protected Injector getInjector() {
         setDbUrl();
         migrate();
+        try {
+            pool = new DataSource();
+        } catch (IOException | SQLException | PropertyVetoException e) {
+            logger.error("Pool cannot be created: {}", e);
+        }
 
-        HashMap<String,String> props=new HashMap<>();
+        HashMap<String, String> props = new HashMap<>();
+        if (url.split(":")[1].equals("h2")) {
+            props.put("javax.persistence.jdbc.driver", "org.h2.Driver");
+            props.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        } else {
+            props.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
+        }
+
         props.put("javax.persistence.jdbc.url", url);
         props.put("javax.persistence.jdbc.user", dbUser);
         props.put("javax.persistence.jdbc.password", dbPassword);
-        EntityManagerFactory emf=Persistence.createEntityManagerFactory("YourPersistenceUnitPU",props);
+        entityManagerFactory = Persistence.createEntityManagerFactory("EnManager", props);
+        Injector injector = Guice.createInjector(new JpaPersistModule("EnManager"));
+
+        EntityManager em = entityManagerFactory.createEntityManager();
+
+        em.getTransaction().begin();
+
+        logger.debug(em.createQuery("SELECT u FROM users u WHERE u.id LIKE :userid")
+                .setParameter("userid", 1).getResultList().toString());
+
+        em.getTransaction().commit();
+        em.close();
+
 
         return Guice.createInjector(new ServletModule() {
             @Override
@@ -64,6 +89,8 @@ public class GuiceListtener extends GuiceServletContextListener {
                 serve("/ajax/authority").with(AuthorityServlet.class);
                 serve("/ajax/user").with(UserServlet.class);
                 serve("/ajax/activity").with(ActivityServlet.class);
+
+                filter("/*").through(ContentTypeFilter.class);
 
                 bindListener(Matchers.any(), new Log4JTypeListener());
             }
@@ -96,6 +123,10 @@ public class GuiceListtener extends GuiceServletContextListener {
                     if (field.getType() == AccountingDAO.class) {
                         typeEncounter.register(new AccountingDaoInjector<T>(field));
                     }
+                    if (field.getType() == EntityManager.class) {
+                        typeEncounter.register(new EntityManagerInjector<T>(field));
+                    }
+
                 }
                 clazz = clazz.getSuperclass();
             }
@@ -128,7 +159,7 @@ public class GuiceListtener extends GuiceServletContextListener {
         AuthentificatonDaoInjector(Field field) {
             this.field = field;
             field.setAccessible(true);
-            this.auth = new AuthentificatonDAO();
+            this.auth = new AuthentificatonDAO(entityManagerFactory.createEntityManager());
         }
 
         public void injectMembers(T t) {
@@ -139,6 +170,7 @@ public class GuiceListtener extends GuiceServletContextListener {
             }
         }
     }
+
     class AuthorizationDaoInjector<T> implements MembersInjector<T> {
         private final Field field;
         AuthorizationDAO dao;
@@ -157,6 +189,7 @@ public class GuiceListtener extends GuiceServletContextListener {
             }
         }
     }
+
     class AccountingDaoInjector<T> implements MembersInjector<T> {
         private final Field field;
         AccountingDAO dao;
@@ -176,9 +209,6 @@ public class GuiceListtener extends GuiceServletContextListener {
         }
     }
 
-
-
-
     static class ConnectionInjector<T> implements MembersInjector<T> {
         private Field field;
         private Connection conn;
@@ -188,7 +218,7 @@ public class GuiceListtener extends GuiceServletContextListener {
 
 
             try {
-                this.conn = DriverManager.getConnection(url, dbUser, dbPassword);
+                this.conn = pool.getConnection();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -253,13 +283,79 @@ public class GuiceListtener extends GuiceServletContextListener {
         }
     }
 
-    private void migrate () {
-        logger.debug("Database URL: {}", url);
+    private void migrate() {
         logger.debug("START MIGRATIONS");
         Flyway flyway = new Flyway();
-        flyway.setLocations("db/migration/pg");
+        if (url.split(":")[1].equals("h2")) {
+            flyway.setLocations("db/migration/h2");
+            logger.debug("Using H2 database");
+        } else {
+            flyway.setLocations("db/migration/pg");
+            logger.debug("Using PostgreSQL database");
+        }
         flyway.setDataSource(url, dbUser, dbPassword);
         flyway.migrate();
         logger.debug("END MIGRATIONS");
+    }
+
+    public class DataSource {
+        private DataSource datasource;
+        private ComboPooledDataSource cpds;
+
+        private DataSource() throws IOException, SQLException, PropertyVetoException {
+            cpds = new ComboPooledDataSource();
+            cpds.setDriverClass("org.postgresql.Driver"); //loads the jdbc driver
+            cpds.setJdbcUrl(url);
+            cpds.setUser(dbUser);
+            cpds.setPassword(dbPassword);
+
+            // the settings below are optional -- c3p0 can work with defaults
+            cpds.setMinPoolSize(5);
+            cpds.setAcquireIncrement(5);
+            cpds.setMaxPoolSize(20);
+            cpds.setMaxStatements(180);
+
+        }
+
+        public DataSource getInstance() throws IOException, SQLException, PropertyVetoException {
+            if (datasource == null) {
+                datasource = new DataSource();
+                return datasource;
+            } else {
+                return datasource;
+            }
+        }
+
+        public Connection getConnection() throws SQLException {
+            return this.cpds.getConnection();
+        }
+
+    }
+
+    class EntityManagerInjector<T> implements MembersInjector<T> {
+        private final Field field;
+        EntityManager em;
+
+        EntityManagerInjector(Field field) {
+            this.field = field;
+            this.em = entityManagerFactory.createEntityManager();
+
+            field.setAccessible(true);
+        }
+
+        public void injectMembers(T t) {
+            try {
+                field.set(t, em);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+    public static class ManagerProvider implements Provider<EntityManager> {
+        @Inject EntityManager em;  // All sorts of injection work, including constructor injection.
+
+        @Override public EntityManager get() {
+            return entityManagerFactory.createEntityManager();
+        }
     }
 }

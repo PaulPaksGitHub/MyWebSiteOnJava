@@ -1,18 +1,23 @@
 package com.company.accounting;
 
 import com.google.gson.annotations.Expose;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Version;
 
+@Setter
+@Getter
+@Entity
 public class AccountingParams {
     @Id
     @GeneratedValue
-    long entityid;
+    long id;
     @Version
     long version;
-    @Expose public String accountingid;
     @Expose(serialize= false) public String login;
     @Expose(serialize= false) public String role;
     @Expose public String ds;
@@ -20,12 +25,15 @@ public class AccountingParams {
     @Expose public String vol;
 
 
-    public AccountingParams(String id, String login, String role, String ds, String de, String vol) {
-        this.accountingid = id;
+    public AccountingParams(long id, String login, String role, String ds, String de, String vol) {
+        this.id = id;
         this.login = login;
         this.role = role;
         this.ds = ds;
         this.de = de;
         this.vol = vol;
+    }
+
+    public AccountingParams() {
     }
 }

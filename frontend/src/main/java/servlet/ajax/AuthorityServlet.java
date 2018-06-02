@@ -1,7 +1,7 @@
 package servlet.ajax;
 
-import com.company.authorization.AuthorizationDAO;
 import com.google.gson.Gson;
+import dao.AuthorizationDAO;
 import org.apache.logging.log4j.Logger;
 import servlet.ConnectionAnot;
 import servlet.LogAnot;
@@ -32,40 +32,31 @@ public class AuthorityServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
-        String id = request.getParameter("id");
-        String userid = request.getParameter("id");
-        String text;
-
-        request.setAttribute("id", "AMA AUTHORITY SERVLET");
-
-
-
-        if (id == null && userid == null) {
-            try {
+        try {
+            String text;
+            if (isRequestEmpty(request)) {
                 text = dao.getAll(conn);
-                logger.error(text);
-                request.setAttribute("id", text);
-            } catch (SQLException e) {
-                e.printStackTrace();
+            } else if (hasId(request)) {
+                text = dao.getResFromID(conn, request.getParameter("id"));
+            } else {
+                text = dao.getResFromUserID(conn, request.getParameter("userid"));
             }
-        } else if (id != null) {
-            try {
-                text = dao.getResFromID(conn, id);
-                logger.error(text);
-                request.setAttribute("id", text);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        } else {
-            try {
-                text = dao.getResFromUserID(conn, userid);
-                logger.error(text);
-                request.setAttribute("id", text);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            logger.debug(text);
+            request.setAttribute("id", text);
+        } catch (SQLException e) {
+            logger.error("SQLException {}", e);
+            response.sendError(500, "SQLException");
         }
 
         request.getRequestDispatcher("/getservlet.jsp").forward(request, response);
     }
+
+    private boolean isRequestEmpty(HttpServletRequest request) {
+        return (request.getParameter("id") == null && request.getParameter("userid") == null);
+    }
+
+    private boolean hasId(HttpServletRequest request) {
+        return request.getParameter("id") != null;
+    }
 }
+

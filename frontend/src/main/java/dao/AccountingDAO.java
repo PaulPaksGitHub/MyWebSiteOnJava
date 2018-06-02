@@ -1,10 +1,11 @@
 package dao;
 
 import com.company.accounting.AccountingParams;
-import com.company.parameters.Parameters;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.inject.Inject;
 
+import javax.persistence.EntityManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +13,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 public class AccountingDAO {
+    @Inject EntityManager em;
     public String getAll(Connection conn) throws SQLException {
         PreparedStatement st = conn.prepareStatement("select * from acc");
 
@@ -24,7 +28,7 @@ public class AccountingDAO {
         List<AccountingParams> list = new ArrayList<>();
         while (rs.next()) {
             AccountingParams params = new AccountingParams(
-                    rs.getString("id"),
+                    rs.getLong("id"),
                     rs.getString("login"),
                     rs.getString("autorityid"),
                     rs.getString("ds"),
@@ -38,7 +42,7 @@ public class AccountingDAO {
     }
 
     public String getAccFromID(Connection conn, String id) throws SQLException {
-        PreparedStatement st = conn.prepareStatement("select * from acc where userid = ?");
+        PreparedStatement st = conn.prepareStatement("select * from acc where id = ?");
         st.setString(1, id);
         ResultSet rs = st.executeQuery();
 
@@ -48,7 +52,7 @@ public class AccountingDAO {
 
         if (rs.next()) {
             AccountingParams params = new AccountingParams(
-                    rs.getString("id"),
+                    rs.getLong("id"),
                     rs.getString("login"),
                     rs.getString("autorityid"),
                     rs.getString("ds"),
@@ -75,7 +79,7 @@ public class AccountingDAO {
         List<AccountingParams> list = new ArrayList<>();
         while (rs.next()) {
             AccountingParams params = new AccountingParams(
-                    rs.getString("id"),
+                    rs.getLong("id"),
                     rs.getString("login"),
                     rs.getString("autorityid"),
                     rs.getString("ds"),

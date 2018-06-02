@@ -22,7 +22,6 @@ public class GetServlet extends HttpServlet {
             throws IOException, ServletException {
         logger.debug("Get servlet");
         String id = request.getParameter("userid");
-        response.setContentType("text/html;charset=utf-8");
 
         request.setAttribute("userid", id);
         request.getRequestDispatcher("/getservlet.jsp").forward(request, response);

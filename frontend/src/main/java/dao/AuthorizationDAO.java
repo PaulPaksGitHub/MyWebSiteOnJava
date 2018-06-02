@@ -1,7 +1,6 @@
 package dao;
 
 import com.company.authorization.AutorizationParams;
-import com.company.parameters.Parameters;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -24,7 +23,7 @@ public class AuthorizationDAO {
         List<AutorizationParams> list = new ArrayList<>();
         while (rs.next()) {
             AutorizationParams params = new AutorizationParams(
-                    rs.getString("id"),
+                    rs.getLong("id"),
                     rs.getString("adress"),
                     rs.getString("login"),
                     rs.getString("userid"),
@@ -37,7 +36,7 @@ public class AuthorizationDAO {
     }
 
     public String getResFromID(Connection conn, String id) throws SQLException {
-        PreparedStatement st = conn.prepareStatement("select * from res where userid = ?");
+        PreparedStatement st = conn.prepareStatement("select * from res where id = ?");
         st.setString(1, id);
         ResultSet rs = st.executeQuery();
 
@@ -47,7 +46,7 @@ public class AuthorizationDAO {
 
         if (rs.next()) {
             AutorizationParams params = new AutorizationParams(
-                    rs.getString("id"),
+                    rs.getLong("id"),
                     rs.getString("adress"),
                     rs.getString("login"),
                     rs.getString("userid"),
@@ -73,7 +72,7 @@ public class AuthorizationDAO {
         List<AutorizationParams> list = new ArrayList<>();
         while (rs.next()) {
             AutorizationParams params = new AutorizationParams(
-                    rs.getString("id"),
+                    rs.getLong("id"),
                     rs.getString("adress"),
                     rs.getString("login"),
                     rs.getString("userid"),

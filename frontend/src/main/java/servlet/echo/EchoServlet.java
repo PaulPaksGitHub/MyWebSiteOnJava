@@ -20,11 +20,11 @@ public class EchoServlet extends HttpServlet {
     }
 
     private void Check(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html;charset=utf-8");
         if (!request.getRequestURI().equals(request.getContextPath()+"/echo/post") &&
                 !request.getRequestURI().equals(request.getContextPath()+"/echo/get")) {
-            response.getWriter().println("<h2>ERROR 404</h2>");
-            response.getWriter().println("<h2>Try to connect URL:"+request.getRequestURI()+"</h2>");
+            //response.getWriter().println("<h2>ERROR 404</h2>");
+            response.sendError(404, "Services not found." );
+            //response.getWriter().println("<h2>Try to connect URL:"+request.getRequestURI()+"</h2>");
         }
     }
 }

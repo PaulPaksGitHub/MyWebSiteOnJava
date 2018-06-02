@@ -1,7 +1,7 @@
 package servlet.ajax;
 
-import com.company.authentification.AuthentificatonDAO;
 import com.google.gson.Gson;
+import dao.AuthentificatonDAO;
 import org.apache.logging.log4j.Logger;
 import servlet.ConnectionAnot;
 import servlet.LogAnot;
@@ -31,30 +31,29 @@ public class UserServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        response.setContentType("text/html;charset=utf-8");
-
-        String id = request.getParameter("id");
-        logger.debug("ID = {}", id);
 
         String idlist = null;
 
-        if (id == null) {
-            try {
+        try {
+            if (isRequestEmpty(request)) {
                 idlist = auth.getAll(conn);
-                logger.debug(idlist);
-            } catch (SQLException e) {
-                e.printStackTrace();
+            } else {
+                //idlist = auth.getUserFromID(conn, request.getParameter("id"));
+                idlist = auth.getUserFromEM(conn, request.getParameter("id"));
             }
-            request.setAttribute("id", "ID of all users:" + idlist);
-        } else {
-            try {
-                idlist = auth.getUserFromID(conn, id);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            request.setAttribute("id", "User json:" + idlist);
+            logger.debug(idlist);
+        } catch (SQLException e) {
+            logger.error("SQLException {}", e);
+            response.sendError(500, "SQL Exception.");
         }
+        request.setAttribute("id", idlist);
+
 
         request.getRequestDispatcher("/getservlet.jsp").forward(request, response);
+    }
+
+    private boolean isRequestEmpty(HttpServletRequest request) {
+        logger.debug("ID = {}", request.getParameter("id"));
+        return request.getParameter("id") == null;
     }
 }
