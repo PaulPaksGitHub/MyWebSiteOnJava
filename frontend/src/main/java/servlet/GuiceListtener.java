@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.inject.*;
 import com.google.inject.matcher.Matchers;
-import com.google.inject.persist.jpa.JpaPersistModule;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
 import com.google.inject.spi.TypeEncounter;
@@ -37,7 +36,7 @@ import java.util.HashMap;
 
 public class GuiceListtener extends GuiceServletContextListener {
     private static final Logger logger = LogManager.getLogger(GuiceListtener.class);
-    private static final Gson gson = new Gson();
+    //private static final Gson gson = new Gson();
     private static String url;
     private static String dbUser;
     private static String dbPassword;
@@ -56,20 +55,24 @@ public class GuiceListtener extends GuiceServletContextListener {
         }
 
         HashMap<String, String> props = new HashMap<>();
-        if (url.split(":")[1].equals("h2")) {
-            props.put("javax.persistence.jdbc.driver", "org.h2.Driver");
-            props.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-        } else {
-            props.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
-        }
+//        if (url.split(":")[1].equals("h2")) {
+//            props.put("javax.persistence.jdbc.driver", "org.h2.Driver");
+//            props.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+//        } else {
+//            props.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
+//        }
 
         props.put("javax.persistence.jdbc.url", url);
         props.put("javax.persistence.jdbc.user", dbUser);
         props.put("javax.persistence.jdbc.password", dbPassword);
         entityManagerFactory = Persistence.createEntityManagerFactory("EnManager", props);
-        Injector injector = Guice.createInjector(new JpaPersistModule("EnManager"));
+//        Injector injector = Guice.createInjector(new JpaPersistModule("EnManager"));
 
-        EntityManager em = entityManagerFactory.createEntityManager();
+        //EntityManager em = entityManagerFactory.createEntityManager();
+        GsonBuilder builder = new GsonBuilder();
+        builder.excludeFieldsWithoutExposeAnnotation();
+        Gson gson = builder.create();
+        logger.error(gson.toJson(entityManagerFactory));
 
         return Guice.createInjector(new ServletModule() {
             @Override
