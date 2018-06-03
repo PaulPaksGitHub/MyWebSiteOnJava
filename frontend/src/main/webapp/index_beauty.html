@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=10">
+    <title>PPakseev app</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="content-wrapper">
+        <header class="header">
+            <p style="font-size: 30px; margin: 0; padding: 10px;">Welcome to my website !!!</p>
+        </header>
+
+        <div class="container clearfix">
+            <main class="content">
+                <p style="text-align: center;"></p>
+
+            </main>
+            <aside class="sidebar sidebar1">
+                <p style="text-align: center; font-size: 20px; margin: 0; padding: 10px;">SERVLETS</p>
+                <p style="line-height: 2.7em"><a href="echo/get">Get</a></p>
+                <p style="line-height: 2.7em"><a href="ajax/user">User</a></p>
+                <p style="line-height: 2.7em"><a href="ajax/authority">Authority</a></p>
+                <p style="line-height: 2.7em"><a href="ajax/activity">Activity</a></p>
+                <form method="post" action="echo/post">
+                    <h3 >Message for post servlet</h3>
+                    <input type="text" id="say-hello-text-input" name="userid" />
+                    <input type="submit" id="say-hello-button" value="submit" />
+                </form>
+            </aside>
+        </div>
+    </div>  
+</body>
+</html>

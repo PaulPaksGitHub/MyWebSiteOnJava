@@ -39,7 +39,10 @@ public class UserServlet extends HttpServlet {
         request.setAttribute("id", idlist);
 
 
-        request.getRequestDispatcher("/getservlet.jsp").forward(request, response);
+        //request.getRequestDispatcher("/getservlet.jsp").forward(request, response);
+		response.setContentType("application/json"); 
+		response.getWriter().print(idlist);
+	
     }
 
     private boolean isRequestEmpty(HttpServletRequest request) {

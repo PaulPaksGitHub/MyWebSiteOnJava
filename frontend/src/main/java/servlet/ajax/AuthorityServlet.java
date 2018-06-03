@@ -22,8 +22,8 @@ public class AuthorityServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
+		String text = null;
         try {
-            String text;
             if (isRequestEmpty(request)) {
                 text = dao.getAll();
             } else if (hasId(request)) {
@@ -38,10 +38,14 @@ public class AuthorityServlet extends HttpServlet {
             response.sendError(500, "SQLException");
         }
 
-        request.getRequestDispatcher("/getservlet.jsp").forward(request, response);
+        //request.getRequestDispatcher("/getservlet.jsp").forward(request, response);
+		response.setContentType("application/json"); 
+		response.getWriter().print(text);
     }
 
     private boolean isRequestEmpty(HttpServletRequest request) {
+		logger.debug("ID = {}", request.getParameter("id"));
+		logger.debug("USERID = {}", request.getParameter("userid"));
         return (request.getParameter("id") == null && request.getParameter("userid") == null);
     }
 

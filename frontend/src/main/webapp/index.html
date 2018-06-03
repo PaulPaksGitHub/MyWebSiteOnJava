@@ -1,35 +1,41 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=10">
-    <title>PPakseev app</title>
-    <link rel="stylesheet" href="css/style.css">
+	<meta charset="UTF-8" />
+	<title>Hello World</title>
+	<script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+	<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+	<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.0.0.min.js"> </script>
 </head>
 <body>
-    <div class="content-wrapper">
-        <header class="header">
-            <p style="font-size: 30px; margin: 0; padding: 10px;">Welcome to my website !!!</p>
-        </header>
 
-        <div class="container clearfix">
-            <main class="content">
-                <p style="text-align: center;"></p>
+<div id="root"></div>
+<script type="text/babel">
+	fetch('ajax/user')
+	  .then(function(response) {
+		return response.json();
+	  })
+	  .then(function(myJson) {
+		console.log(myJson);
+	  });
+</script>
 
-            </main>
-            <aside class="sidebar sidebar1">
-                <p style="text-align: center; font-size: 20px; margin: 0; padding: 10px;">SERVLETS</p>
-                <p style="line-height: 2.7em"><a href="echo/get">Get</a></p>
-                <p style="line-height: 2.7em"><a href="ajax/user">User</a></p>
-                <p style="line-height: 2.7em"><a href="ajax/authority">Authority</a></p>
-                <p style="line-height: 2.7em"><a href="ajax/activity">Activity</a></p>
-                <form method="post" action="echo/post">
-                    <h3 >Message for post servlet</h3>
-                    <input type="text" id="say-hello-text-input" name="userid" />
-                    <input type="submit" id="say-hello-button" value="submit" />
-                </form>
-            </aside>
-        </div>
-    </div>  
+<table id="users">
+    <tr><td>Id</td><td>login</td><td>version</td><tr>
+</table>
+
+<script type="text/javascript">
+$(function(){
+    $.getJSON("ajax/user", function(data) {
+	
+            for(var i=0;i<data.length;i++){
+                $('#users').append('<tr><td><a href="ajax/authority?userid='+data[i].id+'">' + data[i].id + 
+				'</a></td><td><a href="ajax/authority?userid='+data[i].id+'">' + data[i].login + 
+                '</a></td><td>' + data[i].version + '</td><tr>');
+            }
+    });
+});
+</script>
 </body>
 </html>
