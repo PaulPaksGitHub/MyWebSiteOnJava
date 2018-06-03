@@ -6,36 +6,41 @@
 	<script src="https://unpkg.com/react@16/umd/react.development.js"></script>
 	<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
 	<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.0.0.min.js"> </script>
 </head>
 <body>
 
 <div id="root"></div>
-<script type="text/babel">
-	fetch('ajax/user')
-	  .then(function(response) {
-		return response.json();
-	  })
-	  .then(function(myJson) {
-		console.log(myJson);
-	  });
-</script>
 
-<table id="users">
-    <tr><td>Id</td><td>login</td><td>version</td><tr>
-</table>
+
+<script type="text/babel">
+	ReactDOM.render(
+		<h2>Hello, world!</h2>,
+		document.getElementById('root')
+	);
+</script>
 
 <script type="text/javascript">
-$(function(){
-    $.getJSON("ajax/user", function(data) {
-	
-            for(var i=0;i<data.length;i++){
-                $('#users').append('<tr><td><a href="ajax/authority?userid='+data[i].id+'">' + data[i].id + 
-				'</a></td><td><a href="ajax/authority?userid='+data[i].id+'">' + data[i].login + 
-                '</a></td><td>' + data[i].version + '</td><tr>');
-            }
-    });
-});
+fetch('ajax/user')  
+  .then(  
+    function(response) {  
+      if (response.status !== 200) {  
+        console.log('Looks like there was a problem. Status Code: ' +  
+          response.status);  
+        return;  
+      }
+
+      // Examine the text in the response  
+      response.json().then(function(data) {  
+        console.log(data);  
+      });  
+    }  
+  )  
+  .catch(function(err) {  
+    console.log('Fetch Error :-S', err);  
+  });
 </script>
+
+
+
 </body>
 </html>
