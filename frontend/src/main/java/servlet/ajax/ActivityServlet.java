@@ -21,9 +21,8 @@ public class ActivityServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
+		String text = null;
         try {
-            String text;
-
             if (isRequestEmpty(request)) {
                 text = dao.getAll();
             } else if (hasId(request)) {
@@ -37,7 +36,9 @@ public class ActivityServlet extends HttpServlet {
             logger.error("SQLException {}", e);
             response.sendError(500, "SQLException");
         }
-        request.getRequestDispatcher("/getservlet.jsp").forward(request, response);
+        //request.getRequestDispatcher("/getservlet.jsp").forward(request, response);
+		response.setContentType("application/json"); 
+		response.getWriter().print("{ \"items\": "+ text + "}");
     }
 
     private boolean isRequestEmpty(HttpServletRequest request) {

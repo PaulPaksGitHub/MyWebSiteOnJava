@@ -40,7 +40,7 @@ public class AuthorityServlet extends HttpServlet {
 
         //request.getRequestDispatcher("/getservlet.jsp").forward(request, response);
 		response.setContentType("application/json"); 
-		response.getWriter().print(text);
+		response.getWriter().print("{ \"items\": "+ text + "}");
     }
 
     private boolean isRequestEmpty(HttpServletRequest request) {

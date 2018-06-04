@@ -9,21 +9,33 @@
 </head>
 <body>
 
-<div id="root"></div>
-
+<div id="users"></div>
+<div id="autority"></div>
 
 <script type="text/babel">
-class MyComponent extends React.Component {
+
+function handleClick() {
+	console.log('---','clicked')
+	this.setState({
+		isOpen: !this.state.isOpen
+	})
+	console.log('---',this.state.isOpen)
+}
+
+class UserTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       error: null,
       isLoaded: false,
-      items: []
+      items: [],
+	  isOpen: true
     };
+	
+	this.handleClick = handleClick.bind(this)
   }
 
-  componentDidMount() {
+  componentWillMount() {
     fetch("ajax/user")
       .then(res => res.json())
       .then(
@@ -33,12 +45,9 @@ class MyComponent extends React.Component {
             items: result.items
           });
         },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
         (error) => {
           this.setState({
-            isLoaded: true,
+            isLoaded: false,
             error
           });
         }
@@ -49,9 +58,8 @@ class MyComponent extends React.Component {
     const { error, isLoaded, items } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
-    } 
-    else {
-      return (
+    } else if (this.state.isOpen === true) {
+		return (
         <table className="table" >
                 <thead>
                     <tr>
@@ -73,6 +81,7 @@ class MyComponent extends React.Component {
                         <td>{item.id}</td>
                         <td>{item.login}</td>
                         <td>{item.version}</td>
+						<button onClick={this.handleClick}>select</button>
                         </tr>
                     );
                 })
@@ -80,37 +89,196 @@ class MyComponent extends React.Component {
         </tbody>
     </table>
       );
+	}
+    else {
+      return (
+        <div/>
+      );
     }
   }
 }
 
+class AutorityTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+      isLoaded: false,
+      items: [],
+	  isOpen: true,
+	  userid: 1
+    };
+	
+	this.handleClick = handleClick.bind(this)
+  }
+
+  componentWillMount() {
+    fetch("ajax/authority?userid="+this.state.userid)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            items: result.items
+          });
+        },
+        (error) => {
+          this.setState({
+            isLoaded: false,
+            error
+          });
+        }
+      )
+  }
+
+  render() {
+    const { error, isLoaded, items } = this.state;
+    if (error) {
+      return <div>Error: {error.message}</div>;
+    } else if (this.state.isOpen === true) {
+		return (
+        <table className="table" >
+			<thead>
+				<tr>
+					<th>
+						id
+                    </th>
+                    <th>
+                        version
+                    </th>
+					<th>
+                        adress
+                    </th>
+					<th>
+                        role
+                    </th>
+                </tr>
+			</thead>
+        <tbody>
+            {items.map(item => {
+                return (
+                    <tr key={item.id}>
+                        <td>{item.id}</td>
+                        <td>{item.version}</td>
+						<td>{item.adress}</td>
+						<td>{item.role}</td>
+						<button onClick={this.handleClick}>select</button>
+                        </tr>
+                    );
+                })
+            }
+        </tbody>
+    </table>
+      );
+	}
+    else {
+      return (
+        <div/>
+      );
+    }
+  }
+}
+
+class ActivityTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+      isLoaded: false,
+      items: [],
+	  isOpen: true,
+	  autorityid: 'READ'
+    };
+	
+	this.handleClick = handleClick.bind(this)
+  }
+
+  componentWillMount() {
+    fetch("ajax/activity?autorityid="+this.state.autorityid)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            items: result.items
+          });
+        },
+        (error) => {
+          this.setState({
+            isLoaded: false,
+            error
+          });
+        }
+      )
+  }
+
+  render() {
+    const { error, isLoaded, items } = this.state;
+    if (error) {
+      return <div>Error: {error.message}</div>;
+    } else if (this.state.isOpen === true) {
+		return (
+        <table className="table" >
+			<thead>
+				<tr>
+					<th>
+						id
+                    </th>
+                    <th>
+                        version
+                    </th>
+                    <th>
+                        ds
+                    </th>
+					<th>
+                        de
+                    </th>
+					<th>
+                        vol
+                    </th>
+                </tr>
+        </thead>
+        <tbody>
+            {items.map(item => {
+                return (
+                    <tr key={item.id}>
+                        <td>{item.id}</td>
+                        <td>{item.version}</td>
+                        <td>{item.ds}</td>
+                        <td>{item.de}</td>
+                        <td>{item.vol}</td>
+                        </tr>
+                    );
+                })
+            }
+        </tbody>
+    </table>
+      );
+	}
+    else {
+      return (
+        <div/>
+      );
+    }
+  }
+}
+
+class Main extends React.Component {
+	render() {
+		return (
+		<div>
+			<UserTable />
+			<AutorityTable />
+			<ActivityTable />
+		</div>
+		)
+	}
+}
+
 ReactDOM.render(
-	<MyComponent />, document.getElementById('root')
+	<Main />, document.getElementById('users')
 );
-</script>
-
-<script type="text/javascript">
-fetch('ajax/user')  
-  .then(  
-    function(response) {  
-      if (response.status !== 200) {  
-        console.log('Looks like there was a problem. Status Code: ' +  
-          response.status);  
-        return;  
-      }
-
-      // Examine the text in the response  
-      response.json().then(function(data) {  
-        console.log(data);  
-      });  
-    }  
-  )  
-  .catch(function(err) {  
-    console.log('Fetch Error :-S', err);  
-  });
-</script>
-
-
+</script
 
 </body>
 </html>
