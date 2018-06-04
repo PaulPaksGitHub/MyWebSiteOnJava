@@ -59,5 +59,6 @@ public class Accounting {
     }
 
     public Accounting() {
+        this.dao = new AccountingDAO();
     }
 }

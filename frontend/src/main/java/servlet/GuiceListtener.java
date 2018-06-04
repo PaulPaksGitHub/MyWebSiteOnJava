@@ -55,7 +55,7 @@ public class GuiceListtener extends GuiceServletContextListener {
         } catch (IOException | SQLException | PropertyVetoException e) {
             logger.error("Pool cannot be created: {}", e);
         }
-        // Инициализация EntityManagerFactory
+        // инициализация EntityManagerFactory
         HashMap<String, String> props = new HashMap<>();
         if (url.split(":")[1].equals("h2")) {
             props.put("javax.persistence.jdbc.driver", "org.h2.Driver");
@@ -65,7 +65,7 @@ public class GuiceListtener extends GuiceServletContextListener {
         props.put("javax.persistence.jdbc.user", dbUser);
         props.put("javax.persistence.jdbc.password", dbPassword);
         entityManagerFactory = Persistence.createEntityManagerFactory("EnManager", props);
-        // Инициализация Gson
+        // инициализация Gson
         GsonBuilder builder = new GsonBuilder();
         builder.excludeFieldsWithoutExposeAnnotation().setPrettyPrinting();
         this.gson = builder.create();
@@ -104,6 +104,9 @@ public class GuiceListtener extends GuiceServletContextListener {
                     }
                     if (field.getType() == AccountingDAO.class) {
                         typeEncounter.register(new AccountingDaoInjector<T>(field));
+                    }
+                    if (field.getType() == Connection.class) {
+                        typeEncounter.register(new ConnectionInjector<T>(field));
                     }
                 }
                 clazz = clazz.getSuperclass();
@@ -144,6 +147,29 @@ public class GuiceListtener extends GuiceServletContextListener {
         public void injectMembers(T t) {
             try {
                 field.set(t, auth);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    class ConnectionInjector<T> implements MembersInjector<T> {
+        private final Field field;
+        Connection conn;
+
+        ConnectionInjector(Field field) {
+            this.field = field;
+            try {
+                this.conn = pool.getConnection();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            field.setAccessible(true);
+        }
+
+        public void injectMembers(T t) {
+            try {
+                field.set(t, conn);
             } catch (IllegalAccessException e) {
                 throw new RuntimeException(e);
             }

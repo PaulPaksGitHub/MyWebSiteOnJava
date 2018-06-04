@@ -72,5 +72,6 @@ public class Authentification {
         this.dao = dao;
     }
     public Authentification() {
+        this.dao = new AuthentificatonDAO();
     }
 }

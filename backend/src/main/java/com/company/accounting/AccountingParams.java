@@ -13,9 +13,11 @@ import javax.persistence.Version;
 @Getter
 @Entity
 public class AccountingParams {
+	@Expose
     @Id
     @GeneratedValue
     long id;
+	@Expose
     @Version
     long version;
     @Expose(serialize= false) public String login;

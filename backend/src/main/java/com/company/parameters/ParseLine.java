@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 public class ParseLine {
     private static final Logger logger = LogManager.getLogger(ParseLine.class);
@@ -16,10 +17,11 @@ public class ParseLine {
     }
 
     public Parameters parse(String[] args) {
+        logger.debug(Arrays.toString(args));
         Parameters params = new Parameters();
-        CommandLineParser cmdLinePosixParser = new DefaultParser();
+        //CommandLineParser cmdLinePosixParser = new DefaultParser();
         try {
-            CommandLine commandLine = cmdLinePosixParser.parse(getOptions(), args);
+            CommandLine commandLine = new DefaultParser().parse(getOptions(), args);
             params.setLogin(commandLine.getOptionValue("login"));
 
             params.setPass(commandLine.getOptionValue("pass"));

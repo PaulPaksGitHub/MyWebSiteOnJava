@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class AccountingDAO {
     public boolean writeUserToTable(Parameters param, Connection conn) throws SQLException {
-        try (PreparedStatement st = conn.prepareStatement("insert into acc (login, role, ds, de, vol) values (?,?,?,?,?) ")) {
+        try (PreparedStatement st = conn.prepareStatement("insert into acc (login, autorityid, ds, de, vol) values (?,?,?,?,?) ")) {
             st.setString(1, param.getLogin());
             st.setString(2, param.getRole());
             st.setString(3, param.getDs());
