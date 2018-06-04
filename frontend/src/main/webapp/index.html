@@ -9,8 +9,8 @@
 </head>
 <body>
 
+<div id="form"></div>
 <div id="users"></div>
-<div id="autority"></div>
 
 <script type="text/babel">
 
@@ -331,6 +331,31 @@ class Main extends React.Component {
 
 ReactDOM.render(
 	<Main />, document.getElementById('users')
+);
+
+class Form extends React.Component {
+	constructor(props) {
+    super(props); }
+	
+	render () {
+		return (
+			<form method="post" action="ajax/activity">
+				<li>Post servlet:</li><br/>
+				<li>Login<input type="text" id="1" name="login" /></li><br/>
+				<li>Password<input type="text" id="2" name="pass" /></li><br/>
+				<li>Role<input type="text" id="3" name="role" /></li><br/>
+				<li>Resource<input type="text" id="4" name="res" /></li><br/>
+				<li>Data Start<input type="text" id="5" name="ds" /></li><br/>
+				<li>Data End<input type="text" id="6" name="de" /></li><br/>
+				<li>Volume<input type="text" id="7" name="vol" /></li><br/>
+				<input type="submit" id="say-hello-button" value="submit" />
+			</form>
+		)
+	}
+}
+
+ReactDOM.render(
+	<Form />, document.getElementById('form')
 );
 </script
 
