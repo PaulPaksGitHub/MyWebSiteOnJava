@@ -14,12 +14,67 @@
 
 <script type="text/babel">
 
-function handleClick() {
+function handleClick(props) {
 	console.log('---','clicked')
 	this.setState({
 		isOpen: !this.state.isOpen
 	})
-	console.log('---',this.state.isOpen)
+	const {userid} = props
+	console.log('---',{userid})
+}
+
+class UserClick extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			tableOpen: false
+		};
+		this.clicked = this.clicked.bind(this)
+	}
+	clicked() {
+		console.log('---','clicked')
+		this.setState({tableOpen : !this.state.tableOpen });
+	}
+	render() {
+		const {userid} = this.props
+		if (this.state.tableOpen === true){
+			return (
+			<div>
+				<button onClick={this.clicked}>Close</button>
+				<AutorityTable userid={userid}/>
+			</div>
+			);
+		} else {
+			return <button onClick={this.clicked}>Select {userid}</button>
+		}
+	}
+}
+
+class AutorClick extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			tableOpen: false
+		};
+		this.clicked = this.clicked.bind(this)
+	}
+	clicked() {
+		console.log('---','clicked')
+		this.setState({tableOpen : !this.state.tableOpen });
+	}
+	render() {
+		const {autorityid} = this.props
+		if (this.state.tableOpen === true){
+			return (
+			<div>
+				<button onClick={this.clicked}>Close</button>
+				<ActivityTable autorityid={autorityid}/>
+			</div>
+			);
+		} else {
+			return <button onClick={this.clicked}>Select {autorityid}</button>
+		}
+	}
 }
 
 class UserTable extends React.Component {
@@ -81,7 +136,7 @@ class UserTable extends React.Component {
                         <td>{item.id}</td>
                         <td>{item.login}</td>
                         <td>{item.version}</td>
-						<button onClick={this.handleClick}>select</button>
+						<UserClick userid={item.id}/>
                         </tr>
                     );
                 })
@@ -106,14 +161,14 @@ class AutorityTable extends React.Component {
       isLoaded: false,
       items: [],
 	  isOpen: true,
-	  userid: 1
     };
 	
 	this.handleClick = handleClick.bind(this)
   }
 
   componentWillMount() {
-    fetch("ajax/authority?userid="+this.state.userid)
+	const {userid} = this.props
+    fetch("ajax/authority?userid="+userid)
       .then(res => res.json())
       .then(
         (result) => {
@@ -162,7 +217,7 @@ class AutorityTable extends React.Component {
                         <td>{item.version}</td>
 						<td>{item.adress}</td>
 						<td>{item.role}</td>
-						<button onClick={this.handleClick}>select</button>
+						<AutorClick autorityid={item.role}/>
                         </tr>
                     );
                 })
@@ -194,7 +249,8 @@ class ActivityTable extends React.Component {
   }
 
   componentWillMount() {
-    fetch("ajax/activity?autorityid="+this.state.autorityid)
+	const {autorityid} = this.props
+    fetch("ajax/activity?autorityid="+autorityid)
       .then(res => res.json())
       .then(
         (result) => {
@@ -268,8 +324,6 @@ class Main extends React.Component {
 		return (
 		<div>
 			<UserTable />
-			<AutorityTable />
-			<ActivityTable />
 		</div>
 		)
 	}
