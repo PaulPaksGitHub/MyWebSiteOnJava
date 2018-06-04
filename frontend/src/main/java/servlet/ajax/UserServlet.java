@@ -36,12 +36,13 @@ public class UserServlet extends HttpServlet {
             logger.error("SQLException {}", e);
             response.sendError(500, "SQL Exception.");
         }
-        request.setAttribute("id", idlist);
+        request.setAttribute("id", "{ \"items\": "+ idlist + "}");
+		logger.debug("{ \"items\": "+ idlist + "}");
 
 
         //request.getRequestDispatcher("/getservlet.jsp").forward(request, response);
 		response.setContentType("application/json"); 
-		response.getWriter().print(idlist);
+		response.getWriter().print("{ \"items\": "+ idlist + "}");
 	
     }
 

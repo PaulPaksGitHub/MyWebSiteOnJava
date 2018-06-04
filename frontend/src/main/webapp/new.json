@@ -1,8 +1,14 @@
-
+{ "items":
 [
 	{
 	"id": 1,
 	"login": "pa",
 	"version": 0
+	},
+	{
+	"id": 2,
+	"login": "test",
+	"version": 0
 	}
 ]
+}
