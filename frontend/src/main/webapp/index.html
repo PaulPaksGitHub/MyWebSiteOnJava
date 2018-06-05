@@ -337,6 +337,11 @@ class Form extends React.Component {
 	constructor(props) {
     super(props); }
 	
+	log (evt) {
+		console.log(evt.target.value)
+		console.log('---','response')
+	}
+	
 	render () {
 		return (
 			<form method="post" action="ajax/activity">
@@ -348,7 +353,7 @@ class Form extends React.Component {
 				<li>Data Start<input type="text" id="5" name="ds" /></li><br/>
 				<li>Data End<input type="text" id="6" name="de" /></li><br/>
 				<li>Volume<input type="text" id="7" name="vol" /></li><br/>
-				<input type="submit" id="say-hello-button" value="submit" />
+				<input type="submit" id="say-hello-button" value="submit" onChange={this.log} />
 			</form>
 		)
 	}

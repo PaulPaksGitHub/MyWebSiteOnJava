@@ -68,9 +68,9 @@ public class ActivityServlet extends HttpServlet {
             response.sendError(500, "Backend error");
         }
         request.setAttribute("id", str);
-        request.getRequestDispatcher("/getservlet.jsp").forward(request, response);
-//        response.setContentType("application/json");
-//        response.getWriter().print(str);
+        //request.getRequestDispatcher("/getservlet.jsp").forward(request, response);
+        response.setContentType("application/json");
+        response.getWriter().print(str);
     }
 
     private boolean isRequestEmpty(HttpServletRequest request) {
