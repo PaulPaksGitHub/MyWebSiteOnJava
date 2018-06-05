@@ -113,7 +113,7 @@ class UserTable extends React.Component {
 
   render() {
     const { error, isLoaded, items } = this.state;
-	console.log('items',items);
+	console.log('items',items)
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (this.state.isOpen === true) {
