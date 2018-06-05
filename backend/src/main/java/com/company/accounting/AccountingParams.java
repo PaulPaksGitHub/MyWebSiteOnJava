@@ -15,7 +15,7 @@ import javax.persistence.Version;
 public class AccountingParams {
 	@Expose
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue
     long id;
 	@Expose
     @Version
