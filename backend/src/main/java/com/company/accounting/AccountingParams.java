@@ -15,11 +15,11 @@ import javax.persistence.Version;
 public class AccountingParams {
 	@Expose
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     long id;
 	@Expose
     @Version
-    long version;
+    long version = 0;
     @Expose(serialize= false) public String login;
     @Expose(serialize= false) public String autorityid;
     @Expose public String ds;

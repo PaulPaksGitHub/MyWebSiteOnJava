@@ -22,27 +22,44 @@ public class ActivityPost {
         Authorization autorization = new Authorization();
         Authentification authentific = new Authentification();
         Accounting accounting = new Accounting();
-        int success = 0;
+        String success = "";
 
         if (param.canAuthentific() && param.canAuthorize() && param.canAccaunt()) {
-            success+=checkExit(authentific.isAuthentificable(param, conn));
-            success+=checkExit(autorization.isAuthorizable(param, conn));
-            success+=checkExit(accounting.isAccountable(param, conn));
+            success += message(authentific.isAuthentificable(param, conn));
+            success += message(autorization.isAuthorizable(param, conn));
+            success += message(accounting.isAccountable(param, conn));
         } else if (param.canAuthentific() && param.canAuthorize()) {
-            success+=checkExit(authentific.isAuthentificable(param, conn));
-            success+=checkExit(autorization.isAuthorizable(param, conn));
+            success += message(authentific.isAuthentificable(param, conn));
+            success += message(autorization.isAuthorizable(param, conn));
         } else if (param.canAuthentific()) {
-            success+=checkExit(authentific.isAuthentificable(param, conn));
+            success += message(authentific.isAuthentificable(param, conn));
         }
-        if (param.isH()) {
-            defaultParser.printHelp(defaultParser.getOptions(), System.out);
-        }
-        if (success == 0) {
+		
+        if (success.equals("")) {
             return "Seccesful";
         } else {
-            return "Wrong operation";
+            return success;
         }
     }
+
+     //0 - успех
+     //1 - неизвестный логин
+     //2 - неверный пароль
+     //3 - неизвестная роль
+     //4 - нет доступа
+     //5 - некорректная активность (невалидная дата или объем)
+     //6 - все прочие ошибки
+   
+	private static String message (SysExits exit) throws SQLException {
+		int code = checkExit(exit);
+		if (code == 1) return "Wrong login ";
+		else if (code == 2) return "Wrong password ";
+		else if (code == 3) return "Unknown role ";
+		else if (code == 5) return "Wrong vol ";
+		else if (code == 4) return "Wrong role ";
+		else if (code == 6) return "Unedentified error ";
+		return "";
+	}
 
     private static int checkExit(SysExits exit) throws SQLException {
         if (exit.equals(SysExits.EXIT0)) {
