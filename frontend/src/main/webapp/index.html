@@ -92,7 +92,7 @@ class UserTable extends React.Component {
 	this.handleClick = handleClick.bind(this)
   }
 
-  componentWillMount() {
+  componentDidMount() {
     fetch("ajax/user")
       .then(res => res.json())
       .then(
@@ -169,7 +169,7 @@ class AutorityTable extends React.Component {
 	this.handleClick = handleClick.bind(this)
   }
 
-  componentWillMount() {
+  componentDidMount() {
 	const {userid} = this.props
     fetch("ajax/authority?userid="+userid)
       .then(res => res.json())
@@ -251,7 +251,7 @@ class ActivityTable extends React.Component {
 	this.handleClick = handleClick.bind(this)
   }
 
-  componentWillMount() {
+  componentDidMount() {
 	const {autorityid} = this.props
     fetch("ajax/activity?autorityid="+autorityid)
       .then(res => res.json())
