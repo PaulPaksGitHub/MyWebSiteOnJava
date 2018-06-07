@@ -27,7 +27,7 @@ deploy:
 build:
   stage: build
   script:
-    - ./gradlew assemble
+    - ./gradlew build
   artifacts:
     paths:
       - build/libs/*.jar
