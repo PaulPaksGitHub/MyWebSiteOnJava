@@ -22,6 +22,7 @@ build:
   stage: build
   script:
     - ./gradlew assemble
+    - ./gradlew check
   artifacts:
     directories:
       - build/libs/*.jar
