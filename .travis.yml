@@ -7,7 +7,7 @@ stages:
   - test
 
 
-before_script:
+before_install:
   - chmod +x ./gradlew
   - echo `pwd`
   - export GRADLE_USER_HOME=`pwd`/.gradle
