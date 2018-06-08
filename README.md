@@ -1,4 +1,4 @@
-[![pipeline status](https://gitlab.com/kafedra/ppakseev/badges/master/pipeline.svg)](https://gitlab.com/kafedra/ppakseev/commits/master)
+[![pipeline status](https://travis-ci.org/PaulPaksGitHub/MyWebSiteOnJava.svg?branch=master]
 =============
 Приложение на heroku: https://ppakseev.herokuapp.com
 
