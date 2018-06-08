@@ -1,12 +1,6 @@
 language: java
 jdk: oraclejdk8
 
-stages:
-  - build
-  - deploy
-  - test
-
-
 before_install:
   - chmod +x ./gradlew
   - echo `pwd`
@@ -18,9 +12,7 @@ cache:
   directories:
     - .gradle/wrapper
     - .gradle/caches
-
-
-        
+  
 deploy:
   - provider: heroku
     api_key: $HEROKU_API_KEY
@@ -36,12 +28,6 @@ build:
     expire_in: 1 week
   only:
     - master
-
-test:
-  stage: test
-  script:
-    - ./gradlew check
-
 
 after_script:
   - echo "End CI"
