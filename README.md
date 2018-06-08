@@ -1,4 +1,4 @@
-[![pipeline status](https://travis-ci.org/PaulPaksGitHub/MyWebSiteOnJava.svg?branch=master]
+[![Build Status](https://travis-ci.org/PaulPaksGitHub/MyWebSiteOnJava.svg?branch=master)](https://travis-ci.org/PaulPaksGitHub/MyWebSiteOnJava)
 =============
 Приложение на heroku: https://ppakseev.herokuapp.com
 
