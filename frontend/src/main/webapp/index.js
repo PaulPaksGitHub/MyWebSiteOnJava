@@ -1,12 +1,8 @@
-import React from './js/react';
-import { render } from './js/react-dom';
-
-function Hello () {
+class Hello extends React.Component {
+  render() {
     return (
-        <div>
-            <h2>hello</h2>
-        </div>
-    )
+          <div><h2>hello</h2></div>
+    );
+  }
 }
-
-render(<Hello />, document.getElementById('root'));
+export default Hello;

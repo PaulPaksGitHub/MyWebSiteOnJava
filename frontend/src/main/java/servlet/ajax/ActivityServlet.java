@@ -14,6 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @Singleton
 public class ActivityServlet extends HttpServlet {
@@ -48,29 +53,27 @@ public class ActivityServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        Parameters params = new Parameters();
+				
+		GsonBuilder builder = new GsonBuilder();
+        builder.excludeFieldsWithoutExposeAnnotation().setPrettyPrinting();
+        Gson gson = builder.create();
 
-        params.setLogin(getParameter(request, "login"));
-        params.setPass(getParameter(request, "pass"));
-        params.setRes(getParameter(request, "res"));
-        params.setRole(getParameter(request, "role"));
-        params.setDs(getParameter(request, "ds"));
-        params.setDe(getParameter(request, "de"));
-        params.setVol(getParameter(request, "vol"));
+        Parameters params = new Parameters();
+		params = gson.fromJson(printFormVars(request),Parameters.class);
+		logger.debug("Deseriavized parameters: {}", gson.toJson(params));
 
         ActivityPost post = new ActivityPost();
         String str = null;
-        logger.debug("{} {}", params.getLogin(), params.getPass());
+
         try {
             str = post.getActivity(params, conn);
         } catch (SQLException e) {
             logger.error("Exception in parse form");
             response.sendError(500, "Backend error");
         }
-        request.setAttribute("id", str);
-        //request.getRequestDispatcher("/getservlet.jsp").forward(request, response);
+        logger.debug("str = {}", str);
         response.setContentType("application/json");
-        response.getWriter().print(str);
+        response.getWriter().print("{ \"items\": \"" + str + "\"}");
     }
 
     private boolean isRequestEmpty(HttpServletRequest request) {
@@ -82,11 +85,32 @@ public class ActivityServlet extends HttpServlet {
     }
 
     private String getParameter(HttpServletRequest request, String name) {
-        logger.debug(request.getParameter(name));
-        if (request.getParameter(name) == "") {
+        logger.debug("{} = {}", name, request.getParameter(name));
+        if (request.getParameter(name) == null || request.getParameter(name).equals("")) {
             return null;
         }
         return request.getParameter(name);
+    }
+
+    private String checkOnEmptyParam(String parameter) {
+        if (parameter.equals("")) {
+            return null;
+        }
+        return parameter;
+    }
+
+    private String printFormVars(HttpServletRequest request) {
+        java.util.Enumeration enu = request.getParameterNames();
+		String par = null;
+        while (enu.hasMoreElements()) {
+            String paramName = (String) enu.nextElement();
+            logger.debug("PARAM: "
+                    + paramName
+                    + ": "
+                    + request.getParameter(paramName));
+			par = paramName;
+        }
+		return par;
     }
 }
 

@@ -5,7 +5,7 @@
 	<title>Hello World</title>
 
 	<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
-	
+
 	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
 	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
 </head>
@@ -13,6 +13,7 @@
 
 <div id="form"></div>
 <div id="users"></div>
+<div id="login-form"></div>
 
 <script type="text/babel">
 
@@ -88,7 +89,7 @@ class UserTable extends React.Component {
       items: [],
 	  isOpen: true
     };
-	
+
 	this.handleClick = handleClick.bind(this)
   }
 
@@ -119,28 +120,22 @@ class UserTable extends React.Component {
     } else if (this.state.isOpen === true) {
 		return (
         <table className="table" >
-                <thead>
-                    <tr>
-                        <th>
-                            id
-                    </th>
-                    <th>
-                        login
-                   </th>
-                    <th>
-                        version
-                    </th>
-                </tr>
-        </thead>
+        	<thead>
+            <tr>
+              <th>id</th>
+            	<th>login</th>
+              <th>version</th>
+            </tr>
+        	</thead>
         <tbody>
             {items.map(item => {
                 return (
                     <tr key={item.id}>
-                        <td>{item.id}</td>
-                        <td>{item.login}</td>
-                        <td>{item.version}</td>
-						<UserClick userid={item.id}/>
-                        </tr>
+                      <td>{item.id}</td>
+                      <td>{item.login}</td>
+                      <td>{item.version}</td>
+											<UserClick userid={item.id}/>
+                    </tr>
                     );
                 })
             }
@@ -165,7 +160,7 @@ class AutorityTable extends React.Component {
       items: [],
 	  isOpen: true,
     };
-	
+
 	this.handleClick = handleClick.bind(this)
   }
 
@@ -195,33 +190,25 @@ class AutorityTable extends React.Component {
       return <div>Error: {error.message}</div>;
     } else if (this.state.isOpen === true) {
 		return (
-        <table className="table" >
+      <table className="table" >
 			<thead>
 				<tr>
-					<th>
-						id
-                    </th>
-                    <th>
-                        version
-                    </th>
-					<th>
-                        adress
-                    </th>
-					<th>
-                        role
-                    </th>
-                </tr>
+					<th>id</th>
+          <th>version</th>
+					<th>adress</th>
+					<th>role</th>
+        </tr>
 			</thead>
         <tbody>
             {items.map(item => {
                 return (
                     <tr key={item.id}>
-                        <td>{item.id}</td>
-                        <td>{item.version}</td>
-						<td>{item.adress}</td>
-						<td>{item.role}</td>
-						<AutorClick autorityid={item.role}/>
-                        </tr>
+                      <td>{item.id}</td>
+                      <td>{item.version}</td>
+											<td>{item.adress}</td>
+											<td>{item.role}</td>
+											<AutorClick autorityid={item.role}/>
+                    </tr>
                     );
                 })
             }
@@ -247,7 +234,7 @@ class ActivityTable extends React.Component {
 	  isOpen: true,
 	  autorityid: 'READ'
     };
-	
+
 	this.handleClick = handleClick.bind(this)
   }
 
@@ -277,25 +264,15 @@ class ActivityTable extends React.Component {
       return <div>Error: {error.message}</div>;
     } else if (this.state.isOpen === true) {
 		return (
-        <table className="table" >
+      <table className="table" >
 			<thead>
 				<tr>
-					<th>
-						id
-                    </th>
-                    <th>
-                        version
-                    </th>
-                    <th>
-                        ds
-                    </th>
-					<th>
-                        de
-                    </th>
-					<th>
-                        vol
-                    </th>
-                </tr>
+					<th>id</th>
+          <th>version</th>
+          <th>ds</th>
+					<th>de</th>
+					<th>vol</th>
+        </tr>
         </thead>
         <tbody>
             {items.map(item => {
@@ -306,7 +283,7 @@ class ActivityTable extends React.Component {
                         <td>{item.ds}</td>
                         <td>{item.de}</td>
                         <td>{item.vol}</td>
-                        </tr>
+                    </tr>
                     );
                 })
             }
@@ -338,29 +315,101 @@ ReactDOM.render(
 
 class Form extends React.Component {
 	constructor(props) {
-    super(props); }
-	
+    super(props);
+		this.state = {
+			items: [],
+			login: '',
+			pass: ''
+		};
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleLoginChange = this.handleLoginChange.bind(this);
+		this.handlePassChange = this.handlePassChange.bind(this);
+	}
+
+	handleSubmit (event){
+		event.preventDefault();
+		console.log('clicked');
+		console.log(JSON.stringify(this.state));
+		var headers = new Headers();
+
+		headers.append('Accept', 'application/json'); // This one is enough for GET requests
+		headers.append('Content-Type', 'application/json'); // This one sends body
+		fetch('ajax/activity', {
+		    method: 'post',
+				credentials: 'include',
+				headers:
+            {'Content-Type': 'application/x-www-form-urlencoded'}
+          ,
+		    body: JSON.stringify({
+					login: this.state.login,
+					pass: this.state.pass
+				})
+
+		  }).then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            items: result.items
+          });
+					console.log(result.items);
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
+	}
+
+	handleLoginChange (event){
+		console.log('changed', this.state.login);
+		this.setState({login: event.target.value});
+	}
+	handlePassChange (event){
+		console.log('changed', this.state.pass);
+		this.setState({pass: event.target.value});
+	}
+
 	render () {
+		// return (
+		// 	<form method="post" action="ajax/activity">
+		// 		<li>Post servlet:</li><br/>
+		// 		<li>Login<input type="text" id="1" name="login" /></li><br/>
+		// 		<li>Password<input type="text" id="2" name="pass" /></li><br/>
+		// 		<li>Role<input type="text" id="3" name="role" /></li><br/>
+		// 		<li>Resource<input type="text" id="4" name="res" /></li><br/>
+		// 		<li>Data Start<input type="text" id="5" name="ds" /></li><br/>
+		// 		<li>Data End<input type="text" id="6" name="de" /></li><br/>
+		// 		<li>Volume<input type="text" id="7" name="vol" /></li><br/>
+		// 		<input type="submit" id="say-hello-button" value="submit" />
+		// 	</form>
+		// )
 		return (
-			<form method="post" action="ajax/activity">
-				<li>Post servlet:</li><br/>
-				<li>Login<input type="text" id="1" name="login" /></li><br/>
-				<li>Password<input type="text" id="2" name="pass" /></li><br/>
-				<li>Role<input type="text" id="3" name="role" /></li><br/>
-				<li>Resource<input type="text" id="4" name="res" /></li><br/>
-				<li>Data Start<input type="text" id="5" name="ds" /></li><br/>
-				<li>Data End<input type="text" id="6" name="de" /></li><br/>
-				<li>Volume<input type="text" id="7" name="vol" /></li><br/>
-				<input type="submit" id="say-hello-button" value="submit" />
+			<form onSubmit={this.handleSubmit}>
+				<input
+					id="1"
+					name="login"
+					type="text"
+					placeholder="Login"
+					value={this.state.login}
+					onChange={this.handleLoginChange}
+				/><br />
+				<input
+					id="2"
+					name="pass"
+					type="text"
+					placeholder="Password"
+					value={this.state.pass}
+					onChange={this.handlePassChange}
+				/><br />
+				<button>Submit</button>
 			</form>
-		)
+		);
 	}
 }
 
 ReactDOM.render(
-	<Form />, document.getElementById('form')
+	<Form />, document.getElementById('login-form')
 );
-</script
+</script>
 
 </body>
 </html>

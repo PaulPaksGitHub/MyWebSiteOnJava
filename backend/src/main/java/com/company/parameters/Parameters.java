@@ -2,15 +2,17 @@ package com.company.parameters;
 
 import lombok.Getter;
 import lombok.Setter;
+import com.google.gson.annotations.Expose;
+
 @Getter @Setter
 public class Parameters {
-    private String login;
-    private String pass;
-    private String res;
-    private String role;
-    private String ds;
-    private String de;
-    private String vol;
+    @Expose private String login;
+    @Expose private String pass;
+    @Expose private String res;
+    @Expose private String role;
+    @Expose private String ds;
+    @Expose private String de;
+    @Expose private String vol;
     private boolean h;
 
     public boolean isParamEmpty() {
