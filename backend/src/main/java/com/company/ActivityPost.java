@@ -52,11 +52,11 @@ public class ActivityPost {
    
 	private static String message (SysExits exit) throws SQLException {
 		int code = checkExit(exit);
-		if (code == 1) return "Wrong login ";
+		if (code == 1) return "Unknown login ";
 		else if (code == 2) return "Wrong password ";
 		else if (code == 3) return "Unknown role ";
-		else if (code == 5) return "Wrong vol ";
-		else if (code == 4) return "Wrong role ";
+		else if (code == 4) return "Hasn't access rights ";
+		else if (code == 5) return "Uncorrect date or value ";
 		else if (code == 6) return "Unedentified error ";
 		return "";
 	}

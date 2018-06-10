@@ -319,21 +319,26 @@ class Form extends React.Component {
 		this.state = {
 			items: [],
 			login: '',
-			pass: ''
+			pass: '',
+			res: '',
+			role: '',
+			ds: '',
+			de: '',
+			vol: ''
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleLoginChange = this.handleLoginChange.bind(this);
 		this.handlePassChange = this.handlePassChange.bind(this);
+		this.handleResChange = this.handleResChange.bind(this);
+		this.handleRoleChange = this.handleRoleChange.bind(this);
+		this.handleDsChange = this.handleDsChange.bind(this);
+		this.handleDeChange = this.handleDeChange.bind(this);
+		this.handleVolChange = this.handleVolChange.bind(this);
 	}
 
 	handleSubmit (event){
 		event.preventDefault();
-		console.log('clicked');
-		console.log(JSON.stringify(this.state));
-		var headers = new Headers();
 
-		headers.append('Accept', 'application/json'); // This one is enough for GET requests
-		headers.append('Content-Type', 'application/json'); // This one sends body
 		fetch('ajax/activity', {
 		    method: 'post',
 				credentials: 'include',
@@ -342,7 +347,12 @@ class Form extends React.Component {
           ,
 		    body: JSON.stringify({
 					login: this.state.login,
-					pass: this.state.pass
+					pass: this.state.pass,
+					res: this.state.res,
+					role: this.state.role,
+					ds: this.state.ds,
+					de: this.state.de,
+					vol: this.state.vol
 				})
 
 		  }).then(res => res.json())
@@ -360,28 +370,28 @@ class Form extends React.Component {
 	}
 
 	handleLoginChange (event){
-		console.log('changed', this.state.login);
 		this.setState({login: event.target.value});
 	}
 	handlePassChange (event){
-		console.log('changed', this.state.pass);
 		this.setState({pass: event.target.value});
+	}
+	handleResChange (event){
+		this.setState({res: event.target.value});
+	}
+	handleRoleChange (event){
+		this.setState({role: event.target.value});
+	}
+	handleDsChange (event){
+		this.setState({ds: event.target.value});
+	}
+	handleDeChange (event){
+		this.setState({de: event.target.value});
+	}
+	handleVolChange (event){
+		this.setState({vol: event.target.value});
 	}
 
 	render () {
-		// return (
-		// 	<form method="post" action="ajax/activity">
-		// 		<li>Post servlet:</li><br/>
-		// 		<li>Login<input type="text" id="1" name="login" /></li><br/>
-		// 		<li>Password<input type="text" id="2" name="pass" /></li><br/>
-		// 		<li>Role<input type="text" id="3" name="role" /></li><br/>
-		// 		<li>Resource<input type="text" id="4" name="res" /></li><br/>
-		// 		<li>Data Start<input type="text" id="5" name="ds" /></li><br/>
-		// 		<li>Data End<input type="text" id="6" name="de" /></li><br/>
-		// 		<li>Volume<input type="text" id="7" name="vol" /></li><br/>
-		// 		<input type="submit" id="say-hello-button" value="submit" />
-		// 	</form>
-		// )
 		return (
 			<form onSubmit={this.handleSubmit}>
 				<input
@@ -399,6 +409,46 @@ class Form extends React.Component {
 					placeholder="Password"
 					value={this.state.pass}
 					onChange={this.handlePassChange}
+				/><br />
+				<input
+					id="3"
+					name="res"
+					type="text"
+					placeholder="Resource"
+					value={this.state.res}
+					onChange={this.handleResChange}
+				/><br />
+				<input
+					id="4"
+					name="role"
+					type="text"
+					placeholder="Role"
+					value={this.state.role}
+					onChange={this.handleRoleChange}
+				/><br />
+				<input
+					id="5"
+					name="ds"
+					type="text"
+					placeholder="Date of start"
+					value={this.state.ds}
+					onChange={this.handleDsChange}
+				/><br />
+				<input
+					id="6"
+					name="de"
+					type="text"
+					placeholder="Date of end"
+					value={this.state.de}
+					onChange={this.handleDeChange}
+				/><br />
+				<input
+					id="7"
+					name="vol"
+					type="text"
+					placeholder="Volume"
+					value={this.state.vol}
+					onChange={this.handleVolChange}
 				/><br />
 				<button>Submit</button>
 			</form>

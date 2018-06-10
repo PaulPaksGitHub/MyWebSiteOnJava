@@ -46,7 +46,6 @@ public class ActivityServlet extends HttpServlet {
             logger.error("SQLException {}", e);
             response.sendError(500, "SQLException");
         }
-        //request.getRequestDispatcher("/getservlet.jsp").forward(request, response);
         response.setContentType("application/json");
         response.getWriter().print("{ \"items\": " + text + "}");
     }
@@ -60,6 +59,7 @@ public class ActivityServlet extends HttpServlet {
 
         Parameters params = new Parameters();
 		params = gson.fromJson(printFormVars(request),Parameters.class);
+		checkOnEmptyParam(params);
 		logger.debug("Deseriavized parameters: {}", gson.toJson(params));
 
         ActivityPost post = new ActivityPost();
@@ -84,19 +84,36 @@ public class ActivityServlet extends HttpServlet {
         return request.getParameter("id") != null;
     }
 
-    private String getParameter(HttpServletRequest request, String name) {
-        logger.debug("{} = {}", name, request.getParameter(name));
-        if (request.getParameter(name) == null || request.getParameter(name).equals("")) {
-            return null;
-        }
-        return request.getParameter(name);
-    }
+//    private String getParameter(HttpServletRequest request, String name) {
+//        logger.debug("{} = {}", name, request.getParameter(name));
+//        if (request.getParameter(name) == null || request.getParameter(name).equals("")) {
+//            return null;
+//        }
+//        return request.getParameter(name);
+//    }
 
-    private String checkOnEmptyParam(String parameter) {
-        if (parameter.equals("")) {
-            return null;
+    private void checkOnEmptyParam(Parameters params) {
+        if (params.getLogin().equals("")) {
+            params.setLogin(null);
         }
-        return parameter;
+        if (params.getPass().equals("")) {
+            params.setPass(null);
+        }
+		if (params.getRes().equals("")) {
+            params.setRes(null);
+        }
+		if (params.getRole().equals("")) {
+            params.setRole(null);
+        }
+		if (params.getDs().equals("")) {
+            params.setDs(null);
+        }
+		if (params.getDe().equals("")) {
+            params.setDe(null);
+        }
+		if (params.getVol().equals("")) {
+            params.setVol(null);
+        }
     }
 
     private String printFormVars(HttpServletRequest request) {

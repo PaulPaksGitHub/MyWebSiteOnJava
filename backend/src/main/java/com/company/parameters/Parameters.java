@@ -4,16 +4,17 @@ import lombok.Getter;
 import lombok.Setter;
 import com.google.gson.annotations.Expose;
 
-@Getter @Setter
+@Getter 
+@Setter
 public class Parameters {
-    @Expose private String login;
-    @Expose private String pass;
-    @Expose private String res;
-    @Expose private String role;
-    @Expose private String ds;
-    @Expose private String de;
-    @Expose private String vol;
-    private boolean h;
+    @Expose public String login;
+    @Expose public String pass;
+    @Expose public String res;
+    @Expose public String role;
+    @Expose public String ds;
+    @Expose public String de;
+    @Expose public String vol;
+    public boolean h;
 
     public boolean isParamEmpty() {
         return !canAuthentific() && !canAuthorize() && !canAccaunt();
