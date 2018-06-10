@@ -12,8 +12,7 @@
 <body>
 
 <div id="form"></div>
-<div id="users"></div>
-<div id="login-form"></div>
+<div id="table"></div>
 
 <script type="text/babel">
 
@@ -25,292 +24,198 @@ function handleClick(props) {
 	const {userid} = props
 	console.log('---',{userid})
 }
-
-class UserClick extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			tableOpen: false
-		};
-		this.clicked = this.clicked.bind(this)
-	}
-	clicked() {
-		console.log('---','clicked')
-		this.setState({tableOpen : !this.state.tableOpen });
-	}
+class ButtonForTable extends React.Component{
 	render() {
-		const {userid} = this.props
-		if (this.state.tableOpen === true){
-			return (
-			<div>
-				<button onClick={this.clicked}>Close</button>
-				<AutorityTable userid={userid}/>
-			</div>
-			);
-		} else {
-			return <button onClick={this.clicked}>Select {userid}</button>
-		}
-	}
-}
-
-class AutorClick extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			tableOpen: false
-		};
-		this.clicked = this.clicked.bind(this)
-	}
-	clicked() {
-		console.log('---','clicked')
-		this.setState({tableOpen : !this.state.tableOpen });
-	}
-	render() {
-		const {autorityid} = this.props
-		if (this.state.tableOpen === true){
-			return (
-			<div>
-				<button onClick={this.clicked}>Close</button>
-				<ActivityTable autorityid={autorityid}/>
-			</div>
-			);
-		} else {
-			return <button onClick={this.clicked}>Select {autorityid}</button>
-		}
-	}
-}
-
-class UserTable extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      items: [],
-	  isOpen: true
-    };
-
-	this.handleClick = handleClick.bind(this)
-  }
-
-  componentDidMount() {
-    fetch("ajax/user")
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            items: result.items
-          });
-        },
-        (error) => {
-          this.setState({
-            isLoaded: false,
-            error
-          });
-        }
-      )
-  }
-
-  render() {
-    const { error, isLoaded, items } = this.state;
-	console.log('items',items)
-    if (error) {
-      return <div>Error: {error.message}</div>;
-    } else if (this.state.isOpen === true) {
-		return (
-        <table className="table" >
-        	<thead>
-            <tr>
-              <th>id</th>
-            	<th>login</th>
-              <th>version</th>
-            </tr>
-        	</thead>
-        <tbody>
-            {items.map(item => {
-                return (
-                    <tr key={item.id}>
-                      <td>{item.id}</td>
-                      <td>{item.login}</td>
-                      <td>{item.version}</td>
-											<UserClick userid={item.id}/>
-                    </tr>
-                    );
-                })
-            }
-        </tbody>
-    </table>
-      );
-	}
-    else {
-      return (
-        <div/>
-      );
-    }
-  }
-}
-
-class AutorityTable extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      items: [],
-	  isOpen: true,
-    };
-
-	this.handleClick = handleClick.bind(this)
-  }
-
-  componentDidMount() {
-	const {userid} = this.props
-    fetch("ajax/authority?userid="+userid)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            items: result.items
-          });
-        },
-        (error) => {
-          this.setState({
-            isLoaded: false,
-            error
-          });
-        }
-      )
-  }
-
-  render() {
-    const { error, isLoaded, items } = this.state;
-    if (error) {
-      return <div>Error: {error.message}</div>;
-    } else if (this.state.isOpen === true) {
-		return (
-      <table className="table" >
-			<thead>
-				<tr>
-					<th>id</th>
-          <th>version</th>
-					<th>adress</th>
-					<th>role</th>
-        </tr>
-			</thead>
-        <tbody>
-            {items.map(item => {
-                return (
-                    <tr key={item.id}>
-                      <td>{item.id}</td>
-                      <td>{item.version}</td>
-											<td>{item.adress}</td>
-											<td>{item.role}</td>
-											<AutorClick autorityid={item.role}/>
-                    </tr>
-                    );
-                })
-            }
-        </tbody>
-    </table>
-      );
-	}
-    else {
-      return (
-        <div/>
-      );
-    }
-  }
-}
-
-class ActivityTable extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      items: [],
-	  isOpen: true,
-	  autorityid: 'READ'
-    };
-
-	this.handleClick = handleClick.bind(this)
-  }
-
-  componentDidMount() {
-	const {autorityid} = this.props
-    fetch("ajax/activity?autorityid="+autorityid)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            items: result.items
-          });
-        },
-        (error) => {
-          this.setState({
-            isLoaded: false,
-            error
-          });
-        }
-      )
-  }
-
-  render() {
-    const { error, isLoaded, items } = this.state;
-    if (error) {
-      return <div>Error: {error.message}</div>;
-    } else if (this.state.isOpen === true) {
-		return (
-      <table className="table" >
-			<thead>
-				<tr>
-					<th>id</th>
-          <th>version</th>
-          <th>ds</th>
-					<th>de</th>
-					<th>vol</th>
-        </tr>
-        </thead>
-        <tbody>
-            {items.map(item => {
-                return (
-                    <tr key={item.id}>
-                        <td>{item.id}</td>
-                        <td>{item.version}</td>
-                        <td>{item.ds}</td>
-                        <td>{item.de}</td>
-                        <td>{item.vol}</td>
-                    </tr>
-                    );
-                })
-            }
-        </tbody>
-    </table>
-      );
-	}
-    else {
-      return (
-        <div/>
-      );
-    }
-  }
-}
-
-class Main extends React.Component {
-	render() {
+		const {id, autor, user, activ, text} = this.props
 		return (
 		<div>
-			<UserTable />
+			<button onClick={() => this.props.updateData(id, user, autor, activ, true)}>{text}</button>
 		</div>
-		);
+		)
+	}
+}
+
+class Table extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			error: null,
+			items: [],
+			isUserOpen: true,
+			isActivOpen: false,
+			isAutorOpen: false,
+			fetchCount: null,
+			needUpdate: true
+		};
+	}
+
+
+	updateData = (value, user, autor, activ, update) => {
+		this.setState({
+			fetchCount: value,
+			isUserOpen: user,
+			isAutorOpen: autor,
+			isActivOpen: activ,
+			needUpdate: update
+		});
+	}
+
+	render() {
+		if (this.state.needUpdate === true){
+			console.log('RECIEVED');
+			if (this.state.isUserOpen === true){
+				fetch("ajax/user")
+		      .then(res => res.json())
+		      .then(
+		        (result) => {
+		          this.setState({
+		            items: result.items
+		          });
+		        },
+		        (error) => {
+		          this.setState({
+		            error
+		          });
+		        }
+		      )
+				} else if (this.state.isAutorOpen === true){
+					fetch("ajax/authority?userid="+this.state.fetchCount)
+			      .then(res => res.json())
+			      .then(
+			        (result) => {
+			          this.setState({
+			            items: result.items
+			          });
+			        },
+			        (error) => {
+			          this.setState({
+			            error
+			          });
+			        }
+			      )
+				} else if (this.state.isActivOpen === true){
+					fetch("ajax/activity?autorityid="+this.state.fetchCount)
+			      .then(res => res.json())
+			      .then(
+			        (result) => {
+			          this.setState({
+			            items: result.items
+			          });
+			        },
+			        (error) => {
+			          this.setState({
+			            error
+			          });
+			        }
+			      )
+				}
+			this.setState({
+				needUpdate: false
+			});
+		}
+
+		console.log(this.state);
+		const { items } = this.state;
+		if (this.state.isUserOpen === true){
+			console.log('this');
+				return (
+					<div>
+						<h1>Users table</h1>
+		        <table className="table" >
+		        	<thead>
+		            <tr>
+		              <th>id</th>
+		            	<th>login</th>
+		              <th>version</th>
+		            </tr>
+		        	</thead>
+		        <tbody>
+		            {items.map(item => {
+		                return (
+		                    <tr key={item.id}>
+		                      <td>{item.id}</td>
+		                      <td>{item.login}</td>
+		                      <td>{item.version}</td>
+													<ButtonForTable updateData={this.updateData} id={item.id} user={false} autor={true} activ={false} text={'Select'}/>
+		                    </tr>
+		                    );
+		                })
+		            }
+		        </tbody>
+		    </table>
+				</div>
+      );
+		} else if (this.state.isAutorOpen === true){
+			return (
+				<div>
+				<h1>Autority table</h1>
+				<ButtonForTable updateData={this.updateData} id={[]} user={true} autor={false} activ={false} text={'Back to users'}/>
+	      <table className="table" >
+				<thead>
+					<tr>
+						<th>id</th>
+	          <th>version</th>
+						<th>adress</th>
+						<th>role</th>
+	        </tr>
+				</thead>
+	        <tbody>
+	            {items.map(item => {
+	                return (
+	                    <tr key={item.id}>
+	                      <td>{item.id}</td>
+	                      <td>{item.version}</td>
+												<td>{item.adress}</td>
+												<td>{item.role}</td>
+												<ButtonForTable updateData={this.updateData} id={item.role} user={false} autor={false} activ={true} text={'Select'}/>
+	                    </tr>
+	                    );
+	                })
+	            }
+	        </tbody>
+	    </table>
+			</div>
+	      );
+		} else if (this.state.isActivOpen === true){
+			return (
+				<div>
+				<h1>Activity table</h1>
+				<ButtonForTable updateData={this.updateData} id={[]} user={true} autor={false} activ={false} text={'Back to users'}/>
+	      <table className="table" >
+				<thead>
+					<tr>
+						<th>id</th>
+	          <th>version</th>
+	          <th>ds</th>
+						<th>de</th>
+						<th>vol</th>
+	        </tr>
+	        </thead>
+	        <tbody>
+	            {items.map(item => {
+	                return (
+	                    <tr key={item.id}>
+	                        <td>{item.id}</td>
+	                        <td>{item.version}</td>
+	                        <td>{item.ds}</td>
+	                        <td>{item.de}</td>
+	                        <td>{item.vol}</td>
+	                    </tr>
+	                    );
+	                })
+	            }
+	        </tbody>
+	    </table>
+			</div>
+	      );
+		}else {
+			return <div><h3>Error</h3></div>
+		}
 	}
 }
 
 ReactDOM.render(
-	<Main />, document.getElementById('users')
+	<Table />, document.getElementById('table')
 );
 
 class Form extends React.Component {
@@ -460,7 +365,7 @@ class Form extends React.Component {
 }
 
 ReactDOM.render(
-	<Form />, document.getElementById('login-form')
+	<Form />, document.getElementById('form')
 );
 </script>
 
