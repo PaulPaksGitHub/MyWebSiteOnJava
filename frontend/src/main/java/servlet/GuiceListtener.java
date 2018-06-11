@@ -49,6 +49,11 @@ public class GuiceListtener extends GuiceServletContextListener {
     protected Injector getInjector() {
         setDbUrl(); // Конфигурирует пути в зависимости от доступной БД
         migrate(); // Миграции БД
+		logger.error("#####################################################################");
+		logger.error(url);
+		logger.error(dbUser);
+		logger.error(dbPassword);
+		logger.error("#####################################################################");
         // Создание пула коннектов
         try {
             pool = new DataSource();
