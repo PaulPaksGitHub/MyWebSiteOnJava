@@ -241,7 +241,7 @@ public class GuiceListtener extends GuiceServletContextListener {
             url = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
             dbUser = dbUri.getUserInfo().split(":")[0];
             dbPassword = dbUri.getUserInfo().split(":")[1];
-        }
+		}
     }
 
     private void migrate() {
