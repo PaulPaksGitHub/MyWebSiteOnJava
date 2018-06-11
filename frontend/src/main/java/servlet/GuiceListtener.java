@@ -62,7 +62,7 @@ public class GuiceListtener extends GuiceServletContextListener {
             props.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
         } else {
 			props.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
-            props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL82Dialect");
+            props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 		}
         props.put("javax.persistence.jdbc.url", url);
         props.put("javax.persistence.jdbc.user", dbUser);
