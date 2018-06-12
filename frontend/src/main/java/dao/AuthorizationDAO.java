@@ -39,7 +39,7 @@ public class AuthorizationDAO {
 
     public String getResFromUserID(String userid) throws SQLException {
         List list = em.createNativeQuery("select * from pgsql.res where userid = ?", AutorizationParams.class)
-                .setParameter(1, userid).getResultList();
+                .setParameter(1, Long.parseLong(userid)).getResultList();
         String text = gson.toJson(list);
         logger.error(text);
         return text;
