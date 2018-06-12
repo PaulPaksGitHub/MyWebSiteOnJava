@@ -33,7 +33,7 @@ public class AccountingDAO {
                     .setParameter(2, param.getRole())
                     .setParameter(3, param.getDs())
                     .setParameter(4, param.getDe())
-                    .setParameter(5, param.getVol())
+                    .setParameter(5, Long.parseLong(param.getVol()))
                     .executeUpdate();
             em.getTransaction().commit();
         } catch (NoResultException e) {
