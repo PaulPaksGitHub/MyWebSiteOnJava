@@ -48,31 +48,24 @@ public class GuiceListtener extends GuiceServletContextListener {
     @Override
     protected Injector getInjector() {
         setDbUrl(); // Конфигурирует пути в зависимости от доступной БД
-        migrate(); // Миграции БД
-		logger.error("#####################################################################");
-		logger.error(url);
-		logger.error(dbUser);
-		logger.error(dbPassword);
-		logger.error("#####################################################################");
+
+        // инициализация EntityManagerFactory
+        HashMap<String, String> props = new HashMap<>();
+        if (url.split(":")[1].equals("h2")) {
+            props.put("javax.persistence.jdbc.driver", "org.h2.Driver");
+            props.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        }
+        props.put("javax.persistence.jdbc.url", url);
+        props.put("javax.persistence.jdbc.user", dbUser);
+        props.put("javax.persistence.jdbc.password", dbPassword);
+        entityManagerFactory = Persistence.createEntityManagerFactory("EnManager", props);
+		migrate(); // Миграции БД
         // Создание пула коннектов
         try {
             pool = new DataSource();
         } catch (IOException | SQLException | PropertyVetoException e) {
             logger.error("Pool cannot be created: {}", e);
         }
-        // инициализация EntityManagerFactory
-        HashMap<String, String> props = new HashMap<>();
-        if (url.split(":")[1].equals("h2")) {
-            props.put("javax.persistence.jdbc.driver", "org.h2.Driver");
-            props.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-        } else {
-			props.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
-            props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-		}
-        props.put("javax.persistence.jdbc.url", url);
-        props.put("javax.persistence.jdbc.user", dbUser);
-        props.put("javax.persistence.jdbc.password", dbPassword);
-        entityManagerFactory = Persistence.createEntityManagerFactory("EnManager", props);
         // инициализация Gson
         GsonBuilder builder = new GsonBuilder();
         builder.excludeFieldsWithoutExposeAnnotation().setPrettyPrinting();
