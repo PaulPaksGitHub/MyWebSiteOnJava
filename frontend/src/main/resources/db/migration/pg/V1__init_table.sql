@@ -1,4 +1,5 @@
 create schema pgsql;
+SET search_path TO pgsql;
 
 create table pgsql.users
 (
