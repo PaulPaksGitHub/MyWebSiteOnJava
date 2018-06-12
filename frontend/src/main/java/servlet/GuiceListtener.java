@@ -48,7 +48,7 @@ public class GuiceListtener extends GuiceServletContextListener {
     @Override
     protected Injector getInjector() {
         setDbUrl(); // Конфигурирует пути в зависимости от доступной БД
-
+		migrate(); // Миграции БД
         // инициализация EntityManagerFactory
         HashMap<String, String> props = new HashMap<>();
         if (url.split(":")[1].equals("h2")) {
@@ -59,7 +59,7 @@ public class GuiceListtener extends GuiceServletContextListener {
         props.put("javax.persistence.jdbc.user", dbUser);
         props.put("javax.persistence.jdbc.password", dbPassword);
         entityManagerFactory = Persistence.createEntityManagerFactory("EnManager", props);
-		migrate(); // Миграции БД
+
         // Создание пула коннектов
         try {
             pool = new DataSource();
@@ -262,12 +262,6 @@ public class GuiceListtener extends GuiceServletContextListener {
             cpds.setJdbcUrl(url);
             cpds.setUser(dbUser);
             cpds.setPassword(dbPassword);
-
-            // the settings below are optional -- c3p0 can work with defaults
-            cpds.setMinPoolSize(5);
-            cpds.setAcquireIncrement(5);
-            cpds.setMaxPoolSize(20);
-            cpds.setMaxStatements(180);
 
         }
 
