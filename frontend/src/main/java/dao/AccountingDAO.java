@@ -38,7 +38,7 @@ public class AccountingDAO {
     }
 
     public String getAccFromAutorityID(String autorityid) throws SQLException {
-        List list = em.createNativeQuery("select * from acc where autorityid = ?", AccountingParams.class)
+        List list = em.createNativeQuery("select * from pgsql.acc where autorityid = ?", AccountingParams.class)
                 .setParameter(1, autorityid).getResultList();
         String text = gson.toJson(list);
         logger.error(text);

@@ -1,4 +1,6 @@
-create table users
+create schema pgsql;
+
+create table pgsql.users
 (
   id bigserial primary key ,
   version integer default 0 ,
@@ -7,7 +9,7 @@ create table users
   salt varchar(64) not null
 );
 
-create table res (
+create table pgsql.res (
   id bigserial primary key,
   version integer default 0,
   adress varchar(50) not null ,
@@ -16,7 +18,7 @@ create table res (
   role varchar(20) not null
 );
 
-create table acc (
+create table pgsql.acc (
   id bigserial primary key ,
   version integer default 0,
   login varchar(50) not null references users(login),

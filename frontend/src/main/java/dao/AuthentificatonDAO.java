@@ -22,7 +22,7 @@ public class AuthentificatonDAO {
     }
 
     public String getAll() throws SQLException {
-        List list = em.createNativeQuery("select * from users", User.class).getResultList();
+        List list = em.createNativeQuery("select * from pgsql.users", User.class).getResultList();
         String text = gson.toJson(list);
         logger.error(text);
         return text;

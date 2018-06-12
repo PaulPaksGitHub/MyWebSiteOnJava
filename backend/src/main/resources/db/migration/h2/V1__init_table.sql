@@ -1,5 +1,6 @@
+create schema pgsql;
 
-create table users
+create table pgsql.users
 (
   id integer not null auto_increment primary key ,
   version integer default 0,
@@ -8,7 +9,7 @@ create table users
   salt varchar(64) not null
 );
 
-create table res (
+create table pgsql.res (
   id integer not null auto_increment,
   version integer default 0,
   adress varchar(50) not null ,
@@ -18,7 +19,7 @@ create table res (
   constraint res_pk primary key (login , role)
 );
 
-create table acc (
+create table pgsql.acc (
   id integer not null auto_increment primary key ,
   version integer default 0,
   login varchar(50) not null references users(login),
