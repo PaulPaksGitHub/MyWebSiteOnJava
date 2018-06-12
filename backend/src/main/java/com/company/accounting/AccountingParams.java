@@ -13,18 +13,23 @@ import javax.persistence.Version;
 @Getter
 @Entity
 public class AccountingParams {
-	@Expose
+    @Expose
     @Id
     @GeneratedValue
     long id;
-	@Expose
+    @Expose
     @Version
     long version = 0;
-    @Expose(serialize= false) public String login;
-    @Expose(serialize= false) public String autorityid;
-    @Expose public String ds;
-    @Expose public String de;
-    @Expose public String vol;
+    @Expose(serialize = false)
+    public String login;
+    @Expose(serialize = false)
+    public String autorityid;
+    @Expose
+    public String ds;
+    @Expose
+    public String de;
+    @Expose
+    public String vol;
 
 
     public AccountingParams(long id, String login, String autorityid, String ds, String de, String vol) {

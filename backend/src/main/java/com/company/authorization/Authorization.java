@@ -6,7 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.persistence.EntityManager;
-import java.sql.Connection;
 import java.sql.SQLException;
 
 public class Authorization {
@@ -43,6 +42,7 @@ public class Authorization {
     public Authorization(AuthorizationDAO dao) {
         this.dao = dao;
     }
+
     public Authorization() {
         this.dao = new AuthorizationDAO();
     }

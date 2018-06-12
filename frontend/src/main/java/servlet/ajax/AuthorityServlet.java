@@ -22,7 +22,7 @@ public class AuthorityServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
-		String text = null;
+        String text = null;
         try {
             if (isRequestEmpty(request)) {
                 text = dao.getAll();
@@ -38,14 +38,13 @@ public class AuthorityServlet extends HttpServlet {
             response.sendError(500, "SQLException");
         }
 
-        //request.getRequestDispatcher("/getservlet.jsp").forward(request, response);
-		response.setContentType("application/json"); 
-		response.getWriter().print("{ \"items\": "+ text + "}");
+        response.setContentType("application/json");
+        response.getWriter().print("{ \"items\": " + text + "}");
     }
 
     private boolean isRequestEmpty(HttpServletRequest request) {
-		logger.debug("ID = {}", request.getParameter("id"));
-		logger.debug("USERID = {}", request.getParameter("userid"));
+        logger.debug("ID = {}", request.getParameter("id"));
+        logger.debug("USERID = {}", request.getParameter("userid"));
         return (request.getParameter("id") == null && request.getParameter("userid") == null);
     }
 

@@ -19,7 +19,6 @@ public class ParseLine {
     public Parameters parse(String[] args) {
         logger.debug(Arrays.toString(args));
         Parameters params = new Parameters();
-        //CommandLineParser cmdLinePosixParser = new DefaultParser();
         try {
             CommandLine commandLine = new DefaultParser().parse(getOptions(), args);
             params.setLogin(commandLine.getOptionValue("login"));

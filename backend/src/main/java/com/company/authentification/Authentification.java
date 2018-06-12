@@ -8,7 +8,6 @@ import org.apache.logging.log4j.Logger;
 import javax.persistence.EntityManager;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -36,7 +35,7 @@ public class Authentification {
 
             User userWithTheSameLogin = dao.getUserFromLogin(param.getLogin(), em);
 
-            if (userWithTheSameLogin == null){
+            if (userWithTheSameLogin == null) {
                 logger.error("Can not autorize: {} is wrong login", param.getLogin());
                 return SysExits.EXIT1;
             }
@@ -73,6 +72,7 @@ public class Authentification {
     public Authentification(AuthentificatonDAO dao) {
         this.dao = dao;
     }
+
     public Authentification() {
         this.dao = new AuthentificatonDAO();
     }

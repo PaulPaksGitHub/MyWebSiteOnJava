@@ -1,19 +1,26 @@
 package com.company.parameters;
 
+import com.google.gson.annotations.Expose;
 import lombok.Getter;
 import lombok.Setter;
-import com.google.gson.annotations.Expose;
 
-@Getter 
+@Getter
 @Setter
 public class Parameters {
-    @Expose public String login;
-    @Expose public String pass;
-    @Expose public String res;
-    @Expose public String role;
-    @Expose public String ds;
-    @Expose public String de;
-    @Expose public String vol;
+    @Expose
+    public String login;
+    @Expose
+    public String pass;
+    @Expose
+    public String res;
+    @Expose
+    public String role;
+    @Expose
+    public String ds;
+    @Expose
+    public String de;
+    @Expose
+    public String vol;
     public boolean h;
 
     public boolean isParamEmpty() {
@@ -61,8 +68,8 @@ public class Parameters {
     }
 
     public Parameters setLogin(String login) {
-        if (login != null){
-            Parameters.this.login = login.replace("'","");
+        if (login != null) {
+            Parameters.this.login = login.replace("'", "");
         } else {
             Parameters.this.login = null;
         }
@@ -70,8 +77,8 @@ public class Parameters {
     }
 
     public Parameters setPass(String pass) {
-        if (pass != null){
-            Parameters.this.pass = pass.replace("'","");
+        if (pass != null) {
+            Parameters.this.pass = pass.replace("'", "");
         } else {
             Parameters.this.pass = null;
         }
@@ -80,7 +87,7 @@ public class Parameters {
 
     public Parameters setRes(String res) {
         if (res != null) {
-            Parameters.this.res = res.replace("'","");
+            Parameters.this.res = res.replace("'", "");
         } else {
             Parameters.this.res = null;
         }
@@ -89,7 +96,7 @@ public class Parameters {
 
     public Parameters setRole(String role) {
         if (role != null) {
-            Parameters.this.role = role.replace("'","");
+            Parameters.this.role = role.replace("'", "");
         } else {
             Parameters.this.role = null;
         }

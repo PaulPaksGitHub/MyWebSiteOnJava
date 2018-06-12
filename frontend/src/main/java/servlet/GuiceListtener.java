@@ -49,7 +49,7 @@ public class GuiceListtener extends GuiceServletContextListener {
     @Override
     protected Injector getInjector() {
         setDbUrl(); // Конфигурирует пути в зависимости от доступной БД
-		migrate(); // Миграции БД
+        migrate(); // Миграции БД
         // инициализация EntityManagerFactory
         HashMap<String, String> props = new HashMap<>();
         if (url.split(":")[1].equals("h2")) {
@@ -180,6 +180,7 @@ public class GuiceListtener extends GuiceServletContextListener {
             }
         }
     }
+
     class EntityManagerInjector<T> implements MembersInjector<T> {
         private final Field field;
         EntityManager em;
@@ -256,7 +257,7 @@ public class GuiceListtener extends GuiceServletContextListener {
             url = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
             dbUser = dbUri.getUserInfo().split(":")[0];
             dbPassword = dbUri.getUserInfo().split(":")[1];
-		}
+        }
     }
 
     private void migrate() {

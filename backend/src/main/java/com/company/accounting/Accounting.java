@@ -6,7 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.persistence.EntityManager;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -17,7 +16,7 @@ public class Accounting {
     private AccountingDAO dao;
 
     public SysExits isAccountable(Parameters param, EntityManager em) throws SQLException {
-        if ( hasTrueData(param) && hasTrueVol(param)) {
+        if (hasTrueData(param) && hasTrueVol(param)) {
             logger.debug("Accaunting success: {}, {}, {}, {}",
                     param.getLogin(),
                     param.getDs(),
@@ -25,8 +24,7 @@ public class Accounting {
                     param.getVol());
             dao.writeUserToTable(param, em);
             return SysExits.EXIT0;
-        }
-        else {
+        } else {
             return SysExits.EXIT5;
         }
     }

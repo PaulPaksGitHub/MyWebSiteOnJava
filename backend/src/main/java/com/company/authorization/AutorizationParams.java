@@ -17,10 +17,14 @@ public class AutorizationParams {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     long id;
-    @Expose public String adress;
-    @Expose(serialize = false) public String login;
-    @Expose(serialize = false) public String userid;
-    @Expose public String role;
+    @Expose
+    public String adress;
+    @Expose(serialize = false)
+    public String login;
+    @Expose(serialize = false)
+    public String userid;
+    @Expose
+    public String role;
 
     public AutorizationParams(long id, String adress, String login, String userid, String role) {
         this.id = id;
