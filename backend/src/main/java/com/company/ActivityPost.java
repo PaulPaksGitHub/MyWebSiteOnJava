@@ -8,13 +8,14 @@ import com.company.parameters.ParseLine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.persistence.EntityManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 public class ActivityPost {
     private static final Logger logger = LogManager.getLogger(Main.class);
 
-    public String getActivity(Parameters param, Connection conn) throws SQLException {
+    public String getActivity(Parameters param, EntityManager em) throws SQLException {
         ParseLine defaultParser = new ParseLine();
 
         //Parameters param = defaultParser.parse(params.split(" "));
@@ -25,14 +26,14 @@ public class ActivityPost {
         String success = "";
 
         if (param.canAuthentific() && param.canAuthorize() && param.canAccaunt()) {
-            success += message(authentific.isAuthentificable(param, conn));
-            success += message(autorization.isAuthorizable(param, conn));
-            success += message(accounting.isAccountable(param, conn));
+            success += message(authentific.isAuthentificable(param, em));
+            success += message(autorization.isAuthorizable(param, em));
+            success += message(accounting.isAccountable(param, em));
         } else if (param.canAuthentific() && param.canAuthorize()) {
-            success += message(authentific.isAuthentificable(param, conn));
-            success += message(autorization.isAuthorizable(param, conn));
+            success += message(authentific.isAuthentificable(param, em));
+            success += message(autorization.isAuthorizable(param, em));
         } else if (param.canAuthentific()) {
-            success += message(authentific.isAuthentificable(param, conn));
+            success += message(authentific.isAuthentificable(param, em));
         }
 		
         if (success.equals("")) {

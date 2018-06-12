@@ -5,6 +5,7 @@ import com.company.parameters.Parameters;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.persistence.EntityManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -15,14 +16,14 @@ public class Accounting {
     private static final Logger logger = LogManager.getLogger(Accounting.class);
     private AccountingDAO dao;
 
-    public SysExits isAccountable(Parameters param, Connection conn) throws SQLException {
+    public SysExits isAccountable(Parameters param, EntityManager em) throws SQLException {
         if ( hasTrueData(param) && hasTrueVol(param)) {
             logger.debug("Accaunting success: {}, {}, {}, {}",
                     param.getLogin(),
                     param.getDs(),
                     param.getDe(),
                     param.getVol());
-            dao.writeUserToTable(param, conn);
+            dao.writeUserToTable(param, em);
             return SysExits.EXIT0;
         }
         else {
@@ -45,7 +46,7 @@ public class Accounting {
 
     public boolean hasTrueVol(Parameters param) {
         try {
-            int a = Integer.parseInt(param.getVol());
+            Integer.parseInt(param.getVol());
             return true;
         } catch (NumberFormatException e) {
             logger.error("Can not account: {} is wrong vol", param.getVol());

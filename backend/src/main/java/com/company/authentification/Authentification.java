@@ -5,6 +5,7 @@ import com.company.parameters.Parameters;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.persistence.EntityManager;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -16,7 +17,7 @@ public class Authentification {
     private static final Logger logger = LogManager.getLogger(Authentification.class);
     private AuthentificatonDAO dao;
 
-    public SysExits isAuthentificable(Parameters param, Connection conn) throws SQLException {
+    public SysExits isAuthentificable(Parameters param, EntityManager em) throws SQLException {
         if (!param.hasLogin()) {//если отсутствует логин
             logger.error("Can not autorize: Hasn't login");
             return SysExits.EXIT1;
@@ -33,7 +34,8 @@ public class Authentification {
                 return SysExits.EXIT1;
             }
 
-            User userWithTheSameLogin = dao.getUserFromLogin(param.getLogin(), conn);
+            User userWithTheSameLogin = dao.getUserFromLogin(param.getLogin(), em);
+
             if (userWithTheSameLogin == null){
                 logger.error("Can not autorize: {} is wrong login", param.getLogin());
                 return SysExits.EXIT1;

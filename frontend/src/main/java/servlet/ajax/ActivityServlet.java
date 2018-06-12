@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import servlet.LogAnot;
 
 import javax.inject.Singleton;
+import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +28,7 @@ public class ActivityServlet extends HttpServlet {
 
     AccountingDAO dao;
 
-    Connection conn;
+    EntityManager em;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
@@ -66,7 +67,7 @@ public class ActivityServlet extends HttpServlet {
         String str = null;
 
         try {
-            str = post.getActivity(params, conn);
+            str = post.getActivity(params, em);
         } catch (SQLException e) {
             logger.error("Exception in parse form");
             response.sendError(500, "Backend error");

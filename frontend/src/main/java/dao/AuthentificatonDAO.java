@@ -29,7 +29,7 @@ public class AuthentificatonDAO {
     }
 
     public String getUserFromEM(String id) {
-        List list = em.createNativeQuery("select * from users where id = ?", User.class)
+        List list = em.createNativeQuery("select * from pgsql.users where id = ?", User.class)
                 .setParameter(1, id).getResultList();
         String text = gson.toJson(list);
         logger.error(text);

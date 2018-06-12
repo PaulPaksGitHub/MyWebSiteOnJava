@@ -5,6 +5,7 @@ import com.company.parameters.Parameters;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.persistence.EntityManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -12,7 +13,7 @@ public class Authorization {
     private static final Logger logger = LogManager.getLogger(Authorization.class);
     private AuthorizationDAO dao;
 
-    public SysExits isAuthorizable(Parameters param, Connection conn) throws SQLException {
+    public SysExits isAuthorizable(Parameters param, EntityManager em) throws SQLException {
         if (param.hasNotRole()) {
             logger.error("User {} has not role parameter", param.getLogin());
             return SysExits.EXIT3;
@@ -24,7 +25,7 @@ public class Authorization {
         try {
             Roles.valueOf(param.getRole());
 
-            if (!dao.getAccessToRes(param, conn)) {
+            if (!dao.getAccessToRes(param, em)) {
                 logger.error("Can not authentificate: {} is wrong res for user {} with role {}",
                         param.getRes(), param.getLogin(), param.getRole());
                 return SysExits.EXIT4;

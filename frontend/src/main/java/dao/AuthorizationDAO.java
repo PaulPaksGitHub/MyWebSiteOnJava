@@ -22,7 +22,7 @@ public class AuthorizationDAO {
     }
 
     public String getAll() throws SQLException {
-        List list = em.createNativeQuery("select * from res", AutorizationParams.class)
+        List list = em.createNativeQuery("select * from pgsql.res", AutorizationParams.class)
                 .getResultList();
         String text = gson.toJson(list);
         logger.error(text);
@@ -30,7 +30,7 @@ public class AuthorizationDAO {
     }
 
     public String getResFromID(String id) throws SQLException {
-        List list = em.createNativeQuery("select * from res where id = ?", AutorizationParams.class)
+        List list = em.createNativeQuery("select * from pgsql.res where id = ?", AutorizationParams.class)
                 .setParameter(1, id).getResultList();
         String text = gson.toJson(list);
         logger.error(text);

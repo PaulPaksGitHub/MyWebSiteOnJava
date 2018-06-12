@@ -25,6 +25,7 @@ import servlet.echo.EchoServlet;
 import servlet.echo.GetServlet;
 import servlet.echo.PostServlet;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.beans.PropertyVetoException;
@@ -109,6 +110,9 @@ public class GuiceListtener extends GuiceServletContextListener {
                     if (field.getType() == Connection.class) {
                         typeEncounter.register(new ConnectionInjector<T>(field));
                     }
+                    if (field.getType() == EntityManager.class) {
+                        typeEncounter.register(new EntityManagerInjector<T>(field));
+                    }
                 }
                 clazz = clazz.getSuperclass();
             }
@@ -171,6 +175,24 @@ public class GuiceListtener extends GuiceServletContextListener {
         public void injectMembers(T t) {
             try {
                 field.set(t, conn);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+    class EntityManagerInjector<T> implements MembersInjector<T> {
+        private final Field field;
+        EntityManager em;
+
+        EntityManagerInjector(Field field) {
+            this.field = field;
+            this.em = entityManagerFactory.createEntityManager();
+            field.setAccessible(true);
+        }
+
+        public void injectMembers(T t) {
+            try {
+                field.set(t, em);
             } catch (IllegalAccessException e) {
                 throw new RuntimeException(e);
             }

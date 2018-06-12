@@ -22,7 +22,7 @@ public class AccountingDAO {
     }
 
     public String getAll() throws SQLException {
-        List list = em.createNativeQuery("select * from acc", AccountingParams.class)
+        List list = em.createNativeQuery("select * from pgsql.acc", AccountingParams.class)
                 .getResultList();
         String text = gson.toJson(list);
         logger.error(text);
@@ -30,7 +30,7 @@ public class AccountingDAO {
     }
 
     public String getAccFromID(String id) throws SQLException {
-        List list = em.createNativeQuery("select * from acc where id = ?", AccountingParams.class)
+        List list = em.createNativeQuery("select * from pgsql.acc where id = ?", AccountingParams.class)
                 .setParameter(1, id).getResultList();
         String text = gson.toJson(list);
         logger.error(text);
